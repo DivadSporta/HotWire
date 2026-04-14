@@ -1,9 +1,47 @@
-\section{Titel}
+\section{Definition und Funktion: Elektromechanischer Endschalter}
 
-\STANDARD{Titel}
-{
-  Inhalt
-}
+Ein elektromechanischer Endschalter ist ein kontaktbehafteter Positionssensor. Ein solcher Schalter „hat die Aufgabe, das Erreichen einer bestimmten Position (Endlage) zu melden oder einen Schaltvorgang auszulösen“ [Elektrotechnik und Elektronik für Maschinenbauer, S. 435]. Dabei wird durch das Betätigen eines mechanischen Elements, wie beispielsweise eines Hebels oder Tasters, ein elektrischer Kontakt geöffnet oder geschlossen [Elektrotechnik und Elektronik für Maschinenbauer, S. 120–122].
 
+Technische Spezifikationen (Beispiel Creality): Bei dem vorliegenden Bauteil handelt es sich um einen „originalen Endschalter von Creality 3D, der bei fast allen FDM Druckern von Creality 3D verbaut ist“ [3DJake].
 
+\begin{itemize}
+	\item Kompatibilität: Geeignet für die X-, Y- oder Z-Achse von Modellen wie der Ender-3 oder CR-10 Serie [3DJake, Bastelgarage].
+	\item Hersteller: Creality
+	\item Hersteller SKU: 4004180004
+	\item Gewicht: 7.3g
+\end{itemize}
 
+\section{Verwendung und Schaltfunktionen}
+
+Mechanische Endschalter werden zur Überwachung von Bewegungsabläufen eingesetzt. Dabei können verschiedene logische Funktionen realisiert werden:
+
+\begin{itemize}
+	\item Schließer: Der Kontakt wird bei Betätigung geschlossen.
+	\item Öffner: Der Kontakt wird bei Betätigung unterbrochen.
+	\item Antivalenter Sensor: Dieser verfügt über zwei Ausgänge, wobei „stets ein Kontakt geschlossen und der andere offen“ ist [Elektrotechnik und Elektronik für Maschinenbauer, S. 435]. Dies ermöglicht neben der reinen Schaltfunktion auch eine „Fehlererkennung und Diagnose durch die SPS“ [Elektrotechnik und Elektronik für Maschinenbauer, S. 435-436].
+\end{itemize}
+
+Haupteinsatzgebiete:
+
+\begin{itemize}
+	\item Endstopp-Erkennung: Schutz der Maschine vor dem Überfahren der mechanischen Grenzen.
+	\item Referenzschalter (Homing): Der Schalter dient als „Referenzschalter“, um den Nullpunkt einer Achse (z. B. beim 3D-Drucker) zu kalibrieren [Bastelgarage].
+\end{itemize}
+
+\section{Analyse: Vor- und Nachteile}
+
+\textbf{Vorteile:}
+
+\begin{itemize}
+	\item Wirtschaftlichkeit: Sehr kostengünstig (ca. 4-5 € pro Stück) [3DJake, Bastelgarage].
+	\item Einfachheit: Direkte Erzeugung eines binären Signals ohne aufwändige Auswerteelektronik.
+	\item Robustheit gegen EMV: Unempfindlich gegenüber elektromagnetischen Störungen, da kein Oszillator wie bei induktiven Sensoren benötigt wird.
+\end{itemize}
+
+\textbf{Nachteile:}
+
+\begin{itemize}
+	\item Mechanischer Verschleiß: Durch den physischen Kontakt unterliegen die Bauteile einer Abnutzung.
+	\item Geschwindigkeit: Mechanische Kontakte können „prellen“ und sind langsamer als elektronische Lösungen [Elektrotechnik und Elektronik für Maschinenbauer, S. 444].
+	\item Technologische Verbreitung: Obwohl immer noch sehr viele mechanische Endschalter eingesetzt werden, ist der berührungslose Endschalter (Sensorschalter) in nahezu allen Bereichen als Standard-Bauelement zu finden [Elektrotechnik und Elektronik für Maschinenbauer, S. 435].
+\end{itemize}
