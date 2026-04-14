@@ -14,7 +14,7 @@
 \chapter{Troubleshooting}
 
 \begin{table}[ht]
-	\begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
+	\begin{tabular}{|p{5cm}|p{5cm}|p{5,3cm}|}
 		\hline
 		\textbf{Störung} & \textbf{Mögliche Ursache} &\textbf{Abhilfe } \\ \hline
 		\vspace{0pt}\input{../../tikz/Eigene_Bilder/Troubleshooting/Datei_Fehler} &
@@ -24,33 +24,129 @@
 			\item Nicht unterstütztes Dateiformat
 		\end{enumerate} &
 		\vspace{-10pt}
-		 \begin{enumerate}
-		 	\item Datei neu erstellen oder exportieren
-		 	\item Unterstütztes Dateiformat verwenden 
-		 	\vspace{5pt}
-		 \end{enumerate} \\\hline
-		\input{../../tikz/Eigene_Bilder/Troubleshooting/Hooming} & & \\ \hline
-		\input{../../tikz/Eigene_Bilder/Troubleshooting/Heizdraht} & & \\ \hline
+		\begin{enumerate}
+			\item Datei neu erstellen oder exportieren
+			\item Unterstütztes Dateiformat verwenden 
+			\vspace{5pt}
+		\end{enumerate} \\\hline
+		\vspace{10pt}
+		\input{../../tikz/Eigene_Bilder/Troubleshooting/Hooming} &
+		\vspace{-10pt}
+		\begin{enumerate}
+			\item Endschalter defekt oder nicht erreicht
+			\item Mechanische Blockade
+			\item Verkabelungsfehler
+		\end{enumerate} &
+		\vspace{-10pt}
+		\begin{enumerate}
+			\item Endschalter prüfen
+			\item Bewegliche Komponenten freigängig machen
+			\item Verkabelung überprüfen
+			\vspace{5pt}
+		\end{enumerate} \\ \hline
+		\vspace{10pt}
+		\input{../../tikz/Eigene_Bilder/Troubleshooting/Heizdraht} &
+		\vspace{-10pt}
+		\begin{enumerate}
+			\item Unterbrochene Spannungsversorgung
+			\item Heizdraht defekt
+			\item Falsche Parametereinstellung
+		\end{enumerate} &
+		\vspace{-10pt}
+		\begin{enumerate}
+			\item Spannungsversorgung prüfen
+			\item Heizdraht ersetzen
+			\item Einstellungen korrigieren
+			\vspace{5pt}
+		\end{enumerate} \\ \hline
+		
 		\centering
 		\vspace{1,5cm}
 		\textbf {Anzeige aus} &
 		\vspace{-10pt}
-		 \begin{enumerate}
+		\begin{enumerate}
 			\item Not-Aus Knopf betätigt
-			\item Netzschalter auf xx
+			\item Netzschalter ausgeschaltet
 			\item Unterbrechung im Schaltkreis
 			\vspace{5pt}
 		\end{enumerate} &
 		\vspace{-10pt}
 		\begin{enumerate}
-			\item ELMAR neu starten
-			\item Netzschalter betätigen
+			\item Elmar neu starten
+			\item Netzschalter einschalten
 			\item Netzstecker einstecken
 		\end{enumerate} \\ \hline
-		\textbf{Schnittqualität unzureichend} & &  \\ \hline
-		\textbf{Antrieb bewegt sich nicht} &  &  \\ \hline
-		\textbf{Unruhiger oder ruckartiger Lauf} &  &  \\ \hline
-		\textbf{Elmar stoppt während des Betriebs} & & \\ \hline
+		
+	\end{tabular}
+\end{table}
+
+\begin{table}[ht]
+	\begin{tabular}{|p{5cm}|p{5cm}|p{5,3cm}|}
+		\hline
+		\textbf{Störung} & \textbf{Mögliche Ursache} &\textbf{Abhilfe } \\ \hline
+		\vspace{10pt}
+		\centering
+		\textbf{Schnittqualität unzureichend} &
+		\vspace{-10pt}
+		\begin{enumerate}
+			\item Ungeeignete Temperatur des Heizdrahtes
+			\item Unpassende Vorschubgeschwindigkeit
+			\item Ungeeignetes Material
+		\end{enumerate} &
+		\vspace{-10pt}
+		\begin{enumerate}
+			\item Temperatur anpassen
+			\item Vorschub ändern
+			\item Geeignetes Material verwenden
+			\vspace{5pt}
+		\end{enumerate} \\ \hline
+		\vspace{10pt}
+		\centering
+		\textbf{Antrieb bewegt sich nicht} &
+		\vspace{-10pt}
+		\begin{enumerate}
+			\item Fehlendes Steuersignal
+			\item Unterbrochene Verbindung
+			\item Defekter Motortreiber
+		\end{enumerate} &
+		\vspace{-10pt}
+		\begin{enumerate}
+			\item Steuerung prüfen
+			\item Verkabelung kontrollieren
+			\item Motortreiber ersetzen
+			\vspace{5pt}
+		\end{enumerate} \\ \hline
+		\vspace{10pt}
+		\centering
+		\textbf{Unruhiger oder ruckartiger Lauf} &
+		\vspace{-10pt}
+		\begin{enumerate}
+			\item Falsche Treibereinstellung
+			\item Zu hohe Verfahrgeschwindigkeit
+			\item Mechanischer Widerstand
+		\end{enumerate} &
+		\vspace{-10pt}
+		\begin{enumerate}
+			\item Parameter anpassen
+			\item Geschwindigkeit reduzieren
+			\item Mechanik prüfen und schmieren
+			\vspace{5pt}
+		\end{enumerate} \\ \hline
+		\vspace{10pt}
+		\centering
+		\textbf{Elmar stoppt während des Betriebs} &
+		\vspace{-10pt}
+		\begin{enumerate}
+			\item Überhitzung
+			\item Spannungsabfall
+		\end{enumerate} &
+		\vspace{-10pt}
+		\begin{enumerate}
+			\item Elmar abkühlen lassen
+			\item Stromversorgung prüfen
+			\vspace{5pt}
+		\end{enumerate} \\ \hline
+		
 	\end{tabular}
 \end{table}
 
