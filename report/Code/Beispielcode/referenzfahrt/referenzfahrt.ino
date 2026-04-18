@@ -1,27 +1,27 @@
 /**
  * @file referenzfahrt.ino
- * @brief Referenzfahrt mit Schrittmotor, A4988 und Endschalter.
+ * @brief Homing routine using a stepper motor, A4988 driver, and endstop.
  */
 
-/** @brief STEP-Pin des Treibers */
+/** @brief STEP pin of the driver */
 const int stepPin = 2;
 
-/** @brief Richtungs-Pin des Treibers */
+/** @brief Direction pin of the driver */
 const int dirPin = 5;
 
-/** @brief Enable-Pin des Treibers */
+/** @brief Enable pin of the driver */
 const int enPin = 8;
 
-/** @brief Endschalter-Pin */
+/** @brief Endstop input pin */
 const int endstopPin = 9;
 
-/** @brief Schrittverzoegerung in Mikrosekunden */
+/** @brief Step delay in microseconds */
 const int stepDelayUs = 1000;
 
-/** @brief Schritte fuer Rueckfahrt */
+/** @brief Number of steps for the backoff movement */
 const int backoffSteps = 50;
 
-/** @brief Initialisierung und Start der Referenzfahrt */
+/** @brief Initializes the hardware and starts the homing routine */
 void setup() {
   pinMode(stepPin, OUTPUT);
   pinMode(dirPin, OUTPUT);
@@ -36,11 +36,11 @@ void setup() {
   homeAxis();
 }
 
-/** @brief Hauptschleife (leer) */
+/** @brief Main loop (unused in this example) */
 void loop() {
 }
 
-/** @brief Fuehrt einen einzelnen Schritt aus */
+/** @brief Executes a single motor step */
 void oneStep() {
   digitalWrite(stepPin, HIGH);
   delayMicroseconds(stepDelayUs);
@@ -49,9 +49,9 @@ void oneStep() {
 }
 
 /**
- * @brief Bewegt Motor um Anzahl Schritte
- * @param steps Anzahl Schritte
- * @param dir Richtung (LOW/HIGH)
+ * @brief Moves the motor by a defined number of steps
+ * @param steps Number of steps to execute
+ * @param dir Direction of movement (LOW/HIGH)
  */
 void moveSteps(int steps, bool dir) {
   digitalWrite(dirPin, dir);
@@ -60,7 +60,7 @@ void moveSteps(int steps, bool dir) {
   }
 }
 
-/** @brief Referenzfahrt bis Endschalter + Rueckfahrt */
+/** @brief Performs the homing sequence and backoff movement */
 void homeAxis() {
   while (digitalRead(endstopPin) == HIGH) {
     oneStep();

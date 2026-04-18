@@ -43,6 +43,13 @@ Technische Spezifikationen (Beispiel Creality): Bei dem vorliegenden Bauteil han
 	\item Gewicht: 7.3g
 \end{itemize}
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth,trim=-5cm 17cm 4cm -4cm,clip]{../tikz/Eigene_Bilder/limit_switch_standalone}
+	\caption{Darstellung des im Projekt verwendeten Endschalters}
+	\label{fig:limit_switch}
+\end{figure}
+
 \section{Verwendung und Schaltfunktionen}
 
 Mechanische Endschalter werden zur Überwachung von Bewegungsabläufen eingesetzt. Dabei können verschiedene logische Funktionen realisiert werden:
@@ -52,6 +59,13 @@ Mechanische Endschalter werden zur Überwachung von Bewegungsabläufen eingesetz
 	\item Öffner: Der Kontakt wird bei Betätigung unterbrochen.
 	\item Antivalenter Sensor: Dieser verfügt über zwei Ausgänge, wobei „stets ein Kontakt geschlossen und der andere offen“ ist [Elektrotechnik und Elektronik für Maschinenbauer, S. 435]. Dies ermöglicht neben der reinen Schaltfunktion auch eine „Fehlererkennung und Diagnose durch die SPS“ [Elektrotechnik und Elektronik für Maschinenbauer, S. 435-436].
 \end{itemize}
+
+\begin{figure}[H]
+	\centering
+	\input{../../tikz/Eigene_Bilder/Micro_Switch}
+	\caption{Funktionsprinzip eines Mikroschalters mit den Kontakten C, NC und NO}
+	\label{fig:microswitch_principle}
+\end{figure}
 
 Haupteinsatzgebiete:
 
@@ -111,6 +125,14 @@ In this section, a simple example is described in detail, which demonstrates how
 \subsection{Inside the Example}
 
 \subsection{Code}
+
+\lstinputlisting[
+language=C++,
+caption={Referenzfahrt einer Achse mit Endschalter},
+label={lst:referenzfahrt},
+xleftmargin=0.1\textwidth,
+xrightmargin=0.1\textwidth
+]{../../Code/Beispielcode/referenzfahrt/referenzfahrt.ino}
 
 \subsection{Files}
 

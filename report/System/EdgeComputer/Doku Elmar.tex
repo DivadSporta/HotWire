@@ -40,6 +40,33 @@
 \addbibresource{../../../MLbib/literature.bib}
 \addbibresource{../../../MLbib/MyLiterature.bib}
 
+\usepackage{graphicx}
+\usepackage{standalone}
+
+% ===== CODE LISTING SETTINGS =====
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codebg}{RGB}{245,245,244}
+\definecolor{codecomment}{RGB}{106,153,85}
+\definecolor{codekeyword}{RGB}{0,102,204}
+\definecolor{codestring}{RGB}{163,21,21}
+\definecolor{codenumber}{RGB}{120,120,120}
+
+\lstset{
+	language=C++,
+	backgroundcolor=\color{codebg},
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{codekeyword}\bfseries,
+	commentstyle=\color{codecomment}\itshape,
+	stringstyle=\color{codestring},
+	numbers=left,
+	numberstyle=\tiny\color{codenumber},
+	frame=single,
+	breaklines=true
+}
+% ================================
+
 
 %\renewcommand{\Ausblenden}[1]{#1}
 
