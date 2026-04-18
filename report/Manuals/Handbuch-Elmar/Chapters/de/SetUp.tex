@@ -13,33 +13,33 @@
 
 \chapter{Inbetriebnahme}
 
-\begin{table}[ht]
-	%\centering
-	\begin{tabular}{|p{5cm}|p{10cm}|}
-		\hline
-		\multicolumn{2}{|p{15cm}|}{1.	Stellen Sie ELMAR auf eine ebene, nicht-brennbare und befestigte Oberfläche und beachten Sie, dass mindestens 30 cm rund um ELMAR frei bleiben} \\ \hline
-		\multicolumn{2}{|p{15cm}|}{2.	Überprüfen Sie, ob Arbeitsbereich und Antrieb von ELMAR frei sind} \\ \hline
-		\multicolumn{2}{|p{15cm}|}{3.	Überprüfen Sie, ob alle Kabel von ELMAR verbunden sind und der Netzschalter ausgeschaltet ist (falls nicht, schalten sie den Netzschalter aus)} \\ \hline
-	\multicolumn{2}{|p{15cm}|}{4.	Stecken Sie den Netzstecker von ELMAR ein} \\ \hline
-		\input{../../tikz/Eigene_Bilder/Inbetriebnahme/System_startet} & 5.	Schalten Sie den Netzschalter von ELMAR ein, ELMAR startet nun \\ \hline
-		\multicolumn{2}{|p{15cm}|}{6.	Verbinden Sie nun ihren Computer mit ELMAR über ein USB-Kabel, verwenden sie dafür den USB-Port von ELMAR (USB-B} \\ \hline
-		\multicolumn{2}{|p{15cm}|}{7.	Starten Sie die Steuerungssoftware auf ihrem Computer und stellen sie eine Verbindung zu ELMAR her } \\ \hline
-		\multicolumn{2}{|p{15cm}|}{8.	Starten Sie nun die Referenzfahrt; nach Beendigung der Referenzfahrt ist ELMAR bereit für einen Schneidvorgang } \\ \hline
-		\multicolumn{2}{|p{15cm}|}{9.	Befestigen Sie den Rohling im Arbeitsbereich von ELMAR und halten Sie dabei die vorgesehenen Markierungen ein} \\ \hline
-		\input{../../tikz/Eigene_Bilder/Inbetriebnahme/Datei_hochladen} & 10.	Laden Sie nun eine Datei für den Schneidvorgang \\ \hline
-		\input{../../tikz/Eigene_Bilder/Inbetriebnahme/Datei_erkannt} & 11.	Warten Sie, bis die Anzeige von ELMAR den erfolgreichen Upload bestätigt \\ \hline
-			\end{tabular}
-	\end{table}
-\begin{table}[ht]
-	%\centering
-	\begin{tabular}{|p{5cm}|p{10cm}|}
-		\hline
-		\input{../../tikz/Eigene_Bilder/Inbetriebnahme/Prozess_gestartet} & 12.	Um den Schneidvorgang zu starten, drücken Sie den Start-Knopf auf dem Bedienfeld von ELMAR \\ \hline
-		\input{../../tikz/Eigene_Bilder/Inbetriebnahme/Prozess_im_Gange} & 13.	Die Anzeige von ELMAR zeigt den Fortschritt des Schneidvorgangs an \\ \hline
-		\input{../../tikz/Eigene_Bilder/Inbetriebnahme/Prozess_pausiert} & 14.	Mit dem Pause-Knopf lässt sich der Schneidvorgang jederzeit pausieren \\ \hline
-		\input{../../tikz/Eigene_Bilder/Inbetriebnahme/Prozess_gestoppt} & 15.	Mit dem Stopp-Knopf können Sie den Schneidvorgang anhalten und und ELMAR in 0 Position fahren. \\ \hline
-		\input{../../tikz/Eigene_Bilder/Inbetriebnahme/Prozess_abgeschlossen} & 16.	Der Abschluss des Schneidvorgangs ist über die Anzeige sichtbar \\ \hline
-		\input{../../tikz/Eigene_Bilder/Inbetriebnahme/Draht} & 17.	Warten sie nach Abschluss des Schneidvorgangs mindestens eine Minute, danach kann das Werkstück entnommen werden \\ \hline
-	\end{tabular}
-\end{table}
+Vor der ersten Nutzung muss ELMAR in Betrieb genommen werden. Nach Abschluss der folgenden Schritte ist das System betriebsbereit.
 
+\begin{enumerate}
+	
+	\item Stellen Sie ELMAR auf eine ebene, nicht-brennbare und befestigte Oberfläche. 
+	Achten Sie darauf, dass mindestens 30 cm Freiraum um ELMAR vorhanden sind.
+	
+	\item Überprüfen Sie, ob Arbeitsbereich und Antrieb frei sind.
+	
+	\item Überprüfen Sie, ob alle Kabel verbunden sind und der Netzschalter ausgeschaltet ist.
+	
+	\item Stecken Sie den Netzstecker ein.
+	
+	\item Schalten Sie den Netzschalter ein. ELMAR startet nun.
+	
+	\input{../../tikz/Eigene_Bilder/Inbetriebnahme/System_startet}
+	
+	\item Verbinden Sie Ihren Computer über ein USB-Kabel (USB-B) mit ELMAR.
+	
+	\item Starten Sie die verwendete G-Code-Steuerungssoftware (z.\,B. Universal G-Code Sender).
+	
+	\item Wählen Sie in der Software den zugehörigen COM-Port aus und stellen Sie eine Verbindung zu ELMAR her.
+	
+	\item Überprüfen Sie, ob die Verbindung erfolgreich hergestellt wurde. Dies wird in der Steuerungssoftware durch eine Statusmeldung [Meldung] angezeigt.
+	
+	\item Führen Sie ein Homing durch indem Sie den Start-Knopf 5 Sekunden lang gedrückt halten. Dabei wird die Ausgangsposition von ELMAR festgelegt.
+	
+\end{enumerate}
+
+Nach erfolgreichem Homing ist ELMAR betriebsbereit.
