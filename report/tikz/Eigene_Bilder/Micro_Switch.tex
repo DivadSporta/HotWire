@@ -4,12 +4,12 @@
 		
 		\draw [ line width=2pt ] (5,10) rectangle (11,7);
 		\draw [line width=1.5pt] (5.5,10) .. controls (5.625,10.5) and (7.5,10.75) .. (9.75,11.375);
-		\draw [line width=1.6pt] (5.75,8.5) -- (5.75,5.75);
+		\draw [line width=1.8pt] (5.75,8.5) -- (5.75,5.75);
 		\draw [line width=1.6pt] (8,8.75) -- (8,4.25);
 		\draw [line width=1.6pt] (8.5,9.75) -| (10.25,5.5);
 		\draw [line width=1.6pt] (5.875,8.875) -- (8,9.5);
 		
-		\draw [fill=white, line width=1pt] (5.75,8.75) circle (0.25cm);
+		\draw [fill=white, line width=1.8pt] (5.75,8.75) circle (0.25cm);
 		
 		\draw [line width=1.2pt, rounded corners=5.6] (6.625,10.5) rectangle (7,9.375);
 		
@@ -20,9 +20,9 @@
 			}
 		\end{scope}
 		
-		\draw [line width=1pt] (7.875,9.875) rectangle (8.5,9.625);
+		\draw [line width=1.6pt] (7.875,9.875) rectangle (8.5,9.625);
 		\draw [fill=black] (8,9.5) circle (0.125cm);
-		\draw [line width=1pt] (7.875,9) rectangle (8.5,8.75);
+		\draw [line width=1.6pt] (7.875,9) rectangle (8.5,8.75);
 		
 		\draw [color=red, -{Stealth[scale=1.5]}] (8,9.375) -- (8,9);
 		\draw [color=red, -{Stealth[scale=1.5]}] (6.75,11.125) -- (6.75,10.625);
@@ -30,20 +30,20 @@
 		\draw [line width=1.6pt] (13.125,5.5) to[D] (10.25,5.5);
 		\draw [line width=1.6pt] (13.125,4.25) to[D] (8,4.25);
 		\draw [line width=1.6pt] (13.125,5.5) |- (5.75,2.875);
-		\draw [line width=1.2pt] (5.75,5.75) to[battery1] (5.75,2.875);
+		\draw [line width=1.6pt] (5.75,5.75) to[battery1] (5.75,2.875);
 		
-		\node at (5.375,4.75) {+};
-		\node[rotate=90] at (5.25,3.875) {$\mid$};
+		\node at (5.35,4.75) {+};
+		\node[rotate=0] at (5.35,3.875) {$-$};
 		
 		\node at (7.5,7.375) {NC};
 		\node at (9.75,7.375) {NO};
 		\node at (5.375,7.375) {C};
 		
-		\node[text=orange] at (9.375,4.625) {OFF};
+		\node[text=orange!60!red] at (9.375,4.625) {OFF};
 		\node[text=green!60!black] at (10.875,5.875) {ON};
 		
-		\draw [line width=1.3pt] (10.625,4.25) circle (0.375cm);
-		\draw [line width=1.3pt] (11.75,5.5) circle (0.375cm);
+		\draw [line width=1.8pt] (10.625,4.25) circle (0.5cm);
+		\draw [line width=1.8pt] (11.75,5.5) circle (0.5cm);
 		
 	\end{tikzpicture}
 }
