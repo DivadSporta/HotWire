@@ -127,6 +127,18 @@ ausgelesen werden kann. Dabei wird der interne Pull-Up-Widerstand verwendet.
 
 \subsection{Inside the Example}
 
+Nach der Initialisierung durch die Funktion \lstinline|setup()| wird das Programm durch die Funktion \lstinline|loop()| kontinuierlich ausgeführt. 
+Diese Funktion stellt eine Endlosschleife dar, in der der Zustand des Endschalters bei jedem Durchlauf überprüft wird.\cite{arduino_setup, arduino_loop}
+
+Der verwendete Pin wird mit der Funktion \lstinline|pinMode()| als Eingang oder Ausgang konfiguriert. \cite{arduino_pinmode}
+Dabei wird der Modus \lstinline|INPUT_PULLUP| verwendet, um den internen Pull-Up-Widerstand zu aktivieren.\cite{arduino_inputpullup}
+Der interne Pull-Up-Widerstand sorgt dafür, dass am Eingang im Ruhezustand ein definiertes HIGH-Signal anliegt.
+Innerhalb der \lstinline|loop()|-Funktion wird der Zustand des Endschalters mit der Funktion \lstinline|digitalRead()| ausgelesen. 
+Der gelesene Wert wird in einer Variablen gespeichert und über die serielle Schnittstelle ausgegeben.\cite{arduino_digitalread}
+Die Funktionen \lstinline|Serial.print()| und \lstinline|Serial.println()| werden verwendet, um den aktuellen Zustand des Eingangs im Serial Monitor darzustellen.\cite{arduino_serialprint}
+Durch die Verwendung des internen Pull-Up-Widerstands ergibt sich eine invertierte Logik. 
+Im nicht betätigten Zustand des Endschalter liegt ein HIGH-Signal am Eingang an. Wird der Endschalter betätigt liegt ein LOW-Signal an.
+Zur besseren Lesbarkeit der Ausgabe wird eine Verzögerung mit der Funktion \lstinline|delay()| erzeugt.\cite{arduino_delay}
 
 
 
