@@ -122,11 +122,44 @@ In this section, a simple example is described in detail, which demonstrates how
 
 
 \subsection{Manual}
+Dieses Beispiel zeigt, wie der Endschalter über einen digitalen Eingang
+ausgelesen werden kann. Dabei wird der interne Pull-Up-Widerstand verwendet.
 
 \subsection{Inside the Example}
 
-\subsection{Code}
 
+
+
+
+\subsection{Code}
+\lstinputlisting[
+language=C++,
+caption={Einfaches Beispiel zum Lesen eines mechanischen Endschalters},
+label={lst:microswitch-basic},
+xleftmargin=0.1\textwidth,
+xrightmargin=0.1\textwidth
+]{../../Code/Beispielcode/ExampleCode/MicroSwitch_BasicRead.ino}
+
+
+\subsection{Files}
+
+
+
+%\section{Calibration} keine Kalibirierung erforderlich
+
+cite method
+
+\section{Simple Code}
+\lstinputlisting[
+language=C++,
+caption={An- und Ausschalten einer LED mittels Endschalter},
+label={lst:microswitch-led},
+xleftmargin=0.1\textwidth,
+xrightmargin=0.1\textwidth
+]{../../Code/Beispielcode/SimpleCode/MicroSwitch_LEDExample.ino}
+
+
+\section{Simple Application}
 \lstinputlisting[
 language=C++,
 caption={Referenzfahrt einer Achse mit Endschalter},
@@ -134,19 +167,6 @@ label={lst:referenzfahrt},
 xleftmargin=0.1\textwidth,
 xrightmargin=0.1\textwidth
 ]{../../Code/Beispielcode/referenzfahrt/referenzfahrt.ino}
-
-\subsection{Files}
-
-
-
-\section{Calibration}
-
-cite method
-
-\section{Simple Code}
-
-
-\section{Simple Application}
 
 
 
