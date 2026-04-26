@@ -12,7 +12,7 @@
 %%%%%%%%%%%%
 
 % Structure
-\chapter{Sensor/Actor}
+\chapter{Sensor: Endschalter}
 
 %Introduction
 %\Mynote{cite books, applications, board}
@@ -101,31 +101,22 @@ Während klassische Endschalter nur „1 Bit“ an Informationen liefern (Ein/Au
 
 Dies ermöglicht eine „vorbeugende Instandhaltung“, indem beispielsweise Verschleiß gemeldet wird, bevor es zum Maschinenausfall kommt \cite[471,512]{Hering:2012}.
 
-\section{Library}
+%\section{Library}
 
-\subsection{Description}
+%\subsection{Description}
 
-\subsection{Installation}
-
-\begin{itemize}
-    \item data types
-    \item data structure
-    \item data quantity
-    \item data quality
-\end{itemize}
-
-\subsection{Functions}
-
-\section{Example}
-
-In this section, a simple example is described in detail, which demonstrates how the library supports the sensor/actor.
+%\subsection{Installation}
 
 
-\subsection{Manual}
+
+%\subsection{Funktionen}
+
+\section{Beispiel}
+
 Dieses Beispiel zeigt, wie der Endschalter über einen digitalen Eingang
 ausgelesen werden kann. Dabei wird der interne Pull-Up-Widerstand verwendet.
 
-\subsection{Inside the Example}
+\subsection{Erklärung des Beispiel-Codes}
 
 Nach der Initialisierung durch die Funktion \lstinline|setup()| wird das Programm durch die Funktion \lstinline|loop()| kontinuierlich ausgeführt. 
 Diese Funktion stellt eine Endlosschleife dar, in der der Zustand des Endschalters bei jedem Durchlauf überprüft wird.\cite{arduino_setup, arduino_loop}
@@ -143,7 +134,7 @@ Zur besseren Lesbarkeit der Ausgabe wird eine Verzögerung mit der Funktion \lst
 
 
 
-\subsection{Code}
+\subsection{Beispiel-Code}
 \lstinputlisting[
 language=C++,
 caption={Einfaches Beispiel zum Lesen eines mechanischen Endschalters},
@@ -153,15 +144,19 @@ xrightmargin=0.1\textwidth
 ]{../../Code/Beispielcode/ExampleCode/MicroSwitch_BasicRead.ino}
 
 
-\subsection{Files}
+%\subsection{Files}
 
 
 
 %\section{Calibration} keine Kalibirierung erforderlich
 
-cite method
 
-\section{Simple Code}
+\section{Einfacher Test-Code}
+
+Die Funktion \lstinline|loop()| läuft dauerhaft und liest den Zustand des Mikroschalters ein.
+Da \lstinline|INPUT_PULLUP| verwendet wird, bedeutet LOW = gedrückt.
+Ist der Schalter gedrückt, wird die LED eingeschaltet, sonst ausgeschaltet.
+
 \lstinputlisting[
 language=C++,
 caption={An- und Ausschalten einer LED mittels Endschalter},
@@ -171,7 +166,19 @@ xrightmargin=0.1\textwidth
 ]{../../Code/Beispielcode/SimpleCode/MicroSwitch_LEDExample.ino}
 
 
-\section{Simple Application}
+\section{Einfache Anwendung}
+
+Das Programm führt eine Referenzfahrt mit einem Schrittmotor aus.
+
+Im \lstinline|setup()| werden die Pins für den Treiber und den Endschalter eingerichtet. Danach wird der Motortreiber aktiviert und die Referenzfahrt gestartet.
+
+Die Funktion \lstinline|oneStep()| erzeugt einen einzelnen Schritt des Motors.
+
+Mit \lstinline|moveSteps()| kann der Motor eine festgelegte Anzahl an Schritten in eine bestimmte Richtung fahren.
+
+In \lstinline|homeAxis()| fährt der Motor so lange, bis der Endschalter gedrückt wird. Danach wartet das Programm kurz und fährt den Motor einige Schritte zurück.
+
+
 \lstinputlisting[
 language=C++,
 caption={Referenzfahrt einer Achse mit Endschalter},
@@ -182,13 +189,13 @@ xrightmargin=0.1\textwidth
 
 
 
-\section{Tests}
+%\section{Tests}
 
-\subsection{Simple Function Test}
+%\subsection{Simple Function Test}
 
-\subsection{Test all Functions}
+%\subsection{Test all Functions}
 
 
 
-\section{Further Readings}
+%\section{Further Readings}
 

@@ -15,15 +15,16 @@
 
 In diesem Kapitel werden die einzelnen Funktionen von ELMAR beschrieben.
 
-\section{Homing-Funktion}
+\section{Referenzfahrt-Funktion}
 
-Das Homing dient zur Initialisierung der Achsen von ELMAR. . 
-Nach erfolgreichem Homing kennt das System die genaue Position aller Achsen.
-Das Homing wird über das Drücken und Halten (5 Sekunden) des Start-Knopfes aktiviert.
+Die Referenzfahrt dient zur Initialisierung der Achsen von ELMAR. 
+Nach der erfolgreichen Referenzierung kennt das System die genaue Position aller Achsen.
+Im Anschluss fährt das System, auf seine vorprogrammierte Home-Position (Achsposition: X=0; U=0; Y=0; V=0).  
+Die Referenzfahrt wird über das Drücken und Halten des Start-Knopfes für 5 Sekunden aktiviert.
 
 \section{Start-Funktion}
 
-Durch einfaches Drücken des Start-Knopfs wird der Schneidvorgang gestartet oder nach Pausieren fortgesetzt. 
+Durch einfaches Drücken des Start-Knopfes wird der Schneidvorgang gestartet oder nach Pausieren fortgesetzt. 
 Der Heizdraht wird aktiviert und die Achsen beginnen mit der Ausführung der geladenen Schneiddatei.
 
 \section{Pause-Funktion}
@@ -33,8 +34,11 @@ Die Bewegung der Achsen wird gestoppt, während der aktuelle Zustand beibehalten
 
 \section{Stopp-Funktion}
 
-Der Stopp-Knopf beendet den Schneidvorgang vollständig. 
-ELMAR fährt anschließend in die Ausgangsposition zurück und der Heizdraht wird deaktiviert.
+Das Drücken des Stopp-Knopfes quittiert den Schneidauftrag vollständig.
+
+\section{Homing-Funktion}
+ 
+Über das Drücken und Halten des Stopp-Knopfes für 5 Sekunden wird die Homing-Funktion aktiviert welche das System auf die Home-Position fahren lässt.
 
 \section{Anzeige}
 
