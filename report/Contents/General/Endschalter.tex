@@ -19,26 +19,26 @@
 
 \section{Einleitung: Weg- und Positionssensoren}
 
-In der industriellen Fertigungssteuerung nimmt die Erfassung von Zuständen eine zentrale Rolle ein. Gemäß der Fachliteratur wandelt ein Sensor (lat. sensus, der Sinn) „eine physikalische Größe (z. B. Kraft oder Temperatur) mit Hilfe eines physikalischen Effekts in ein elektrisches Signal um“ [Elektrotechnik und Elektronik für Maschinenbauer, S. 433]. Speziell im Maschinenbau wird bei der Steuerung zwischen zwei grundlegenden Messverfahren unterschieden: Der „Positionserfassung durch Schalter“ und der „Positionserfassung durch Wegbeobachtung“.
+In der industriellen Fertigungssteuerung nimmt die Erfassung von Zuständen eine zentrale Rolle ein. Gemäß der Fachliteratur wandelt ein Sensor (lat. sensus, der Sinn) „eine physikalische Größe (z. B. Kraft oder Temperatur) mit Hilfe eines physikalischen Effekts in ein elektrisches Signal um“ \cite[433]{Hering:2012}. Speziell im Maschinenbau wird bei der Steuerung zwischen zwei grundlegenden Messverfahren unterschieden: Der „Positionserfassung durch Schalter“ und der „Positionserfassung durch Wegbeobachtung“.
 \cite[435]{Hering:2012}
 
 Bevor der Fokus auf kontaktbehaftete Schalter gelegt wird, sind folgende berührungslose Sensoren (Sensorschalter) als moderner Industriestandard zu nennen:
 
 \begin{itemize}
-	\item Induktive Sensoren: Erfassen metallische Elemente „ohne Kontakt zwischen der Bewegung und dem Sensor“ [Elektrotechnik und Elektronik für Maschinenbauer, S. 436].
-	\item Kapazitive Sensoren: Nutzen die Beeinflussung eines elektrischen Feldes zur Kapazitätsänderung [Elektrotechnik und Elektronik für Maschinenbauer, S. 438].
-	\item Optische Sensoren: Arbeiten mit Infrarot-Lichtstrahlen zur Objekterkennung (z. B. Lichttaster oder Lichtschranken) [Elektrotechnik und Elektronik für Maschinenbauer, S. 440].
-	\item Ultraschall-Sensoren: Basieren auf der Messung der Laufzeit von Schallimpulsen [Elektrotechnik und Elektronik für Maschinenbauer, S. 443].
+	\item Induktive Sensoren: Erfassen metallische Elemente „ohne Kontakt zwischen der Bewegung und dem Sensor“ \cite[436]{Hering:2012}.
+	\item Kapazitive Sensoren: Nutzen die Beeinflussung eines elektrischen Feldes zur Kapazitätsänderung \cite[438]{Hering:2012}.
+	\item Optische Sensoren: Arbeiten mit Infrarot-Lichtstrahlen zur Objekterkennung (z. B. Lichttaster oder Lichtschranken) \cite[440]{Hering:2012}.
+	\item Ultraschall-Sensoren: Basieren auf der Messung der Laufzeit von Schallimpulsen \cite[443]{Hering:2012}.
 \end{itemize}
 
 \section{Definition und Funktion: Elektromechanischer Endschalter}
 
-Ein elektromechanischer Endschalter ist ein kontaktbehafteter Positionssensor. Ein solcher Schalter „hat die Aufgabe, das Erreichen einer bestimmten Position (Endlage) zu melden oder einen Schaltvorgang auszulösen“ [Elektrotechnik und Elektronik für Maschinenbauer, S. 435]. Dabei wird durch das Betätigen eines mechanischen Elements, wie beispielsweise eines Hebels oder Tasters, ein elektrischer Kontakt geöffnet oder geschlossen [Elektrotechnik und Elektronik für Maschinenbauer, S. 120–122].
+Ein elektromechanischer Endschalter ist ein kontaktbehafteter Positionssensor. Ein solcher Schalter „hat die Aufgabe, das Erreichen einer bestimmten Position (Endlage) zu melden oder einen Schaltvorgang auszulösen“ \cite[435]{Hering:2012}. Dabei wird durch das Betätigen eines mechanischen Elements, wie beispielsweise eines Hebels oder Tasters, ein elektrischer Kontakt geöffnet oder geschlossen \cite[120-122]{Hering:2012}.
 
-Technische Spezifikationen (Beispiel Creality): Bei dem vorliegenden Bauteil handelt es sich um einen „originalen Endschalter von Creality 3D, der bei fast allen FDM Druckern von Creality 3D verbaut ist“ [3DJake].
+Technische Spezifikationen (Beispiel Creality): Bei dem vorliegenden Bauteil handelt es sich um einen „originalen Endschalter von Creality 3D, der bei fast allen FDM Druckern von Creality 3D verbaut ist“ \cite{3DJAKE:2026}.
 
 \begin{itemize}
-	\item Kompatibilität: Geeignet für die X-, Y- oder Z-Achse von Modellen wie der Ender-3 oder CR-10 Serie [3DJake, Bastelgarage].
+	\item Kompatibilität: Geeignet für die X-, Y- oder Z-Achse von Modellen wie der Ender-3 oder CR-10 Serie \cite{3DJAKE:2026}\cite{bastelgarage:2026}.
 	\item Hersteller: Creality
 	\item Hersteller SKU: 4004180004
 	\item Gewicht: 7.3g
@@ -58,7 +58,7 @@ Mechanische Endschalter werden zur Überwachung von Bewegungsabläufen eingesetz
 \begin{itemize}
 	\item Schließer: Der Kontakt wird bei Betätigung geschlossen.
 	\item Öffner: Der Kontakt wird bei Betätigung unterbrochen.
-	\item Antivalenter Sensor: Dieser verfügt über zwei Ausgänge, wobei „stets ein Kontakt geschlossen und der andere offen“ ist [Elektrotechnik und Elektronik für Maschinenbauer, S. 435]. Dies ermöglicht neben der reinen Schaltfunktion auch eine „Fehlererkennung und Diagnose durch die SPS“ [Elektrotechnik und Elektronik für Maschinenbauer, S. 435-436].
+	\item Antivalenter Sensor: Dieser verfügt über zwei Ausgänge, wobei „stets ein Kontakt geschlossen und der andere offen“ ist \cite[435]{Hering:2012}. Dies ermöglicht neben der reinen Schaltfunktion auch eine „Fehlererkennung und Diagnose durch die SPS“ \cite[435-436]{Hering:2012}.
 \end{itemize}
 
 \begin{figure}[H]
@@ -72,7 +72,7 @@ Haupteinsatzgebiete:
 
 \begin{itemize}
 	\item Endstopp-Erkennung: Schutz der Maschine vor dem Überfahren der mechanischen Grenzen.
-	\item Referenzschalter (Homing): Der Schalter dient als „Referenzschalter“, um den Nullpunkt einer Achse (z. B. beim 3D-Drucker) zu kalibrieren [Bastelgarage].
+	\item Referenzschalter (Homing): Der Schalter dient als „Referenzschalter“, um den Nullpunkt einer Achse (z. B. beim 3D-Drucker) zu kalibrieren \cite{bastelgarage:2026}.
 \end{itemize}
 
 \section{Analyse: Vor- und Nachteile}
@@ -89,17 +89,17 @@ Haupteinsatzgebiete:
 
 \begin{itemize}
 	\item Mechanischer Verschleiß: Durch den physischen Kontakt unterliegen die Bauteile einer Abnutzung.
-	\item Geschwindigkeit: Mechanische Kontakte können „prellen“ und sind langsamer als elektronische Lösungen [Elektrotechnik und Elektronik für Maschinenbauer, S. 444].
-	\item Technologische Verbreitung: Obwohl immer noch sehr viele mechanische Endschalter eingesetzt werden, ist der berührungslose Endschalter (Sensorschalter) in nahezu allen Bereichen als Standard-Bauelement zu finden [Elektrotechnik und Elektronik für Maschinenbauer, S. 435].
+	\item Geschwindigkeit: Mechanische Kontakte können „prellen“ und sind langsamer als elektronische Lösungen \cite[444]{Hering:2012}.
+	\item Technologische Verbreitung: Obwohl immer noch sehr viele mechanische Endschalter eingesetzt werden, ist der berührungslose Endschalter (Sensorschalter) in nahezu allen Bereichen als Standard-Bauelement zu finden \cite[435]{Hering:2012}.
 \end{itemize}
 
 \section{Ausblick: Intelligente und vernetzte Sensorik}
 
-Die Zukunft der Positionserfassung liegt in der bidirektionalen Kommunikation. Ein moderner Standard ist hierbei IO-Link, welcher eine „feldbusunabhängige Kommunikation zwischen Sensoren und Aktoren und der Maschinensteuerung“ beschreibt [Elektrotechnik und Elektronik für Maschinenbauer, S. 510].
+Die Zukunft der Positionserfassung liegt in der bidirektionalen Kommunikation. Ein moderner Standard ist hierbei IO-Link, welcher eine „feldbusunabhängige Kommunikation zwischen Sensoren und Aktoren und der Maschinensteuerung“ beschreibt \cite[510]{Hering:2012}.
 
-Während klassische Endschalter nur „1 Bit“ an Informationen liefern (Ein/Aus), können intelligente Systeme über IO-Link zusätzlich Servicedaten übertragen, „die zur Einstellung oder Diagnose eines Devices führen“ [Elektrotechnik und Elektronik für Maschinenbauer, S. 512].
+Während klassische Endschalter nur „1 Bit“ an Informationen liefern (Ein/Aus), können intelligente Systeme über IO-Link zusätzlich Servicedaten übertragen, „die zur Einstellung oder Diagnose eines Devices führen“ \cite[512]{Hering:2012}.
 
-Dies ermöglicht eine „vorbeugende Instandhaltung“, indem beispielsweise Verschleiß gemeldet wird, bevor es zum Maschinenausfall kommt [Elektrotechnik und Elektronik für Maschinenbauer, S. 471, 512].
+Dies ermöglicht eine „vorbeugende Instandhaltung“, indem beispielsweise Verschleiß gemeldet wird, bevor es zum Maschinenausfall kommt \cite[471,512]{Hering:2012}.
 
 \section{Library}
 
