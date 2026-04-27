@@ -17,7 +17,7 @@
 %Introduction
 %\Mynote{cite books, applications, board}
 
-\section{Einleitung: Weg- und Positionssensoren}
+\section{Einleitung: Positionssensoren}
 
 In der industriellen Fertigungssteuerung nimmt die Erfassung von Zuständen eine zentrale Rolle ein. Gemäß der Fachliteratur wandelt ein Sensor (lat. sensus, der Sinn) „eine physikalische Größe (z. B. Kraft oder Temperatur) mit Hilfe eines physikalischen Effekts in ein elektrisches Signal um“ \cite[433]{Hering:2012}. Speziell im Maschinenbau wird bei der Steuerung zwischen zwei grundlegenden Messverfahren unterschieden: Der „Positionserfassung durch Schalter“ und der „Positionserfassung durch Wegbeobachtung“.
 \cite[435]{Hering:2012}
@@ -37,11 +37,14 @@ Ein elektromechanischer Endschalter ist ein kontaktbehafteter Positionssensor. E
 
 Technische Spezifikationen (Beispiel Creality): Bei dem vorliegenden Bauteil handelt es sich um einen „originalen Endschalter von Creality 3D, der bei fast allen FDM Druckern von Creality 3D verbaut ist“ \cite{3DJAKE:2026}.
 
+\section{Specification}
+
 \begin{itemize}
 	\item Kompatibilität: Geeignet für die X-, Y- oder Z-Achse von Modellen wie der Ender-3 oder CR-10 Serie \cite{3DJAKE:2026}\cite{bastelgarage:2026}.
 	\item Hersteller: Creality
 	\item Hersteller SKU: 4004180004
 	\item Gewicht: 7.3g
+	\item Abmaße  
 \end{itemize}
 
 \begin{figure}[H]
@@ -101,7 +104,8 @@ Während klassische Endschalter nur „1 Bit“ an Informationen liefern (Ein/Au
 
 Dies ermöglicht eine „vorbeugende Instandhaltung“, indem beispielsweise Verschleiß gemeldet wird, bevor es zum Maschinenausfall kommt \cite[471,512]{Hering:2012}.
 
-%\section{Library}
+\section{Library}
+Es werden keine zusätzlichen Bibliotheken zur Initialisierung des Sensors  benötigt. 
 
 %\subsection{Description}
 
@@ -134,15 +138,12 @@ Zur besseren Lesbarkeit der Ausgabe wird eine Verzögerung mit der Funktion \lst
 
 
 
-\subsection{Beispiel-Code}
-\lstinputlisting[
-language=C++,
-caption={Einfaches Beispiel zum Lesen eines mechanischen Endschalters},
-label={lst:microswitch-basic},
-xleftmargin=0.1\textwidth,
-xrightmargin=0.1\textwidth
-]{../../Code/Beispielcode/ExampleCode/MicroSwitch_BasicRead.ino}
 
+
+{
+	\captionof{code}{Einfaches Beispiel zum Lesen eines mechanischen Endschalters}\label{lst:microswitch-basic}
+	\ArduinoExternal{}{../../Code/Beispielcode/MicroSwitch_BasicRead/MicroSwitch_BasicRead.ino}
+}
 
 %\subsection{Files}
 
@@ -157,13 +158,12 @@ Die Funktion \lstinline|loop()| läuft dauerhaft und liest den Zustand des Mikro
 Da \lstinline|INPUT_PULLUP| verwendet wird, bedeutet LOW = gedrückt.
 Ist der Schalter gedrückt, wird die LED eingeschaltet, sonst ausgeschaltet.
 
-\lstinputlisting[
-language=C++,
-caption={An- und Ausschalten einer LED mittels Endschalter},
-label={lst:microswitch-led},
-xleftmargin=0.1\textwidth,
-xrightmargin=0.1\textwidth
-]{../../Code/Beispielcode/SimpleCode/MicroSwitch_LEDExample.ino}
+
+
+{
+	\captionof{code}{An- und Ausschalten einer LED mittels Endschalter}\label{lst:microswitch-led}
+	\ArduinoExternal{}{../../Code/Beispielcode/MicroSwitch_LEDExample/MicroSwitch_LEDExample.ino}
+}
 
 
 \section{Einfache Anwendung}
@@ -179,15 +179,12 @@ Mit \lstinline|moveSteps()| kann der Motor eine festgelegte Anzahl an Schritten 
 In \lstinline|homeAxis()| fährt der Motor so lange, bis der Endschalter gedrückt wird. Danach wartet das Programm kurz und fährt den Motor einige Schritte zurück.
 
 
-\lstinputlisting[
-language=C++,
-caption={Referenzfahrt einer Achse mit Endschalter},
-label={lst:referenzfahrt},
-xleftmargin=0.1\textwidth,
-xrightmargin=0.1\textwidth
-]{../../Code/Beispielcode/referenzfahrt/referenzfahrt.ino}
 
 
+{
+	\captionof{code}{Referenzfahrt einer Achse mit Endschalter}\label{lst:referenzfahrt}
+	\ArduinoExternal{}{../../Code/Beispielcode/referenzfahrt/referenzfahrt.ino}
+}
 
 %\section{Tests}
 
