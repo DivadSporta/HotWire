@@ -44,7 +44,8 @@ Technische Spezifikationen (Beispiel Creality): Bei dem vorliegenden Bauteil han
 	\item Hersteller: Creality
 	\item Hersteller SKU: 4004180004
 	\item Gewicht: 7.3g
-	\item Abmaße:   
+	\item Abmaße:   28mm x 20mm x 9mm
+	\item Auslöseweg: 4mm
 \end{itemize}
 
 \begin{figure}[H]
@@ -119,13 +120,13 @@ Nach der Initialisierung durch die Funktion \PYTHON{setup()} wird das Programm d
 Diese Funktion stellt eine Endlosschleife dar, in der der Zustand des Endschalters bei jedem Durchlauf überprüft wird.\cite{arduino_setup, arduino_loop}
 
 Der verwendete Pin wird mit der Funktion \PYTHON{pinMode()} als Eingang oder Ausgang konfiguriert. \cite{arduino_pinmode}
-Dabei wird der Modus \PYTHON{INPUT PULLUP} verwendet, um den internen Pull-Up-Widerstand zu aktivieren.\cite{arduino_inputpullup}
+Dabei wird der Modus \PYTHON{INPUT\_PULLUP} verwendet, um den internen Pull-Up-Widerstand zu aktivieren.\cite{arduino_inputpullup}
 Der interne Pull-Up-Widerstand sorgt dafür, dass am Eingang im Ruhezustand ein definiertes HIGH-Signal anliegt.
 Innerhalb der \PYTHON{loop()}-Funktion wird der Zustand des Endschalters mit der Funktion \PYTHON{digitalRead()} ausgelesen. 
 Der gelesene Wert wird in einer Variablen gespeichert und über die serielle Schnittstelle ausgegeben.\cite{arduino_digitalread}
 Die Funktionen \PYTHON{Serial.print()} und \PYTHON{Serial.println()} werden verwendet, um den aktuellen Zustand des Eingangs im Serial Monitor darzustellen.\cite{arduino_serialprint}
 Durch die Verwendung des internen Pull-Up-Widerstands ergibt sich eine invertierte Logik. 
-Im nicht betätigten Zustand des Endschalter liegt ein HIGH-Signal am Eingang an. Wird der Endschalter betätigt liegt ein LOW-Signal an.
+Im nicht betätigten Zustand des Endschalters liegt ein HIGH-Signal am Eingang an. Wird der Endschalter betätigt liegt ein LOW-Signal an.
 Zur besseren Lesbarkeit der Ausgabe wird eine Verzögerung mit der Funktion \PYTHON{delay()} erzeugt.\cite{arduino_delay}
 
 
@@ -144,11 +145,21 @@ Zur besseren Lesbarkeit der Ausgabe wird eine Verzögerung mit der Funktion \PYT
 
 %\section{Calibration} keine Kalibirierung erforderlich
 
+\section{Tests}
 
-\section{Einfacher Test-Code}
+\subsection{Einfacher Funktions-Test}
+
+Im einfachsten Anwendungstest wird der Endschalter verwendet, um eine LED zu steuern. 
+Hierbei wird der Zustand des Schalters ausgewertet und auf einen Ausgang übertragen.
+Wird der Endschalter betätigt, schaltet sich die LED ein. 
+Im nicht betätigten Zustand bleibt die LED ausgeschaltet.
+Durch diesen Test kann die Funktion des Sensors sowie die Verarbeitung 
+des Signals im System überprüft werden.
+
+\subsection{Einfacher Test-Code}
 
 Die Funktion \PYTHON{loop()} läuft dauerhaft und liest den Zustand des Mikroschalters ein.
-Da \PYTHON{INPUT PULLUP} verwendet wird, bedeutet LOW = gedrückt.
+Da \PYTHON{INPUT\_PULLUP} verwendet wird, bedeutet LOW = gedrückt.
 Ist der Schalter gedrückt, wird die LED eingeschaltet, sonst ausgeschaltet.
 
 
@@ -181,9 +192,13 @@ In \PYTHON{homeAxis()} fährt der Motor so lange, bis der Endschalter gedrückt 
 
 
 
-%\subsection{Test all Functions}
+
 
 
 
 \section{Further Readings}
-Wegsensoren kurz erklären und die Quelle da hinzufügen 
+\begin{itemize}
+	\item  Hering, Ekbert und Martin, Rolf und Gutekunst, Jürgen  und Kempkes, Joachim: \textsl{Elektrotechnik und Elektronik für Maschinenbauer}. Springer, 2012. \cite{Hering:2012}
+	\item Zielke, Dirk: \textsl{Mikrosysteme}. Springer, 2025. \cite{zielke:2025}
+	\item Tr{\"a}nkler, Hans-Rolf und Reindl, Leo: \textsl{Sensortechnik}. Springer, 2014. \cite{traenkler:2014}
+\end{itemize} 
