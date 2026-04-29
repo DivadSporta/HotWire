@@ -106,8 +106,19 @@ Während klassische Endschalter nur „1 Bit“ an Informationen liefern (Ein/Au
 Dies ermöglicht eine „vorbeugende Instandhaltung“, indem beispielsweise Verschleiß gemeldet wird, bevor es zum Maschinenausfall kommt \cite[471,512]{Hering:2012}.
 
 \section{Library}
-Es werden keine zusätzlichen Bibliotheken zur Initialisierung des Sensors  benötigt. 
 
+Für die Verwendung des Endschalters werden keine zusätzlichen Bibliotheken benötigt. 
+Es werden Funktionen aus der Arduino-Standardbibliothek verwendet:
+
+
+\begin{itemize}
+	\item \PYTHON{pinMode()}: Konfiguriert einen Pin als Ein- oder Ausgang.
+	\item \PYTHON{digitalRead()}: Liest den aktuellen Zustand eines digitalen Eingangs.
+	\item \PYTHON{digitalWrite()}: Setzt einen digitalen Ausgang auf HIGH oder LOW.
+	\item \PYTHON{Serial.begin()}: Initialisiert die serielle Kommunikation.
+	\item \PYTHON{Serial.print()} / \PYTHON{Serial.println()}: Gibt Daten im Serial Monitor aus.
+	\item \PYTHON{delay()}: Erzeugt eine zeitliche Verzögerung im Programmablauf.
+\end{itemize}
 
 \section{Beispiel}
 
@@ -145,7 +156,7 @@ Zur besseren Lesbarkeit der Ausgabe wird eine Verzögerung mit der Funktion \PYT
 
 {
 	\captionof{code}{Einfaches Beispiel zum Lesen eines mechanischen Endschalters}\label{lst:microswitch-basic}
-	\ArduinoExternal{}{../../Code/Beispielcode/MicroSwitchBasicRead/MicroSwitchBasicRead.ino}
+	\ArduinoExternal{}{../../Code/MicroSwitchBasicRead/MicroSwitchBasicRead.ino}
 }
 
 %\subsection{Files}
@@ -170,21 +181,31 @@ Im nicht betätigten Zustand bleibt die LED ausgeschaltet.
 Durch diesen Test kann die Funktion des Sensors sowie die Verarbeitung 
 des Signals im System überprüft werden.
 
+\subsection{Manual}
+
+Der Endschalter wird an den digitalen Pin D2 des Mikrocontrollers angeschlossen. 
+Der Signalanschluss des Schalters ist mit D2 verbunden, der zweite Anschluss liegt auf GND. 
+Die LED wird an einen digitalen Ausgang (z. B. D13) angeschlossen.
+
+Beim Betätigen des Endschalters wird die LED eingeschaltet, im nicht betätigten Zustand bleibt sie ausgeschaltet.
+
 \subsection{Einfacher Test-Code}
 
 Die Funktion \PYTHON{loop()} läuft dauerhaft und liest den Zustand des Mikroschalters ein.
-Da \PYTHON{INPUT\_PULLUP} verwendet wird, bedeutet LOW = gedrückt.
+Da \PYTHON{INPUT\_PULLUP} verwendet wird, bedeutet \PYTHON{LOW} = gedrückt.
 Ist der Schalter gedrückt, wird die LED eingeschaltet, sonst ausgeschaltet.
 
 
 
 {
 	\captionof{code}{An- und Ausschalten einer LED mittels Endschalter}\label{lst:microswitch-led}
-	\ArduinoExternal{}{../../Code/Beispielcode/MicroSwitchLEDExample/MicroSwitchLEDExample.ino}
+	\ArduinoExternal{}{../../Code/MicroSwitchLEDExample/MicroSwitchLEDExample.ino}
 }
 
 
 \section{Einfache Anwendung}
+
+
 
 Das Programm führt eine Referenzfahrt mit einem Schrittmotor aus.
 
@@ -196,12 +217,17 @@ Mit \PYTHON{moveSteps()} kann der Motor eine festgelegte Anzahl an Schritten in 
 
 In \PYTHON{homeAxis()} fährt der Motor so lange, bis der Endschalter gedrückt wird. Danach wartet das Programm kurz und fährt den Motor einige Schritte zurück.
 
+\subsection{Manual}
+
+Der Endschalter wird an den digitalen Pin D2 des Mikrocontrollers angeschlossen. 
+Der Signalanschluss des Schalters wird an D2 angeschlossen, der zweite Anschluss liegt auf GND. 
+Der Schrittmotortreiber wird über die Steuerpins STEP und DIR an digitale Ausgänge des Mikrocontrollers angeschlossen (z. B. STEP an D3 und DIR an D4). 
 
 
 
 {
 	\captionof{code}{Referenzfahrt einer Achse mit Endschalter}\label{lst:referenzfahrt}
-	\ArduinoExternal{}{../../Code/Beispielcode/referenzfahrt/referenzfahrt.ino}
+	\ArduinoExternal{}{../../Code/referenzfahrt/referenzfahrt.ino}
 }
 
 
@@ -212,7 +238,9 @@ In \PYTHON{homeAxis()} fährt der Motor so lange, bis der Endschalter gedrückt 
 
 \section{Further Readings}
 \begin{itemize}
-	\item  Hering, Ekbert und Martin, Rolf und Gutekunst, Jürgen  und Kempkes, Joachim: \textsl{Elektrotechnik und Elektronik für Maschinenbauer}. Springer, 2012. \cite{Hering:2012}
-	\item Zielke, Dirk: \textsl{Mikrosysteme}. Springer, 2025. \cite{zielke:2025}
-	\item Tr{\"a}nkler, Hans-Rolf und Reindl, Leo: \textsl{Sensortechnik}. Springer, 2014. \cite{traenkler:2014}
-\end{itemize} 
+	\item Zielke, Dirk: \textsl{Mikrosysteme}. Springer, 2025. \cite{zielke:2025}  
+	Das Buch behandelt die Grundlagen und Anwendungen von Mikrosystemen und bietet einen Überblick über Aufbau, Funktion und Einsatz moderner Sensorsysteme.
+	
+	\item Tr{\"a}nkler, Hans-Rolf und Reindl, Leo: \textsl{Sensortechnik}. Springer, 2014. \cite{traenkler:2014}  
+	Das Buch behandelt grundlegende Prinzipien der Sensortechnik und beschreibt verschiedene Sensorarten sowie deren Einsatz in technischen Systemen.
+\end{itemize}
