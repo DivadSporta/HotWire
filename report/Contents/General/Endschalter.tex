@@ -113,6 +113,15 @@ Es werden keine zusätzlichen Bibliotheken zur Initialisierung des Sensors  ben�
 
 Dieses Beispiel zeigt, wie der Endschalter über einen digitalen Eingang
 ausgelesen werden kann. Dabei wird der interne Pull-Up-Widerstand verwendet.
+Der Zustand des Schalters wird im Serial Monitor angezeigt und ändert sich beim Betätigen von HIGH auf LOW.
+
+
+\subsection{Manual}
+
+Der Endschalter wird an den digitalen Pin D2 des Mikrocontrollers angeschlossen. 
+Der Signalanschluss des Schalters ist mit D2 verbunden, der zweite Anschluss liegt auf GND. 
+
+
 
 \subsection{Erklärung des Beispiel-Codes}
 
@@ -136,7 +145,7 @@ Zur besseren Lesbarkeit der Ausgabe wird eine Verzögerung mit der Funktion \PYT
 
 {
 	\captionof{code}{Einfaches Beispiel zum Lesen eines mechanischen Endschalters}\label{lst:microswitch-basic}
-	\ArduinoExternal{}{../../Code/Beispielcode/MicroSwitch_BasicRead/MicroSwitch_BasicRead.ino}
+	\ArduinoExternal{}{../../Code/Beispielcode/MicroSwitchBasicRead/MicroSwitchBasicRead.ino}
 }
 
 %\subsection{Files}
@@ -171,7 +180,7 @@ Ist der Schalter gedrückt, wird die LED eingeschaltet, sonst ausgeschaltet.
 
 {
 	\captionof{code}{An- und Ausschalten einer LED mittels Endschalter}\label{lst:microswitch-led}
-	\ArduinoExternal{}{../../Code/Beispielcode/MicroSwitch_LEDExample/MicroSwitch_LEDExample.ino}
+	\ArduinoExternal{}{../../Code/Beispielcode/MicroSwitchLEDExample/MicroSwitchLEDExample.ino}
 }
 
 

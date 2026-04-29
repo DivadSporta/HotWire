@@ -9,7 +9,7 @@ const int MICRO_SWITCH_PIN = 2; /**< Digital input pin for the micro switch. */
  */
 void setup()
 {
-  Serial.begin(9600);
+  Serial.begin(115200);
   pinMode(MICRO_SWITCH_PIN, INPUT_PULLUP);
 }
 
