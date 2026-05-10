@@ -21,14 +21,14 @@ Ein elektrischer Druckknopf, auch Drucktaster genannt, ist ein elektromechanisch
 
 
 \section{Joy IT}
-Beim Joy-IT Button-Magenta-Micro handelt es sich um einen kompakten Micro-Arcadebutton mit Mikroschalter. Er besteht aus Nylon, ist in mehreren Farben erhältlich und für eine Belastungsgrenze von 12 V ausgelegt.
+Beim Joy-IT Button-Micro handelt es sich um einen kompakten Micro-Arcadebutton mit Mikroschalter. Er besteht aus Nylon, ist in mehreren Farben erhältlich und für eine Belastungsgrenze von 12 V ausgelegt.\cite{Joy-it:2024}
 
 \section{Spezifikationen}
 
 \begin{itemize}
  \item Abmessungen: Ø 32.8 x 29.9 mm
   \item Belastungsgrenze: 10 mA / 12 V DC \cite{Joy-it:2024}
-  \item "Schaltkreis"
+  \item Schaltkreis
   
 \end{itemize}
 
@@ -45,23 +45,31 @@ Beim Joy-IT Button-Magenta-Micro handelt es sich um einen kompakten Micro-Arcade
 %    \item data quality
 %\end{itemize}
 
-%\subsection{Functions}
-%Irgendwelche Extra Funktionen? Oder Bibs
+\subsection{Functions}
+Für die Verwendung eines einfachen Druckknopfes werden keine zusätzlichen Bibliotheken benötigt. Die Abfrage kann direkt mit den Standardfunktionen der Arduino IDE erfolgen.
 
-\section{Example}
- Eine LED geht an bzw aus.
+\section{Beispiel Code}
 
 \subsection{Manual}
+Der Taster wird mit einem Anschluss an GND und mit dem anderen an Pin 2 angeschlossen.
+Die LED bekommt einen 220 Ohm oder 330 Ohm Vorwiderstand. Der lange LED-Anschluss ist die Anode (+) und kommt über den Widerstand an Pin 13. Der kurze LED-Anschluss ist die Kathode (-) und kommt an GND.
 
-%\subsection{Inside the Example}
+Dabei werden folgende Arduino-Standardfunktionen verwendet:
+
+\begin{itemize}
+\item \PYTHON{pinMode()} legt fest, ob ein Pin als Eingang oder Ausgang verwendet wird. \cite{arduino_pinmode}
+\item \PYTHON{INPUT PULLUP} aktiviert den  interne Pull-up-Widerstand des Arduino. \cite{arduino_inputpullup}
+\item \PYTHON{digitalRead()} liest den Zustand des Druckknopfes aus. \cite{arduino_digitalread}
+\item \PYTHON{digitalWrite()} wird die LED ein- oder ausgeschalten. \cite{arduino_digitalwrite}
+\end{itemize}
 
 \subsection{Code}
 {
-	%\captionof{code}{Titel}\label{lst:Titel}
-	%\ArduinoExternal{}{../../Code/Ordner/Datei.ino}
+	\captionof{code}{Led mit Druckknopf}\label{lst:ledmitdruckknopf}
+	\ArduinoExternal{}{../../Code/ledmitdruckknopf/ledmitdruckknopf.ino}
 }
 
-\subsection{Files}
+%\subsection{Files}
 
 
 
@@ -70,25 +78,52 @@ Beim Joy-IT Button-Magenta-Micro handelt es sich um einen kompakten Micro-Arcade
 %cite method
 
 \section{Einfacher Testcode}
-Das Programm gibt 0 oder 1 aus
 
 \subsection{Manual}
+Der Taster wird mit einem Anschluss an GND und mit dem anderen an Pin 2 angeschlossen. Im seriellen Monitor der Arduino IDE wird dann angezeigt, ob der Druckknopf gedrückt ist oder nicht.
 
+Dabei werden folgende Arduino-Standardfunktionen verwendet:
+
+\begin{itemize}
+\item \PYTHON{pinMode()} 
+\item \PYTHON{INPUT PULLUP} 
+\item \PYTHON{digitalRead()} 
+\item \PYTHON{Serial.begin()} Startet die serielle Verbindung zum Computer.\cite{arduino_serialbegin}
+\item \PYTHON{Serial.println()} Gibt den Wert 1 oder 0 im seriellen Monitor aus. \cite{arduino_serialprint}
+\item \PYTHON{delay()} Wartet kurz, damit die Ausgabe lesbar bleibt. \cite{arduino_delay}
+\end{itemize}
 \subsection{Code}
 {
-	%\captionof{code}{Titel}\label{lst:Titel}
-	%\ArduinoExternal{}{../../Code/Ordner/Datei.ino}
+	\captionof{code}{Druckknopf Test}\label{lst:druckknopftest}
+	\ArduinoExternal{}{../../Code/druckknopftest/druckknopftest.ino}
 }
 
 \section{Einfache Anwendung}
 Interrupt? Für Pause oder Start und mehrere LEDS gehen nach einander an. 
 
 \subsection{Manual}
+Erklärung:
+In diesem Programm werden drei Druckknöpfe verwendet: Start, Pause und Stop. Der Start-Druckknopf startet eine LED-Abfolge, bei der fünf LEDs nacheinander aufleuchten. Der Pause-Druckknopf hält die Abfolge an und setzt sie beim erneuten Drücken fort. Der Stop-Druckknopf beendet die Abfolge und schaltet alle LEDs aus.
+
+Anschluss:
+Die drei Druckknöpfe werden jeweils mit einem Anschluss an GND angeschlossen. Die anderen Anschlüsse kommen an Pin 2, 3 und 4.
+Die LEDs werden jeweils mit 220 Ohm oder 330 Ohm Vorwiderstand an Pin 8 bis 12 angeschlossen. Der lange Anschluss der LED kommt zum Arduino-Pin, der kurze Anschluss zu GND.
+
+Dabei werden folgende Arduino-Standardfunktionen verwendet:
+
+\begin{itemize}
+\item \PYTHON{pinMode()}
+\item \PYTHON{digitalRead()}
+\item \PYTHON{digitalWrite()}
+\item \PYTHON{digitalWrite()}
+\item \PYTHON{millis()} Liefert die Zeit seit dem Start des Arduino in Millisekunden. \cite{arduino_millis}
+\item \PYTHON{delay()}
+\end{itemize}
 
 \subsection{Code}
 {
-	%\captionof{code}{Titel}\label{lst:Titel}
-	%\ArduinoExternal{}{../../Code/Ordner/Datei.ino}
+	\captionof{code}{Druckknöpfe Led Abfolge}\label{lst:druckknoepfeledabfolge}
+	\ArduinoExternal{}{../../Code/druckknoepfeledabfolge/druckknoepfeledabfolge.ino}
 }
 
 
