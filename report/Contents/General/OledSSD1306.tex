@@ -1,0 +1,273 @@
+%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% $Autor: Wings $
+% $Project:  $
+% $Filename: OledSSD1306
+% $Short description: In diesem Abschnitt wird das OLED-Display genauer beschrieben. Wie dieses aufgebaut ist und was benötigt wird, um dieses in ein Projekt einzubinden.
+%
+%%%%%%%%%%%%
+
+\chapter{OLED-Display}\label{sec:OLEDDisplay}
+\section{Allgemein}
+\ac{oled}s (Organic Light Emitting Diodes) stellen eine besondere Form der LED-Technologie dar, bei der jedes Pixel aus eigenständig leuchtenden organischen Leuchtdioden besteht. Im Gegensatz zu LCDs mit LED-Hintergrundbeleuchtung benötigen OLEDs keine Hintergrundbeleuchtung oder LC-Zellen, da die einzelnen Pixel selbst Licht erzeugen. Dies ermöglicht nicht nur eine besonders flache Bauweise, sondern auch eine exakte Steuerung einzelner Bildpunkte – inklusive vollständigem Abschalten für tiefstes Schwarz und hohen Kontrast.
+
+Ein wesentlicher Vorteil gegenüber LCD-Technologien ist die deutlich schnellere Reaktionszeit: Helligkeitsänderungen erfolgen bei OLEDs in unter einer Mikrosekunde. Auch der Farbraum und Kontrastumfang sind bei OLED-Bildschirmen in der Regel erweitert. Allerdings ist die Lebensdauer einzelner OLEDs im Vergleich zu anderen Bildschirmtechnologien tendenziell geringer, obwohl bereits von Betriebszeiten im Bereich von 15 Jahren gesprochen wird. 
+In der Praxis kommen verschiedene OLED-Technologien zum Einsatz, insbesondere RGB-SBS-AMOLED (mit drei nebeneinander angeordneten Farb-OLEDs pro Pixel) und WOLED (weiße OLEDs mit nachgeschalteten Farbfiltern). OLED-Elemente werden meist im Dünnschichtverfahren hergestellt, was die Produktion vereinfacht.\cite{Stotz.2019}
+
+Für Projekte mit Mikrocontrollern wie den Arduino oder Rasperry Pi werden oft monochrome OLED-Displays verwendet. Das bedeutet, dass anstelle von RGB-LEDs nur normale, einfarbige LEDs verwendet werden. Oft sind diese monochromen OLED-Displays blau oder weiß, um einen möglichst hohen Kontrast zu bieten. \cite{Schreiter.2019}
+
+
+
+\section{OLED-Display mit SSD1306 Controller}
+Das \ac{oled}-Display mit dem Controller SSD1306 dient der Ausgabe von Messwerten des Arduinos. Es besitzt Abmessungen von 27 x 27 mm und überzeugt durch seinen hohen Kontrast sowie gute Lesbarkeit. Die Darstellung erfolgt in blauer Farbe. Angesteuert wird das Display über die I\textsuperscript{2}C-Schnittstelle (Pins VCC, GND, SCL, SDA) und benötigt eine Betriebsspannung von 3,3 V bis 5 V. Der zulässige Betriebstemperaturbereich liegt zwischen -30 °C und +70 °C. Für die Ansteuerung kommt die U8glib-Bibliothek zum Einsatz, welche eine Vielzahl von Grafikfunktionen für \ac{oled}-Displays mit SSD1306-Controller bereitstellt.\cite{Schreiter.2019}
+
+\begin{longtable}[h]{|p{5cm}|p{8cm}|}
+	\caption{Spezifikationen OLED-Display}
+	\label{tab:specs_oled}\\
+	\hline
+	%Artikel Identifikation
+	\multicolumn{2}{|l|}{\rule{0pt}{15pt}\textbf{Identifikation}} \\ \hline
+	Artikel-Nr.& ARD OLED 0.96 \\ \hline
+	EAN/GTIN & 5410329729738 \\ \hline
+	Hst.-Teile-Nr. & WPI438 \\ \hline
+	% Hauptmerkmale
+	\multicolumn{2}{|l|}{\rule{0pt}{15pt}\textbf{Hauptmerkmale}} \\ \hline
+	Modell & OLED-Display \\ \hline
+	Abmessungen & 27 x 27 \\ \hline
+	Gewicht & 10 g \\ \hline
+	Lieferumfang & WPI438 \\ \hline
+	
+	% Weitere Spezifikationen
+	\multicolumn{2}{|l|}{\rule{0pt}{15pt}\textbf{Weitere Spezifikationen}} \\ \hline
+	Spannungsversorgung & 3.3 V bis 5 V \\ \hline
+	Auflösung & 128 x 64 Pixel \\ \hline
+	Hintergrundfarbe & Schwarz \\ \hline
+	Betrachtungswinkel & > 160° \\ \hline
+	Anzeigefarbe & Blau \\ \hline
+	Interface & I\textsuperscript{2}C \\ \hline
+	Controller-Chip & SSD1306 \\ \hline
+	
+\end{longtable}
+
+
+\subsection{Aufbau und Funktionsweise}
+In der Abbildung \ref{fig:OLEDsketch} wird der Aufbau des OLED-Displays gezeigt. Über die vier Pins kann später die Stromversorgung und Logikspannung des OLED-Displays mit dem Mikrocontroller verbunden werden.
+
+\begin{center}
+	\input{../../tikz/Eigene_Bilder/Oled}
+	\captionof{figure}[OLED-Display]{OLED-Display nach} \href{{../../Datenblaetter/Oled_VMA438_A4V01}{[Oled_VMA438_A4V01.Pdf]}}
+	\label{fig:OLEDsketch}
+\end{center}
+
+Bei der Ansteuerung eines OLED-Displays über das I\textsuperscript{2}C-Protokoll übernehmen die beiden Leitungen \ac{sda} und \ac{scl} den seriellen Datenaustausch zwischen Mikrocontroller (Master) und OLED-Display (Slave).
+
+\begin{itemize}
+	\item SDA überträgt die eigentlichen Datenbits (z.B. Befehle oder Bildinhalte).
+	\item SCL gibt den Takt vor, der bestimmt, wann ein Bit gelesen oder geschrieben wird.
+\end{itemize}
+
+Das I\textsuperscript{2}C-Protokoll ermöglicht eine einfache, bidirektionale Kommunikation über nur zwei Leitungen, wobei mehrere Geräte über individuelle Adressen angesprochen werden können.
+
+\subsubsection{Protokoll I\textsuperscript{2}C}
+In den 1980-er Jahre wurde die I\textsuperscript{2}C-Schnittstelle entwickelt zum Datenaustausch zwischen verschiedenen Komponenten 
+eines Gerätes. Im Gegensatz zur seriellen Verbindung, welche stets nur zwei Kommunikationspartner verbindet, handelt es sich hierbei um einen Datenbus, welcher optional deutlich mehr Komponenten (ursprünglich bis zu 112, in neueren Versionen nochmals deutlich mehr) miteinander verbinden kann. 
+Elektrisch gesehen besteht der Bus aus lediglich zwei Leitungen, an die alle Busteilnehmer angeschlossen sind, sowie einem gemeinsamen Massebezug. Eine der Leitungen dient als Taktsignal (Clock - CLK), die andere wird zum Datenaustausch (Serial Data – SDA) verwendet. Dabei fungiert stets ein Teilnehmer als Master, er generiert das Taktsignal und koordiniert die Kommunikation – etwa so wie ein Moderator in einer Gesprächsrunde. Alle anderen Komponenten agieren als Slaves, sie ordnen sich also dem Master unter. Jeder Slave benötigt eine eindeutige Adresse (in Form einer Zahl), über die er vom Master angesprochen werden kann. Der Master kann den Slaves jederzeit Daten senden.
+
+\begin{center}
+	\input{../../tikz/Eigene_Bilder/Master_Slave}
+	\captionof{figure}{I\textsuperscript{2}C-Bus mit 8 Teilnehmern nach \cite{Schreiter.2019}}
+	\label{fig:I2CSketch}
+\end{center}
+
+Die einzelnen Slaves dürfen jedoch nur senden, wenn sie vom Master abgefragt werden, also quasi eine Sendeerlaubnis erhalten. Dadurch wird vermieden, dass mehrere Komponenten gleichzeitig auf die einzige vorhandene Datenleitung senden, denn dann wäre das Signal gestört. Üblicherweise agiert unser Arduino natürlich als Master und kommuniziert mit Komponenten wie Sensoren oder OLED-Displays als Slaves. Allerdings ist es auch möglich, über I\textsuperscript{2}C Verbindungen zwischen mehreren Arduinos herzustellen.
+
+
+\subsection{Anwendung}
+\ac{oled}-Displays werden in vielen Bereichen eingesetzt, in denen energieeffiziente und kontrastreiche Anzeigen benötigt werden. Typische Anwendungen finden sich in Fernsehern, tragbaren Geräten wie Smartwatches und medizinischen Geräten.
+Seit etwa 15 Jahren werden LCDs in vielen Anwendungsbereichen von OLED-Displays ersetzt. Durch die Möglichkeit Pixel einzeln anzusteuern und auch komplett abzuschalten, kann der OLED-Display sehr kontraststarke Bilder erzeugen, welches ebenfalls für eine gute Lesbarkeit sorgt.
+Durch den geringen Stromverbrauch sind OLED-Displays ebenfalls besonders gut für batteriebetriebene Systeme geeignet.\cite{Schreiter.2019}
+
+
+\section{Installation}
+Zur Nutzung des OLED-Displays muss dieses nach mit dem Arduino nach Tabelle \ref{tab:oled_pinbelegung} angeschlossen werden. Bei der Benutzung des Arduino Shields, können Grove-Stecker verwendet werden. 
+\begin{longtable}[h]{|p{5cm}|p{8cm}|}
+	\caption{Pinbelegung des OLED-Displays}
+	\label{tab:oled_pinbelegung} \\
+	\hline
+	\textbf{OLED-Display Pin} & \textbf{Arduino Pin} \\ \hline
+	SDA & A4 \\ \hline
+	SCL & A5 \\ \hline
+	VCC & 5V out \\ \hline
+	GND & GND \\ \hline
+\end{longtable}
+
+
+
+
+\section{Bibliotheken}
+Für die Verwendung des OLED-Displays sind die folgenden aufgelisteten Bibliotheken notwendig \ref{tab:oled_libs}. Um eine Bibliothek in ein Programm zu integrieren muss diese in der Arduino IDE heruntergeladen und installiert sein und anschließend im Programmcode mit dem folgenden Befehl eingebunden werden: \PYTHON{\#include<name.h>} \newline
+
+ 
+\section{Verwendete Bibliotheken}
+\begin{center}
+	\captionof{table}{Verwendete Bibliotheken zum Testen des OLED-Displays}
+	\label{tab:oled_libs}
+	\begin{tabular}{|p{5cm}|p{9cm}|}
+			\hline
+			\textbf{Bibliothek} & \textbf{Beschreibung} \\
+			\hline
+			\textbf{Wire.h} &  \textbf{Version:} Arduino-Standardbibliothek \newline
+			Funktion: Dient der Kommunikation über den I\textsuperscript{2}C-Bus zwischen Mikrocontroller und OLED-Display. \\
+			\hline
+			\textbf{Adafruit\_GFX.h} & \textbf{Version:} 1.12.6 \newline
+			Grafikbibliothek zur Darstellung von Text, Linien, Rechtecken und weiteren primitiven Elementen auf grafischen Displays. \\
+			\hline
+			\textbf{Adafruit\_SSD1306.h} & \textbf{Version:} 2.5.16 \newline
+			Treiber für SSD1306-basierte OLED-Displays mit Unterstützung für I\textsuperscript{2}C. \\
+			\hline
+		\end{tabular}
+\end{center}
+
+\subsection{Wire.h}
+Die Bibliothek Wire.h ist eine Standardbibliothek für Arduino-Plattformen, welche Funktionen und Methoden für die Kommunikation zur Verfügung stellt. Mit Hilfe der Schnittstelle I\textsuperscript{2}C ermöglicht die Bibliothek die Kommunikation zwischen einem Arduino und einem anderen I\textsuperscript{2}C-fähigen Gerät wie z.B. Sensoren oder Displays. I\textsuperscript{2}C ist ein Kommunikationsbus, der im Vergleich zu seriellen Schnittstellen den Vorteil hat, dass er mit mehr als zwei Geräten kommunizieren kann. Ein I\textsuperscript{2}C-Bus benötigt zwei Leitungen: SCL für ein Taktsignal und SDA für Daten.
+
+\subsection{Adafruit\_GFX.h}
+Die Adafruit\_GFX-Bibliothek bietet grundlegende Grafikfunktionen für viele verschiedene LCD- und OLED-Displays sowie LED-Matrizen von Adafruit. Sie sorgt dafür, dass Programme leicht zwischen unterschiedlichen Displays angepasst werden können. Neue Funktionen und Verbesserungen gelten automatisch für alle unterstützten Displays.
+Die Bibliothek wird immer zusammen mit einer weiteren Bibliothek verwendet, die speziell für das jeweilige Display gedacht ist, für unser spezifisches OLED-Display, welches den Controller-Chip SSD1306 verwendet, muss die Adafruit\_SSD1306.h Bibliothek ebenfalls mit eingebunden werden.
+
+\subsubsection{Adafruit\_SSD1306.h}
+Die Adafruit\_SSD1306 Bibliothek ist speziell für OLED-Displays mit dem SSD1306-Controller entwickelt worden. Sie arbeitet zusammen mit der Adafruit\_GFX-Bibliothek und ermöglicht die Ansteuerung und Darstellung von Grafiken und Text auf dem Display.
+
+
+%\subsection{Kalibrierung}
+
+
+\section{Codebeispiel}
+
+\subsection{Kurzbeschreibung des Programms}
+Dieses Arduino-Testprogramm dient zur Initialisierung und Darstellung einfacher Texte auf einem SSD1306 OLED-Display. Nach der Initialisierung wird die Nachricht \textit{"Hello, world!"} angezeigt. Anschließend wird die Anzeige im Sekundentakt invertiert, um einen Blinke-Effekt zu erzeugen.
+
+%\subsubsection{Verwendete Bibliotheken}
+
+
+
+
+
+\subsection{Verwendete Funktionen}
+\begin{center}
+	\captionof{table}{Funktionen im Testprogramm für das OLED-Display.}
+	\begin{tabular}{|p{5cm}|p{9cm}|}
+		\hline
+		\textbf{Funktion} & \textbf{Beschreibung} \\
+		\hline
+		\PYTHON{Serial.begin()} & Startet die serielle Kommunikation mit 9600 Baud. \\
+		\hline
+		\PYTHON{display.begin()} & Initialisiert das OLED-Display mit angegebener I\textsuperscript{2}C-Adresse. \\
+		\hline
+		\PYTHON{display.clearDisplay()} & Löscht alle Inhalte auf dem Display. \\
+		\hline
+		\PYTHON{display.setTextSize()} & Setzt die Schriftgröße für Textausgabe. \\
+		\hline
+		\hline
+		\PYTHON{display.setCursor()} & Positioniert den Textcursor an einer bestimmten Stelle. \\
+		\hline
+		\PYTHON{display.println()} & Gibt eine Textzeile auf dem Display aus. \\
+		\hline
+		\PYTHON{display.display()} & Überträgt die Zeichenpufferdaten auf das Display. \\
+		\hline
+		\PYTHON{display.invertDisplay()} & Invertiert die Anzeige des Displays. \\
+		\hline
+		\hline
+	\end{tabular}
+\end{center}
+
+\subsection{Globale Variablen und Parameter}
+\begin{center}
+	\captionof{table}{Globale Variablen und Parameter im Testprogramm für das OLED-Display.}
+	\begin{tabular}{|p{5cm}|p{9cm}|}
+		\hline
+		\textbf{Variable} & \textbf{Beschreibung} \\
+		\hline
+		\PYTHON{SCREEN\_WIDTH} & Definiert die Breite des Displays in Pixeln (128). \\
+		\hline
+		\PYTHON{SCREEN\_HEIGHT} & Definiert die Höhe des Displays in Pixeln (64). \\
+		\hline
+		\PYTHON{display} & Objekt zur Steuerung des OLED-Displays mit Adafruit SSD1306-Treiber. \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\subsection{Testcode}
+{
+	\captionof{code}{Testprogramm für das OLED-Display}
+	\label{Code:Test:File:TestOLEDDisplay}
+	\ArduinoExternal{}{../../Code/TestOled/TestOled.ino}  
+}
+\section{Tests}
+
+\subsection{Test: Fortschrittsbalken per Taster}
+
+In diesem Test wird überprüft, ob durch Betätigung eines Tasters eine visuelle Rückmeldung auf dem OLED-Display ausgegeben werden kann. Beim Drücken des Tasters wird ein Fortschrittsbalken von 0 \% bis 100 \% in 10 Schritten angezeigt. 
+
+Der Fortschrittsbalken wird dabei schrittweise gefüllt und zusätzlich der aktuelle Prozentwert auf dem Display ausgegeben. Dadurch kann sowohl die Funktion des Tasters als auch die grafische Darstellung auf dem OLED-Display überprüft werden.
+
+\subsection{Manual}
+
+Der Taster wird an den digitalen Pin D2 des Mikrocontrollers angeschlossen. Ein Anschluss des Tasters wird mit D2 verbunden, der andere mit GND. Dabei wird der interne Pull-Up-Widerstand verwendet.
+
+Das OLED-Display wird über die I\textsuperscript{2}C-Schnittstelle angeschlossen. Die Pins werden wie folgt verbunden:
+\begin{itemize}
+	\item VCC an 3,3 V oder 5 V
+	\item GND an GND
+	\item SDA an A4
+	\item SCL an A5
+\end{itemize}
+
+\subsection{Test-Code}
+
+Im \PYTHON{loop()} wird der Zustand des Tasters abgefragt. Da \PYTHON{INPUT\_PULLUP} verwendet wird, entspricht \PYTHON{LOW} einem gedrückten Taster.
+
+Wird der Taster gedrückt, wird ein Fortschrittsbalken in 10 Schritten angezeigt. Nach jedem Schritt wird der aktuelle Fortschritt in Prozent auf dem OLED-Display angezeigt. Zwischen den einzelnen Schritten wird eine kurze Verzögerung eingefügt, um den Fortschritt zu sehen.
+
+{
+	\captionof{code}{Fortschrittsbalken auf dem OLED-Display durch Tastendruck}
+	\label{lst:oled-progress}
+	\ArduinoExternal{}{../../Code/OLEDProgressBar/OLEDProgressBar.ino}
+}
+
+
+\section{Weiterführende Literatur}
+
+\begin{itemize}
+	\item 	\textbf{OLED:}
+	Weiterführende Informationen zum Aufbau und zur Funktionsweise von OLEDs enthält das Buch 
+	\glqq \textit{Elektronik für Ingenieure und Naturwissenschaftler}\grqq \cite{Hering.2021}. 
+	
+\begin{itemize}
+	\item Beschreibt sämtliche Komponenten der Elektrotechnik, welche für Ingenieure relevant sein können.
+	\item Sehr ausführliche Beschreibung der Struktur und Aufbau von LEDs und auch speziell OLED-Displays.
+	\item Nennt weitere Displaytypen und Alternativen im Vergleich zu OLED.
+\end{itemize}
+	
+	\item 	\textbf{Ansteuerung:} Sehr gute inoffizielle Anleitung zum Basteln mit dem Arduino und viele Anwendungsbeispiele bietet das Buch 	
+	\glqq \textit{Arduino-Kompendium}\grqq \cite{Schreiter.2019}. 
+	
+	\begin{itemize}
+		\item Bietet eine Vielzahl von Kurzanleitungen zu vielen Sensoren und Komponenten die teilweise im offiziellen Handbuch von Arduino fehlen.
+		\item Enthält viele Praxisprojekte zum Nachbauen
+	\end{itemize}
+		
+	
+	\item \textbf{Anzeigemöglichkeiten auf dem OLED-Display}: Um herauszufinden was man alles mit dem OLED-Display machen kann, ist die Dokumentation der Adafruit\_GFX.h Bibliothek zu empfehlen. \href{https://learn.adafruit.com/adafruit-gfx-graphics-library}{learn.adafruit.com/adafruit-gfx-graphics-library}. 
+	Auf der Webseite werden sämtliche Funktionen der Bibliothek dokumentiert sowie weitere Bibliotheken verlinkt, die für Funktionen des OLED-Displays kompatibel sind.
+	\begin{itemize}
+		\item Anzeigen von Bildern, Animationen oder Texten auf dem Display
+		\item Laden und nutzen von größeren Dateien in den RAM von externen Speichergeräten wie einer SD-Karte
+		\item Weitere Bibliotheken von Adafruit 
+	\end{itemize}
+
+\end{itemize}
+
+
+
+

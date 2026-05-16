@@ -1,0 +1,58 @@
+\begin{circuitikz}[scale=0.6, transform shape]
+	\centering
+	\tikzstyle{every node}=[font=\small]
+	
+	\draw [ fill={rgb,255:red,24; green,9; blue,78} , line width=1pt ] (2.5,18.5) rectangle (11.25,7.25);
+	
+	\node [color=white, rotate=90] at (3.5,13.25) {SCK};
+	
+	\draw [ fill=black , line width=1pt ] (4,18) rectangle (9.75,7.75);
+	\draw [ fill={rgb,255:red,40; green,10; blue,123} , line width=1pt ] (4.25,17.75) rectangle (9,8);
+	
+	\draw [ fill={rgb,255:red,188; green,184; blue,184} ] (10.5,17.75) circle (0.5cm);
+	\draw [ dashed] (10.5,17.75) circle (0.25cm);
+	
+	\draw [ fill={rgb,255:red,188; green,184; blue,184} ] (3.25,8) circle (0.5cm);
+	\draw [ fill={rgb,255:red,188; green,184; blue,184} ] (3.25,17.75) circle (0.5cm);
+	\draw [ fill={rgb,255:red,188; green,184; blue,184} ] (10.5,8) circle (0.5cm);
+	
+	\draw [ dashed] (10.5,8) circle (0.25cm);
+	\draw [ dashed] (3.25,17.75) circle (0.25cm);
+	\draw [ dashed] (3.25,8) circle (0.25cm);
+	
+	\draw [ fill={rgb,255:red,186; green,186; blue,186} , rounded corners = 9.6] (10,14.75) rectangle (11.25,11);
+	\draw [ fill={rgb,255:red,186; green,186; blue,186}] (10.75,14.75) rectangle (11.25,11);
+	
+	\draw [ color=red , fill={rgb,255:red,255; green,184; blue,184}, dashed] (2.75,14.25) rectangle  (3.25,13.75);
+	\draw [ color=red , fill={rgb,255:red,255; green,184; blue,184}, dashed] (2.75,13.5) rectangle  (3.25,13);
+	\draw [ color=red , fill={rgb,255:red,255; green,184; blue,184}, dashed] (2.75,12.75) rectangle  (3.25,12.25);
+	\draw [ color=red , fill={rgb,255:red,255; green,184; blue,184}, dashed] (2.75,12) rectangle  (3.25,11.5);
+	
+	\draw [ color=red , fill={rgb,255:red,255; green,184; blue,184}] (3,14) circle (0.25cm);
+	\draw [ color=red , fill={rgb,255:red,255; green,184; blue,184}] (3,13.25) circle (0.25cm);
+	\draw [ color=red , fill={rgb,255:red,255; green,184; blue,184}] (3,12.5) circle (0.25cm);
+	\draw [ color=red , fill={rgb,255:red,255; green,184; blue,184}] (3,11.75) circle (0.25cm);
+	
+	\draw [ fill={rgb,255:red,208; green,184; blue,27}] (10,14.25) rectangle (10.5,11.5);
+	
+	% Pins
+	\node [color=white, rotate=90] at (3.5,14) {SDA};
+	\node [color=white, rotate=90] at (3.5,13.25) {SCL};
+	\node [color=white, rotate=90] at (3.5,12.5) {VDD};
+	\node [color=white, rotate=90] at (3.5,11.75) {GND};
+	
+	\node [color=white, rotate=90] at (3,14.5) {4};
+	\node [color=white, rotate=90] at (3,11.25) {1};
+	
+	\draw [ fill={rgb,255:red,130; green,130; blue,130} ] (10,14) rectangle (10.25,11.75);
+	
+	% Beschriftung außen
+	\node at (-1,14) {I²C Serial Data Line - SDA};
+	\node at (-1,13.25) {I²C Serial Clock Line - SCL};
+	\node at (-1,12.5) {Power Supply - VDD};
+	\node at (-1,11.75) {Ground - GND};
+	
+	\draw[-, thick] (12,10) -- (8,10);
+	\node[right] at (12,10) {OLED-Display 128 x 64 Pixel};
+	
+\end{circuitikz}

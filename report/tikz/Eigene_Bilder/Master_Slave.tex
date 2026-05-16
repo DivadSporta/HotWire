@@ -1,0 +1,42 @@
+\begin{circuitikz}[scale=0.7, transform shape]
+	\tikzstyle{every node}=[font=\small]
+	
+	\node at (19.25,17.75) {};
+	
+	\draw [ line width=0.6pt ] (2.5,23.25) rectangle  node {Slave} (6.25,20.75);
+	\draw [ line width=0.6pt ] (7.5,23.25) rectangle  node {Slave} (11.25,20.75);
+	\draw [ line width=0.6pt ] (12.5,23.25) rectangle  node {Slave} (16.25,20.75);
+	\draw [ line width=0.6pt ] (17.5,23.25) rectangle  node {Slave} (21.25,20.75);
+	
+	\draw [ line width=0.6pt ] (2.5,17) rectangle  node {Slave} (6.25,14.5);
+	\draw [ line width=1.2pt ] (7.5,17) rectangle  node {Master} (11.25,14.5);
+	\draw [ line width=0.6pt ] (12.5,17) rectangle  node {Slave} (16.25,14.5);
+	\draw [ line width=0.6pt ] (17.5,17) rectangle  node {Slave} (21.25,14.5);
+	
+	\draw [ line width=0.6pt](3.75,20.75) -- (3.75,17);
+	\draw [ line width=0.6pt](3.75,19.5) -- (18.75,19.5);
+	\draw [ line width=0.6pt](5,20.75) -- (5,17);
+	\draw [ line width=0.6pt](5,18.25) -- (20,18.25);
+	\draw [ line width=0.6pt](20,20.75) -- (20,17);
+	\draw [ line width=0.6pt](18.75,19.5) -- (18.75,20.75);
+	\draw [ line width=0.6pt](13.75,20.75) -- (13.75,17);
+	\draw [ line width=0.6pt](15,20.75) -- (15,17);
+	\draw (10,20.75) -- (10,17);
+	\draw [ line width=0.6pt](8.75,20.75) -- (8.75,17);
+	
+	\node at (3.75,19.5) [circ] {};
+	\node at (5,18.25) [circ] {};
+	\node at (8.75,19.5) [circ] {};
+	\node at (10,18.25) [circ] {};
+	\node at (13.75,19.5) [circ] {};
+	\node at (15,18.25) [circ] {};
+	\node at (18.75,19.5) [circ] {};
+	\node at (20,17) [circ] {};
+	\node at (20,18.25) [circ] {};
+	
+	\draw [ line width=0.6pt](18.75,19.5) -- (18.75,17);
+	
+	\node at (12,19.75) {SDA};
+	\node at (12,18.5) {SCL};
+	
+\end{circuitikz}
