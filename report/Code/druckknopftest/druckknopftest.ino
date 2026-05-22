@@ -1,38 +1,38 @@
 /**
- * @file druckknopfrtest.ino
- * @brief Testet einen Druckknopf und gibt 0 oder 1 im seriellen Monitor aus.
+ * @file druckknopftest.ino
+ * @brief Tests a push button and prints 0 or 1 to the serial monitor.
  *
- * Der Druckknopf ist zwischen Pin 2 und GND angeschlossen.
- * Es wird der interne Pull-up-Widerstand verwendet.
+ * The push button is connected between pin 2 and GND.
+ * The internal pull-up resistor is used.
  */
 
-const int druckknopfPin = 2; ///< Pin, an dem der Druckknopf angeschlossen ist
+const int druckknopfPin = 2; ///< Pin where the push button is connected.
 
 /**
- * @brief Wird einmal beim Start des Arduino ausgefuehrt.
+ * @brief Runs once when the Arduino starts.
  *
- * Der Druckknopf-Pin wird als Eingang mit internem Pull-up-Widerstand festgelegt.
- * Die serielle Ausgabe wird gestartet.
+ * The push button pin is set as an input with the internal pull-up resistor.
+ * The serial output is started.
  */
 void setup() {
-  pinMode(druckknopfPin, INPUT_PULLUP); ///< Eingang mit internem Pull-up
-  Serial.begin(115200);               ///< Startet die serielle Verbindung
+  pinMode(druckknopfPin, INPUT_PULLUP); ///< Sets the pin as input with internal pull-up.
+  Serial.begin(115200);                 ///< Starts the serial connection.
 }
 
 /**
- * @brief Hauptprogramm, das dauerhaft wiederholt wird.
+ * @brief Main program that runs repeatedly.
  *
- * Gibt 1 aus, wenn der Druckknopf gedrueckt ist.
- * Gibt 0 aus, wenn der Druckknopf nicht gedrueckt ist.
+ * Prints 1 if the push button is pressed.
+ * Prints 0 if the push button is not pressed.
  */
 void loop() {
-  int druckknopfStatus = digitalRead(druckknopfPin); ///< Liest den Zustand des Druckknopf
+  int druckknopfStatus = digitalRead(druckknopfPin); ///< Reads the state of the push button.
 
   if (druckknopfStatus == LOW) {
-    Serial.println(1); ///< Druckknopf gedrueckt
+    Serial.println(1); ///< Push button is pressed.
   } else {
-    Serial.println(0); ///< Druckknopf nicht gedrueckt
+    Serial.println(0); ///< Push button is not pressed.
   }
 
-  delay(200); ///< Kurze Pause fuer eine lesbare Ausgabe
+  delay(200); ///< Short pause for readable output.
 }

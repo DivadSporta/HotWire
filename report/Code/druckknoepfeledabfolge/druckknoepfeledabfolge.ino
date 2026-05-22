@@ -1,51 +1,51 @@
 /**
  * @file druckknoepfeledabfolge.ino
- * @brief Steuert eine LED-Abfolge mit drei Druckknoepfen.
+ * @brief Controls an LED sequence with three push buttons.
  *
- * Mit dem Start-Druckknopf wird die LED-Abfolge gestartet.
- * Mit dem Pause-Druckknopf wird die Abfolge pausiert oder fortgesetzt.
- * Mit dem Stop-Druckknopf wird die Abfolge beendet und alle LEDs werden ausgeschaltet.
+ * The start push button starts the LED sequence.
+ * The pause push button pauses or continues the sequence.
+ * The stop push button stops the sequence and turns all LEDs off.
  */
 
-const int startdruckknopf = 2;  ///< Eingangspin fuer den Start-Druckknopf
-const int pausedruckknopf = 3;  ///< Eingangspin fuer den Pause-Druckknopf
-const int stopdruckknopf  = 4;  ///< Eingangspin fuer den Stop-Druckknopf
+const int startdruckknopf = 2; ///< Input pin for the start push button.
+const int pausedruckknopf = 3; ///< Input pin for the pause push button.
+const int stopdruckknopf = 4;  ///< Input pin for the stop push button.
 
-const int ledPins[] = {8, 9, 10, 11, 12}; ///< Ausgangspins fuer die LEDs
-const int anzahlLeds = 5;                 ///< Anzahl der angeschlossenen LEDs
+const int ledPins[] = {8, 9, 10, 11, 12}; ///< Output pins for the LEDs.
+const int anzahlLeds = 5;                 ///< Number of connected LEDs.
 
-bool programmLaeuft = false; ///< Gibt an, ob die LED-Abfolge aktiv ist
-bool programmPause = false;  ///< Gibt an, ob die LED-Abfolge pausiert ist
+bool programmLaeuft = false; ///< Shows whether the LED sequence is active.
+bool programmPause = false;  ///< Shows whether the LED sequence is paused.
 
-int aktuelleLed = 0;                 ///< Nummer der aktuell eingeschalteten LED
-unsigned long letzteZeit = 0;        ///< Zeitpunkt der letzten LED-Umschaltung
-const unsigned long intervall = 500; ///< Zeitabstand zwischen den LEDs in Millisekunden
+int aktuelleLed = 0;                 ///< Number of the currently active LED.
+unsigned long letzteZeit = 0;        ///< Time of the last LED change.
+const unsigned long intervall = 500; ///< Time between LED changes in milliseconds.
 
-bool letzterPauseStatus = HIGH; ///< Vorheriger Zustand des Pause-Druckknopfs
+bool letzterPauseStatus = HIGH; ///< Previous state of the pause push button.
 
 /**
- * @brief Wird einmal beim Start des Arduino ausgefuehrt.
+ * @brief Runs once when the Arduino starts.
  *
- * Die Druckknoepfe werden als Eingange mit internem Pull-up-Widerstand festgelegt.
- * Die LED-Pins werden als Ausgaenge festgelegt.
+ * The push buttons are set as inputs with internal pull-up resistors.
+ * The LED pins are set as outputs.
  */
 void setup() {
-  pinMode(startdruckknopf, INPUT_PULLUP); ///< Start-Druckknopf als Eingang
-  pinMode(pausedruckknopf, INPUT_PULLUP); ///< Pause-Druckknopf als Eingang
-  pinMode(stopdruckknopf, INPUT_PULLUP);  ///< Stop-Druckknopf als Eingang
+  pinMode(startdruckknopf, INPUT_PULLUP); ///< Start push button as input.
+  pinMode(pausedruckknopf, INPUT_PULLUP); ///< Pause push button as input.
+  pinMode(stopdruckknopf, INPUT_PULLUP);  ///< Stop push button as input.
 
   for (int i = 0; i < anzahlLeds; i++) {
-    pinMode(ledPins[i], OUTPUT); ///< LED-Pin als Ausgang festlegen
+    pinMode(ledPins[i], OUTPUT); ///< Sets the LED pin as output.
   }
 
   alleLedsAus();
 }
 
 /**
- * @brief Hauptprogramm, das dauerhaft wiederholt wird.
+ * @brief Main program that runs repeatedly.
  *
- * Es prueft die drei Druckknoepfe und steuert je nach Eingabe
- * den Ablauf der LEDs.
+ * It checks the three push buttons and controls the LED sequence
+ * depending on the input.
  */
 void loop() {
   if (digitalRead(startdruckknopf) == LOW) {
@@ -60,11 +60,11 @@ void loop() {
     alleLedsAus();
   }
 
-  bool aktuellerPauseStatus = digitalRead(pausedruckknopf); ///< Aktueller Zustand des Pause-Druckknopfs
+  bool aktuellerPauseStatus = digitalRead(pausedruckknopf); ///< Current state of the pause push button.
 
   if (letzterPauseStatus == HIGH && aktuellerPauseStatus == LOW) {
     programmPause = !programmPause;
-    delay(200); ///< Einfache Entprellung des Druckknopfs
+    delay(200); ///< Simple debounce for the push button.
   }
 
   letzterPauseStatus = aktuellerPauseStatus;
@@ -75,9 +75,9 @@ void loop() {
 }
 
 /**
- * @brief Schaltet alle LEDs aus.
+ * @brief Turns all LEDs off.
  *
- * Alle LED-Pins werden auf LOW gesetzt.
+ * All LED pins are set to LOW.
  */
 void alleLedsAus() {
   for (int i = 0; i < anzahlLeds; i++) {
@@ -86,13 +86,13 @@ void alleLedsAus() {
 }
 
 /**
- * @brief Laesst die LEDs nacheinander aufleuchten.
+ * @brief Makes the LEDs light up one after another.
  *
- * Nach Ablauf des festgelegten Intervalls wird die aktuelle LED ausgeschaltet
- * und die naechste LED eingeschaltet.
+ * After the defined interval has passed, the current LED is turned off
+ * and the next LED is turned on.
  */
 void ledAbfolge() {
-  unsigned long aktuelleZeit = millis(); ///< Aktuelle Laufzeit des Arduino in Millisekunden
+  unsigned long aktuelleZeit = millis(); ///< Current runtime of the Arduino in milliseconds.
 
   if (aktuelleZeit - letzteZeit >= intervall) {
     letzteZeit = aktuelleZeit;
