@@ -1,0 +1,189 @@
+%%%%%%%%%%%%
+%
+% $Autor: Wings $
+% $Datum: 2019-03-05 08:03:15Z $
+% $Pfad: TemplateSensor $
+% $Version: 4250 $
+% !TeX spellcheck = en_GB/de_DE
+% !TeX encoding = utf8
+% !TeX root = filename 
+% !TeX TXS-program:bibliography = txs:///biber
+%
+%%%%%%%%%%%%
+
+% Structure
+\chapter{A4988-Schrittmotortreiber}
+
+\section{Einleitung}
+
+Für die Ansteuerung der Schrittmotoren im Projekt wird der Schrittmotortreiber A4988 verwendet. 
+Der A4988 ist ein integrierter DMOS-Microstepping-Treiber für bipolare Schrittmotoren und wird in Positioniersystemen, CNC-Systemen und ähnlichen Anwendungen eingesetzt \cite{Allegro:A4988}.
+
+Im Projekt übernimmt der A4988 die Leistungsansteuerung der Achsmotoren. 
+Dadurch können die Bewegungen des Heizdrahts definiert und wiederholbar ausgeführt werden.
+
+\section{Grundlagen}
+
+Schrittmotoren gehören zu den elektrischen Antrieben, bei denen die Drehbewegung in einzelne Schritte unterteilt wird. 
+Dadurch können Positionen gezielt angefahren werden, ohne dass zwingend ein zusätzliches Positionsmesssystem erforderlich ist \cite{Isermann:2008}.
+
+Für die Ansteuerung eines bipolaren Schrittmotors muss die Stromrichtung in den Motorwicklungen umgeschaltet werden. 
+Diese Aufgabe wird durch leistungselektronische Schaltungen übernommen \cite{Zach:2022}. 
+Der A4988 enthält hierfür integrierte H-Brücken und eine interne Stromregelung.
+
+Die Ansteuerung erfolgt über die Signale STEP und DIR. 
+Mit jeder steigenden Flanke am STEP-Eingang bewegt der Treiber den Motor um einen Schritt beziehungsweise Mikroschritt weiter. 
+Das DIR-Signal bestimmt die Drehrichtung \cite{Allegro:A4988}.
+
+\section{Spezifischer Sensor/Aktor}
+
+Im Projekt wird ein A4988-kompatibles Treibermodul verwendet. 
+Der eigentliche Treiber-IC stammt von Allegro MicroSystems. 
+Laut Herstellerdatenblatt unterstützt der A4988 Voll-, Halb-, Viertel-, Achtel- und Sechzehntelschrittbetrieb \cite{Allegro:A4988}. 
+Durch Microstepping kann die Bewegung der Achsen gleichmäßiger ausgeführt werden.
+
+Der A4988 besitzt eine integrierte PWM-Stromregelung. 
+Dadurch wird der Strom durch die Motorwicklungen begrenzt. 
+Dies ist wichtig, da der Motor mit einer höheren Versorgungsspannung betrieben werden kann, ohne die Wicklungen zu überlasten.
+
+Zusätzlich verfügt der Treiber über Schutzfunktionen gegen Überstrom, Kurzschluss, Unterspannung und Übertemperatur \cite{Allegro:A4988}.
+
+\section{Spezifikation}
+
+Die technischen Daten des verwendeten A4988 wurden dem Herstellerdatenblatt entnommen \cite{Allegro:A4988}.
+
+\begin{itemize}
+	\item Motorspannung: 8\,V bis 35\,V
+	\item Logikspannung: 3\,V bis 5{,}5\,V
+	\item maximaler Ausgangsstrom: bis $\pm$2\,A
+	\item Schrittmodi: Vollschritt, Halbschritt, Viertelschritt, Achtelschritt und Sechzehntelschritt
+	\item Steuerung über STEP- und DIR-Eingang
+	\item integrierte PWM-Stromregelung
+	\item Schutzfunktionen gegen Übertemperatur, Unterspannung und Überstrom
+\end{itemize}
+
+Der maximale Motorstrom ergibt sich aus:
+
+\[
+I_{TripMAX} = \frac{V_{REF}}{8 \cdot R_S}
+\]
+
+Dabei beschreibt \(R_S\) den Sense-Widerstand und \(V_{REF}\) die Referenzspannung \cite{Allegro:A4988}.
+
+\section{Bibliothek}
+
+\subsection{Beschreibung}
+
+Für den A4988 wird keine zusätzliche Arduino-Bibliothek benötigt. 
+Die Ansteuerung erfolgt direkt über digitale Ausgänge des Mikrocontrollers. 
+Im späteren Betrieb des CNC-Hot-Wire-Foam-Cutters erzeugt die GRBL-Firmware die notwendigen STEP- und DIR-Signale.
+
+\subsection{Installation}
+
+Der A4988 wird direkt auf das CNC Shield V3 gesteckt. 
+Bei Verwendung des CNC Shields sind die Anschlüsse für STEP, DIR und ENABLE bereits den jeweiligen Achsen zugeordnet.
+
+Vor dem Anschluss des Motors muss die Strombegrenzung eingestellt werden. 
+Außerdem müssen die Masse des Mikrocontrollers und die Masse der externen Motorspannungsversorgung miteinander verbunden werden.
+
+\subsection{Funktionen}
+
+Zur direkten Steuerung des A4988 werden Standardfunktionen der Arduino-IDE verwendet. 
+Mit \texttt{pinMode()} werden die verwendeten Pins als Ausgänge konfiguriert. 
+Mit \texttt{digitalWrite()} werden STEP-, DIR- und ENABLE-Signale ausgegeben. 
+Die Funktion \texttt{delayMicroseconds()} bestimmt die Zeit zwischen den Schrittimpulsen und damit die Drehgeschwindigkeit.
+
+\section{Beispiel}
+
+In diesem Abschnitt wird ein einfaches Beispiel beschrieben, das die grundlegende Funktion des A4988 zeigt. 
+Der Mikrocontroller erzeugt Schrittimpulse, die vom Treiber in Motorbewegungen umgesetzt werden.
+
+\subsection{Versuchsaufbau}
+
+Der A4988 wird mit einem bipolaren Schrittmotor verbunden. 
+Die Motorspannung wird über ein externes Netzteil bereitgestellt. 
+Der Arduino erzeugt die STEP- und DIR-Signale. 
+Bei Verwendung des CNC Shield V3 wird der Treiber auf den Steckplatz der gewünschten Achse gesteckt.
+
+\subsection{Funktionsweise des Beispiels}
+
+Im Beispiel wird zunächst die Drehrichtung festgelegt. 
+Anschließend werden am STEP-Eingang periodische Impulse ausgegeben. 
+Jeder Impuls bewegt den Motor um einen Schritt oder Mikroschritt weiter.
+
+\subsection{Code}
+
+Für die Dokumentation werden drei Programme verwendet. 
+Das erste Programm prüft die Grundfunktion des Treibers. 
+Das zweite Programm zeigt eine einfache projektbezogene Anwendung. 
+Das dritte Programm dient als vollständiger Funktionstest.
+
+\subsection{Dateien}
+
+\begin{itemize}
+	\item A4988SimpleStep.ino
+	\item A4988FoamCutterAxis.ino
+	\item A4988DriverTest.ino
+\end{itemize}
+
+\section{Kalibrierung}
+
+Vor dem Betrieb muss die Strombegrenzung des A4988 eingestellt werden. 
+Die Einstellung erfolgt über ein Potentiometer auf dem Treibermodul.
+
+Eine zu hohe Strombegrenzung führt zu starker Erwärmung und kann eine thermische Abschaltung verursachen. 
+Eine zu niedrige Strombegrenzung kann Schrittverluste verursachen. 
+Für den CNC-Hot-Wire-Foam-Cutter wird die Strombegrenzung so eingestellt, dass der Motor zuverlässig läuft und der Treiber nicht übermäßig heiß wird.
+
+\section{Einfacher Code}
+
+Der einfache Code dient zur Überprüfung der Grundfunktion des A4988. 
+Der Motor wird kontinuierlich in eine Richtung bewegt. 
+Dadurch können Verdrahtung, Spannungsversorgung, STEP-Signal und Treiberfunktion überprüft werden.
+
+\begin{code}[H]
+	\captionof{code}{Einfacher Funktionstest des A4988-Schrittmotortreibers}
+	\label{Code:A4988SimpleStep}
+	\ArduinoExternal{}{../../Code/A4988SimpleStep/A4988SimpleStep.ino}
+\end{code}
+
+\section{Einfache Anwendung}
+
+Die einfache Anwendung simuliert eine Achsbewegung des CNC-Hot-Wire-Foam-Cutters. 
+Die Achse bewegt sich langsam in Schneidrichtung und anschließend schneller zurück. 
+Dadurch wird der praktische Einsatz des A4988 im Projekt demonstriert.
+
+\begin{code}[H]
+	\captionof{code}{Einfache Achsbewegung des CNC-Hot-Wire-Foam-Cutters}
+	\label{Code:A4988FoamCutterAxis}
+	\ArduinoExternal{}{../../Code/A4988FoamCutterAxis/A4988FoamCutterAxis.ino}
+\end{code}
+
+\section{Tests}
+
+\subsection{Einfacher Funktionstest}
+
+Beim einfachen Funktionstest wird überprüft, ob der Motor grundsätzlich auf STEP-Signale reagiert. 
+Dieser Test erfolgt mit dem Programm aus Abschnitt \ref{Code:A4988SimpleStep}. 
+Dabei werden die Verdrahtung, die Versorgungsspannung und die Drehrichtung kontrolliert.
+
+\subsection{Test aller Funktionen}
+
+Beim vollständigen Test werden Drehrichtung, Geschwindigkeit, ENABLE-Signal und Temperaturverhalten überprüft. 
+Der Motor wird in beide Richtungen bewegt. 
+Zusätzlich wird der Treiber kurz deaktiviert und anschließend wieder aktiviert. 
+Während des Tests wird beobachtet, ob der Motor Schritte verliert oder ob sich der Treiber übermäßig erwärmt.
+
+\begin{code}[H]
+	\captionof{code}{Testprogramm für den A4988-Schrittmotortreiber}
+	\label{Code:A4988DriverTest}
+	\ArduinoExternal{}{../../Code/A4988DriverTest/A4988DriverTest.ino}
+\end{code}
+
+\section{Weiterführende Literatur}
+
+\begin{itemize}
+	\item Isermann, Rolf: \textit{Mechatronische Systeme}. Springer, 2008. \cite{Isermann:2008}
+	\item Zach, Franz: \textit{Leistungselektronik}. Springer Vieweg, 2022. \cite{Zach:2022}
+	\item Allegro MicroSystems: \textit{A4988 DMOS Microstepping Driver with Translator and Overcurrent Protection}. Datenblatt, 2022. \cite{Allegro:A4988}
+\end{itemize}
