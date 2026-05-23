@@ -17,23 +17,35 @@
 
 \section{CNC Shields}
 
-General description
-
-cite books
+Ein CNC Shield ist eine Erweiterungsplatine für den Arduino, die für die Ansteuerung von Schrittmotoren in CNC-Anwendungen entwickelt wurde. Es bildet die Verbindung zwischen dem Mikrocontroller, den eingesetzten Motortreibern und den angeschlossenen Komponenten der Maschine. Durch den kompakten Aufbau eignet sich das Board für kleine CNC-Systeme wie Fräsen, Plotter oder Gravurgeräte.
 
 \section{CNCShieldV3}
 
-cite board
+Das CNC Shield V3 ist eine Erweiterungsplatine für den Arduino UNO,
 
 \section{Specification}
 
 \begin{itemize}
-  \item Cite the data sheet
-  \item Extract te information from the data sheet
-  \item Circuit Diagram
+  \item Kompatibilität: Arduino UNO R3
+  \item Anzahl der Treiber-Steckplätze: 4
+  \item Unterstützte Achsen: X, Y, Z sowie Achse A
+  \item Unterstützte Treibermodule: A4988, DRV8825 und kompatible Module
+  \item Versorgungsspannung der Motorseite: 12 V bis 36 V DC; bei 36 V ist die Eignung des eingesetzten Treibers zu beachten
+  \item Enable-Signal: gemeinsamer Enable-Anschluss über D8
+  \item Standard-Zuordnung X-Achse: X-STP auf D2, X-DIR auf D5
+  \item Standard-Zuordnung Y-Achse: Y-STP auf D3, Y-DIR auf D6
+  \item Standard-Zuordnung Z-Achse: Z-STP auf D4, Z-DIR auf D7
+  \item Zusätzliche Anschlüsse: Endschalter, Spindelsteuerung, Kühlung, serielle Kommunikation und I2C
+  \item Schrittauflösung: über Jumper einstellbar; bei A4988 laut Hersteller Vollschritt bis 1/16 Schritt
+  \item Motoranschlüsse: 4-polige Anschlüsse im 2,54-mm-Raster
+  \item Abmessungen: 69 mm × 54 mm × 15 mm
+  \item Gewicht: 31 g
+  
+  
 \end{itemize}
 
 \section{Library}
+grbl
 
 \subsection{Description}
 
@@ -68,19 +80,141 @@ In this section, a simple example is described in detail, which demonstrates how
 cite method
 
 \section{Simple Code}
+\subsection{Manual}
+Der Code testet den Schrittmotor am CNC Shield V3. Der Motor wird über den STEP-Pin schrittweise bewegt. Über den DIR-Pin wird die Drehrichtung festgelegt.
 
+\subsubsection{Benötigte Bauteile}
 
+\begin{itemize}
+	\item Arduino Uno
+	\item CNC Shield V3
+	\item A4988 oder DRV8825 Motortreiber
+	\item Schrittmotor
+	\item externe Motorspannung, z. B. 12 V
+	\item USB-Kabel
+\end{itemize}
+
+\subsubsection{Aufbau}
+
+Das CNC Shield V3 wird auf den Arduino Uno gesteckt. Der Motortreiber wird in den Steckplatz der X-Achse eingesetzt. Dabei muss auf die richtige Ausrichtung des Treibers geachtet werden. Der Schrittmotor wird an den X-Motoranschluss angeschlossen. Zusätzlich wird eine externe Motorspannung an das CNC Shield angeschlossen.
+
+\subsubsection{Verwendete Pins}
+
+\begin{itemize}
+	\item X-STEP: Pin 2
+	\item X-DIR: Pin 5
+	\item ENABLE: Pin 8
+\end{itemize}
+\subsubsection{Verwendete Arduino-Befehle}
+
+\begin{itemize}
+	\item \python{setup()}: Wird einmal beim Start des Arduino ausgeführt \cite{arduino_setup}.
+	\item \python{pinMode()}: Legt STEP, DIR und ENABLE als Ausgänge fest \cite{arduino_pinmode}.
+	\item \python{digitalWrite()}: Aktiviert den Motortreiber und setzt die Drehrichtung \cite{arduino_digitalwrite}.
+	\item \python{loop()}: Wird dauerhaft wiederholt \cite{arduino_loop}.
+	\item \python{digitalWrite()}: Erzeugt die STEP-Impulse durch Wechsel zwischen \python{HIGH} und \python{LOW} \cite{arduino_digitalwrite}.
+	\item \python{delayMicroseconds()}: Erzeugt kurze Pausen zwischen den Schrittimpulsen \cite{arduino:language-reference}.
+\end{itemize}
+\subsection{Code}
+{
+	\captionof{code}{CNC Shield Schrittmotor}\label{lst:cncshieldschrittmotor}
+	\ArduinoExternal{}{../../Code/cncshieldschrittmotor/cncshieldschrittmotor.ino}
+}
 \section{Simple Application}
+\subsection{Manual}
+Der Code kombiniert Schrittmotor und Endschalter. Der Motor fährt so lange in eine Richtung, bis der Endschalter gedrückt wird. Danach stoppt der Motor. So wird eine einfache Referenzfahrt dargestellt.
 
+\subsubsection{Benötigte Bauteile}
 
+\begin{itemize}
+	\item Arduino Uno
+	\item CNC Shield V3
+	\item A4988 oder DRV8825 Motortreiber
+	\item Schrittmotor
+	\item Endschalter oder Druckknopf
+	\item externe Motorspannung, z. B. 12 V
+	\item USB-Kabel
+\end{itemize}
+
+\subsubsection{Aufbau}
+
+Das CNC Shield V3 wird auf den Arduino Uno gesteckt. Der Motortreiber wird in den Steckplatz der X-Achse eingesetzt. Der Schrittmotor wird an den X-Motoranschluss angeschlossen. Der Endschalter wird an den X-Endstop-Anschluss angeschlossen. Ein Anschluss des Endschalters wird mit dem Signal-Pin verbunden, der andere Anschluss mit GND. Zusätzlich wird die externe Motorspannung an das CNC Shield angeschlossen.
+
+\subsubsection{Verwendete Pins}
+
+\begin{itemize}
+	\item X-STEP: Pin 2
+	\item X-DIR: Pin 5
+	\item ENABLE: Pin 8
+	\item X-Endstop: Pin 9
+\end{itemize}
+\subsubsection{Verwendete Arduino-Befehle}
+
+\begin{itemize}
+	\item \python{setup()}: Wird einmal beim Start des Arduino ausgeführt \cite{arduino_setup}.
+	\item \python{pinMode()}: Legt STEP, DIR und ENABLE als Ausgänge fest \cite{arduino_pinmode}.
+	\item \python{pinMode(..., INPUT_PULLUP)}: Legt den Endstop-Pin als Eingang mit internem Pull-up-Widerstand fest \cite{arduino_pinmode}\cite{arduino_inputpullup}.
+	\item \python{digitalWrite()}: Aktiviert den Motortreiber und setzt die Richtung für die Referenzfahrt \cite{arduino_digitalwrite}.
+	\item \python{loop()}: Wird dauerhaft wiederholt \cite{arduino_loop}.
+	\item \python{digitalRead()}: Liest den Zustand des Endstops aus \cite{arduino_digitalread}.
+	\item \python{digitalWrite()}: Erzeugt STEP-Impulse, solange der Endstop nicht gedrückt ist \cite{arduino_digitalwrite}.
+	\item \python{delayMicroseconds()}: Erzeugt kurze Pausen zwischen den Schrittimpulsen \cite{arduino:language-reference}.
+\end{itemize}
+\subsection{Code}
+{
+	\captionof{code}{CNC Shield Referenzfahrt}\label{lst:cncshieldreferenzfahrt}
+	\ArduinoExternal{}{../../Code/cncshieldreferenzfahrt/cncshieldreferenzfahrt.ino}
+}
 
 \section{Tests}
 
-\subsection{Simple Function Test}
+\subsection{Manual}
+Der zweite Code testet die Grundfunktion des CNC Shield V3. Dabei werden die STEP-, DIR- und ENABLE-Pins der X-Achse verwendet. Der Motortreiber wird aktiviert und der Motor bewegt sich abwechselnd in beide Richtungen. Dadurch kann geprüft werden, ob das Shield, der Treiber und die Pinbelegung richtig funktionieren.
 
-\subsection{Test all Functions}
+\subsubsection{Benoetigte Bauteile}
+
+\begin{itemize}
+	\item Arduino Uno
+	\item CNC Shield V3
+	\item A4988 oder DRV8825 Motortreiber
+	\item Schrittmotor
+	\item externe Motorspannung, z. B. 12 V
+	\item USB-Kabel
+\end{itemize}
+
+\subsubsection{Aufbau}
+
+Das CNC Shield V3 wird auf den Arduino Uno gesteckt. Der Motortreiber wird in den Steckplatz der X-Achse eingesetzt. Der Schrittmotor wird an den X-Motoranschluss angeschlossen. Anschliessend wird die externe Motorspannung an das CNC Shield angeschlossen. Der Arduino wird über USB mit dem Computer verbunden.
+
+\subsubsection{Verwendete Pins}
+
+\begin{itemize}
+	\item X-STEP: Pin 2
+	\item X-DIR: Pin 5
+	\item ENABLE: Pin 8
+\end{itemize}
+
+\subsubsection{Verwendete Arduino-Befehle}
+
+\begin{itemize}
+	\item \python{setup()}: Wird einmal beim Start des Arduino ausgeführt \cite{arduino_setup}.
+	\item \python{pinMode()}: Legt STEP, DIR und ENABLE als Ausgänge fest \cite{arduino_pinmode}.
+	\item \python{digitalWrite()}: Aktiviert den Motortreiber über ENABLE \cite{arduino_digitalwrite}.
+	\item \python{loop()}: Wird dauerhaft wiederholt \cite{arduino_loop}.
+	\item \python{digitalWrite()}: Legt die Drehrichtung mit DIR fest \cite{arduino_digitalwrite}.
+	\item \python{moveSteps()}: Eigene Funktion, die eine feste Anzahl an Schritten ausführt.
+	\item \python{digitalWrite()}: Erzeugt innerhalb von \python{moveSteps()} die STEP-Impulse \cite{arduino_digitalwrite}.
+	\item \python{delayMicroseconds()}: Erzeugt kurze Pausen zwischen den Schrittimpulsen \cite{arduino:language-reference}.
+	\item \python{delay()}: Erzeugt eine Pause zwischen den Richtungswechseln \cite{arduino_delay}.
+\end{itemize}
+
+\subsection{Code}
+{
+	\captionof{code}{CNC Shield Test}\label{lst:cncshieldtest}
+	\ArduinoExternal{}{../../Code/cncshieldtest/cncshieldtest.ino}
+}
 
 
 
-\section{Further Readings}
+%\section{Further Readings}
 
