@@ -12,14 +12,12 @@
 \ac{oled}s (Organic Light Emitting Diodes) stellen eine besondere Form der LED-Technologie dar, bei der jedes Pixel aus eigenständig leuchtenden organischen Leuchtdioden besteht. Im Gegensatz zu LCDs mit LED-Hintergrundbeleuchtung benötigen OLEDs keine Hintergrundbeleuchtung oder LC-Zellen, da die einzelnen Pixel selbst Licht erzeugen. Dies ermöglicht nicht nur eine besonders flache Bauweise, sondern auch eine exakte Steuerung einzelner Bildpunkte – inklusive vollständigem Abschalten für tiefstes Schwarz und hohen Kontrast.
 
 Ein wesentlicher Vorteil gegenüber LCD-Technologien ist die deutlich schnellere Reaktionszeit: Helligkeitsänderungen erfolgen bei OLEDs in unter einer Mikrosekunde. Auch der Farbraum und Kontrastumfang sind bei OLED-Bildschirmen in der Regel erweitert. Allerdings ist die Lebensdauer einzelner OLEDs im Vergleich zu anderen Bildschirmtechnologien tendenziell geringer, obwohl bereits von Betriebszeiten im Bereich von 15 Jahren gesprochen wird. 
-In der Praxis kommen verschiedene OLED-Technologien zum Einsatz, insbesondere RGB-SBS-AMOLED (mit drei nebeneinander angeordneten Farb-OLEDs pro Pixel) und WOLED (weiße OLEDs mit nachgeschalteten Farbfiltern). OLED-Elemente werden meist im Dünnschichtverfahren hergestellt, was die Produktion vereinfacht.\cite{Stotz.2019}
-
-Für Projekte mit Mikrocontrollern wie den Arduino oder Rasperry Pi werden oft monochrome OLED-Displays verwendet. Das bedeutet, dass anstelle von RGB-LEDs nur normale, einfarbige LEDs verwendet werden. Oft sind diese monochromen OLED-Displays blau oder weiß, um einen möglichst hohen Kontrast zu bieten. \cite{Schreiter.2019}
+In der Praxis kommen verschiedene OLED-Technologien zum Einsatz, insbesondere RGB-SBS-AMOLED (mit drei nebeneinander angeordneten Farb-OLEDs pro Pixel) und WOLED (weiße OLEDs mit nachgeschalteten Farbfiltern). OLED-Elemente werden meist im Dünnschichtverfahren hergestellt, was die Produktion vereinfacht.\cite{Stotz:2019}
 
 
 
 \section{OLED-Display mit SSD1306 Controller}
-Das \ac{oled}-Display mit dem Controller SSD1306 dient der Ausgabe von Messwerten des Arduinos. Es besitzt Abmessungen von 27 x 27 mm und überzeugt durch seinen hohen Kontrast sowie gute Lesbarkeit. Die Darstellung erfolgt in blauer Farbe. Angesteuert wird das Display über die I\textsuperscript{2}C-Schnittstelle (Pins VCC, GND, SCL, SDA) und benötigt eine Betriebsspannung von 3,3 V bis 5 V. Der zulässige Betriebstemperaturbereich liegt zwischen -30 °C und +70 °C. Für die Ansteuerung kommt die U8glib-Bibliothek zum Einsatz, welche eine Vielzahl von Grafikfunktionen für \ac{oled}-Displays mit SSD1306-Controller bereitstellt.\cite{Schreiter.2019}
+Das \ac{oled}-Display mit dem Controller SSD1306 dient der Ausgabe von Messwerten des Arduinos. Es besitzt Abmessungen von 27 x 27 mm und überzeugt durch seinen hohen Kontrast sowie gute Lesbarkeit. Die Darstellung erfolgt in blauer Farbe. Angesteuert wird das Display über die I\textsuperscript{2}C-Schnittstelle (Pins VCC, GND, SCL, SDA) und benötigt eine Betriebsspannung von 3,3 V bis 5 V. Der zulässige Betriebstemperaturbereich liegt zwischen -30 °C und +70 °C. Für die Ansteuerung kommt die U8glib-Bibliothek zum Einsatz, welche eine Vielzahl von Grafikfunktionen für \ac{oled}-Displays mit SSD1306-Controller bereitstellt.\cite{Schreiter.2019} (datasheet)
 
 \begin{longtable}[h]{|p{5cm}|p{8cm}|}
 	\caption{Spezifikationen OLED-Display}
@@ -67,19 +65,6 @@ Bei der Ansteuerung eines OLED-Displays über das I\textsuperscript{2}C-Protokol
 \end{itemize}
 
 Das I\textsuperscript{2}C-Protokoll ermöglicht eine einfache, bidirektionale Kommunikation über nur zwei Leitungen, wobei mehrere Geräte über individuelle Adressen angesprochen werden können.
-
-\subsubsection{Protokoll I\textsuperscript{2}C}
-In den 1980-er Jahre wurde die I\textsuperscript{2}C-Schnittstelle entwickelt zum Datenaustausch zwischen verschiedenen Komponenten 
-eines Gerätes. Im Gegensatz zur seriellen Verbindung, welche stets nur zwei Kommunikationspartner verbindet, handelt es sich hierbei um einen Datenbus, welcher optional deutlich mehr Komponenten (ursprünglich bis zu 112, in neueren Versionen nochmals deutlich mehr) miteinander verbinden kann. 
-Elektrisch gesehen besteht der Bus aus lediglich zwei Leitungen, an die alle Busteilnehmer angeschlossen sind, sowie einem gemeinsamen Massebezug. Eine der Leitungen dient als Taktsignal (Clock - CLK), die andere wird zum Datenaustausch (Serial Data – SDA) verwendet. Dabei fungiert stets ein Teilnehmer als Master, er generiert das Taktsignal und koordiniert die Kommunikation – etwa so wie ein Moderator in einer Gesprächsrunde. Alle anderen Komponenten agieren als Slaves, sie ordnen sich also dem Master unter. Jeder Slave benötigt eine eindeutige Adresse (in Form einer Zahl), über die er vom Master angesprochen werden kann. Der Master kann den Slaves jederzeit Daten senden.
-
-\begin{center}
-	\input{../../tikz/Eigene_Bilder/Master_Slave}
-	\captionof{figure}{I\textsuperscript{2}C-Bus mit 8 Teilnehmern nach \cite{Schreiter.2019}}
-	\label{fig:I2CSketch}
-\end{center}
-
-Die einzelnen Slaves dürfen jedoch nur senden, wenn sie vom Master abgefragt werden, also quasi eine Sendeerlaubnis erhalten. Dadurch wird vermieden, dass mehrere Komponenten gleichzeitig auf die einzige vorhandene Datenleitung senden, denn dann wäre das Signal gestört. Üblicherweise agiert unser Arduino natürlich als Master und kommuniziert mit Komponenten wie Sensoren oder OLED-Displays als Slaves. Allerdings ist es auch möglich, über I\textsuperscript{2}C Verbindungen zwischen mehreren Arduinos herzustellen.
 
 
 \subsection{Anwendung}
