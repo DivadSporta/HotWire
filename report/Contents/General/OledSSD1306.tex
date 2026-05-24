@@ -16,8 +16,8 @@ In der Praxis kommen verschiedene OLED-Technologien zum Einsatz, insbesondere RG
 
 
 
-\section{OLED-Display mit SSD1306 Controller}
-Das \ac{oled}-Display mit dem Controller SSD1306 dient der Ausgabe von Messwerten des Arduinos. Es besitzt Abmessungen von 27 x 27 mm und überzeugt durch seinen hohen Kontrast sowie gute Lesbarkeit. Die Darstellung erfolgt in blauer Farbe. Angesteuert wird das Display über die I\textsuperscript{2}C-Schnittstelle (Pins VCC, GND, SCL, SDA) und benötigt eine Betriebsspannung von 3,3 V bis 5 V. Der zulässige Betriebstemperaturbereich liegt zwischen -30 °C und +70 °C. Für die Ansteuerung kommt die U8glib-Bibliothek zum Einsatz, welche eine Vielzahl von Grafikfunktionen für \ac{oled}-Displays mit SSD1306-Controller bereitstellt.\cite{Schreiter.2019} (datasheet)
+S\section{OLED-Display mit SSD1306 Controller}
+Das \ac{oled}-Display mit dem Controller SSD1306 dient der Ausgabe von Messwerten des Arduinos. Es besitzt Abmessungen von 27 x 27 mm und überzeugt durch seinen hohen Kontrast sowie gute Lesbarkeit. Die Darstellung erfolgt in blauer Farbe. Angesteuert wird das Display über die I\textsuperscript{2}C-Schnittstelle (Pins VCC, GND, SCL, SDA) und benötigt eine Betriebsspannung von 3,3 V bis 5 V. Der zulässige Betriebstemperaturbereich liegt zwischen -30 °C und +70 °C. Für die Ansteuerung kommt die U8glib-Bibliothek zum Einsatz, welche eine Vielzahl von Grafikfunktionen für \ac{oled}-Displays mit SSD1306-Controller bereitstellt.\cite{Velleman:WPI438} (datasheet)
 
 \begin{longtable}[h]{|p{5cm}|p{8cm}|}
 	\caption{Spezifikationen OLED-Display}
@@ -31,8 +31,8 @@ Das \ac{oled}-Display mit dem Controller SSD1306 dient der Ausgabe von Messwerte
 	% Hauptmerkmale
 	\multicolumn{2}{|l|}{\rule{0pt}{15pt}\textbf{Hauptmerkmale}} \\ \hline
 	Modell & OLED-Display \\ \hline
-	Abmessungen & 27 x 27 \\ \hline
-	Gewicht & 10 g \\ \hline
+	Abmessungen & 26,7 x 31,26 \\ \hline
+	Gewicht & 1,54 g \\ \hline
 	Lieferumfang & WPI438 \\ \hline
 	
 	% Weitere Spezifikationen
@@ -41,7 +41,7 @@ Das \ac{oled}-Display mit dem Controller SSD1306 dient der Ausgabe von Messwerte
 	Auflösung & 128 x 64 Pixel \\ \hline
 	Hintergrundfarbe & Schwarz \\ \hline
 	Betrachtungswinkel & > 160° \\ \hline
-	Anzeigefarbe & Blau \\ \hline
+	Anzeigefarbe & White \\ \hline
 	Interface & I\textsuperscript{2}C \\ \hline
 	Controller-Chip & SSD1306 \\ \hline
 	
@@ -57,20 +57,14 @@ In der Abbildung \ref{fig:OLEDsketch} wird der Aufbau des OLED-Displays gezeigt.
 	\label{fig:OLEDsketch}
 \end{center}
 
-Bei der Ansteuerung eines OLED-Displays über das I\textsuperscript{2}C-Protokoll übernehmen die beiden Leitungen \ac{sda} und \ac{scl} den seriellen Datenaustausch zwischen Mikrocontroller (Master) und OLED-Display (Slave).
+Bei der Ansteuerung eines OLED-Displays über das I\textsuperscript{2}C-Protokoll übernehmen die beiden Leitungen \ac{sda} und \ac{scl} den seriellen Datenaustausch.
 
 \begin{itemize}
 	\item SDA überträgt die eigentlichen Datenbits (z.B. Befehle oder Bildinhalte).
 	\item SCL gibt den Takt vor, der bestimmt, wann ein Bit gelesen oder geschrieben wird.
 \end{itemize}
 
-Das I\textsuperscript{2}C-Protokoll ermöglicht eine einfache, bidirektionale Kommunikation über nur zwei Leitungen, wobei mehrere Geräte über individuelle Adressen angesprochen werden können.
-
-
-\subsection{Anwendung}
-\ac{oled}-Displays werden in vielen Bereichen eingesetzt, in denen energieeffiziente und kontrastreiche Anzeigen benötigt werden. Typische Anwendungen finden sich in Fernsehern, tragbaren Geräten wie Smartwatches und medizinischen Geräten.
-Seit etwa 15 Jahren werden LCDs in vielen Anwendungsbereichen von OLED-Displays ersetzt. Durch die Möglichkeit Pixel einzeln anzusteuern und auch komplett abzuschalten, kann der OLED-Display sehr kontraststarke Bilder erzeugen, welches ebenfalls für eine gute Lesbarkeit sorgt.
-Durch den geringen Stromverbrauch sind OLED-Displays ebenfalls besonders gut für batteriebetriebene Systeme geeignet.\cite{Schreiter.2019}
+Das I\textsuperscript{2}C-Protokoll ermöglicht eine einfache, bidirektionale Kommunikation über nur zwei Leitungen, wobei mehrere Geräte über individuelle Adressen angesprochen werden können.\cite{Velleman:WPI438UserManual}
 
 
 \section{Installation}
@@ -219,39 +213,6 @@ Wird der Taster gedrückt, wird ein Fortschrittsbalken in 10 Schritten angezeigt
 	\label{lst:oled-progress}
 	\ArduinoExternal{}{../../Code/OLEDProgressBar/OLEDProgressBar.ino}
 }
-
-
-\section{Weiterführende Literatur}
-
-\begin{itemize}
-	\item 	\textbf{OLED:}
-	Weiterführende Informationen zum Aufbau und zur Funktionsweise von OLEDs enthält das Buch 
-	\glqq \textit{Elektronik für Ingenieure und Naturwissenschaftler}\grqq \cite{Hering.2021}. 
-	
-\begin{itemize}
-	\item Beschreibt sämtliche Komponenten der Elektrotechnik, welche für Ingenieure relevant sein können.
-	\item Sehr ausführliche Beschreibung der Struktur und Aufbau von LEDs und auch speziell OLED-Displays.
-	\item Nennt weitere Displaytypen und Alternativen im Vergleich zu OLED.
-\end{itemize}
-	
-	\item 	\textbf{Ansteuerung:} Sehr gute inoffizielle Anleitung zum Basteln mit dem Arduino und viele Anwendungsbeispiele bietet das Buch 	
-	\glqq \textit{Arduino-Kompendium}\grqq \cite{Schreiter.2019}. 
-	
-	\begin{itemize}
-		\item Bietet eine Vielzahl von Kurzanleitungen zu vielen Sensoren und Komponenten die teilweise im offiziellen Handbuch von Arduino fehlen.
-		\item Enthält viele Praxisprojekte zum Nachbauen
-	\end{itemize}
-		
-	
-	\item \textbf{Anzeigemöglichkeiten auf dem OLED-Display}: Um herauszufinden was man alles mit dem OLED-Display machen kann, ist die Dokumentation der Adafruit\_GFX.h Bibliothek zu empfehlen. \href{https://learn.adafruit.com/adafruit-gfx-graphics-library}{learn.adafruit.com/adafruit-gfx-graphics-library}. 
-	Auf der Webseite werden sämtliche Funktionen der Bibliothek dokumentiert sowie weitere Bibliotheken verlinkt, die für Funktionen des OLED-Displays kompatibel sind.
-	\begin{itemize}
-		\item Anzeigen von Bildern, Animationen oder Texten auf dem Display
-		\item Laden und nutzen von größeren Dateien in den RAM von externen Speichergeräten wie einer SD-Karte
-		\item Weitere Bibliotheken von Adafruit 
-	\end{itemize}
-
-\end{itemize}
 
 
 
