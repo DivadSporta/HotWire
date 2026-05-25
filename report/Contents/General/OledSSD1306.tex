@@ -9,15 +9,15 @@
 
 \chapter{OLED-Display}\label{sec:OLEDDisplay}
 \section{Allgemein}
-\ac{oled}s (Organic Light Emitting Diodes) stellen eine besondere Form der LED-Technologie dar, bei der jedes Pixel aus eigenständig leuchtenden organischen Leuchtdioden besteht. Im Gegensatz zu LCDs mit LED-Hintergrundbeleuchtung benötigen OLEDs keine Hintergrundbeleuchtung oder LC-Zellen, da die einzelnen Pixel selbst Licht erzeugen. Dies ermöglicht nicht nur eine besonders flache Bauweise, sondern auch eine exakte Steuerung einzelner Bildpunkte – inklusive vollständigem Abschalten für tiefstes Schwarz und hohen Kontrast.
+Ein \ac{oled} stellt eine besondere Form der LED-Technologie dar, bei der jedes Pixel aus eigenständig leuchtenden organischen Leuchtdioden besteht. Im Gegensatz zu LCDs mit LED-Hintergrundbeleuchtung benötigen OLEDs keine Hintergrundbeleuchtung oder LC-Zellen, da die einzelnen Pixel selbst Licht erzeugen. Dies ermöglicht nicht nur eine besonders flache Bauweise, sondern auch eine exakte Steuerung einzelner Bildpunkte – inklusive vollständigem Abschalten für tiefstes Schwarz und hohen Kontrast.
 
-Ein wesentlicher Vorteil gegenüber LCD-Technologien ist die deutlich schnellere Reaktionszeit: Helligkeitsänderungen erfolgen bei OLEDs in unter einer Mikrosekunde. Auch der Farbraum und Kontrastumfang sind bei OLED-Bildschirmen in der Regel erweitert. Allerdings ist die Lebensdauer einzelner OLEDs im Vergleich zu anderen Bildschirmtechnologien tendenziell geringer, obwohl bereits von Betriebszeiten im Bereich von 15 Jahren gesprochen wird. 
+Ein wesentlicher Vorteil gegenüber LCD-Technologien ist die deutlich schnellere Reaktionszeit: Helligkeitsänderungen erfolgen bei OLEDs in unter einer Mikrosekunde. Auch der Farbraum und Kontrastumfang sind bei OLED-Bildschirmen erweitert.
 In der Praxis kommen verschiedene OLED-Technologien zum Einsatz, insbesondere RGB-SBS-AMOLED (mit drei nebeneinander angeordneten Farb-OLEDs pro Pixel) und WOLED (weiße OLEDs mit nachgeschalteten Farbfiltern). OLED-Elemente werden meist im Dünnschichtverfahren hergestellt, was die Produktion vereinfacht.\cite{Stotz:2019}
 
 
 
 S\section{OLED-Display mit SSD1306 Controller}
-Das \ac{oled}-Display mit dem Controller SSD1306 dient der Ausgabe von Messwerten des Arduinos. Es besitzt Abmessungen von 27 x 27 mm und überzeugt durch seinen hohen Kontrast sowie gute Lesbarkeit. Die Darstellung erfolgt in blauer Farbe. Angesteuert wird das Display über die I\textsuperscript{2}C-Schnittstelle (Pins VCC, GND, SCL, SDA) und benötigt eine Betriebsspannung von 3,3 V bis 5 V. Der zulässige Betriebstemperaturbereich liegt zwischen -30 °C und +70 °C. Für die Ansteuerung kommt die U8glib-Bibliothek zum Einsatz, welche eine Vielzahl von Grafikfunktionen für \ac{oled}-Displays mit SSD1306-Controller bereitstellt.\cite{Velleman:WPI438}
+Das \ac{oled}-Display mit dem Controller SSD1306 dient der Ausgabe von Messwerten des Arduinos. Es besitzt Abmessungen von 27 x 27 mm und überzeugt durch seinen hohen Kontrast sowie gute Lesbarkeit. Die Darstellung erfolgt in blauer Farbe. Angesteuert wird das Display über die I\textsuperscript{2}C-Schnittstelle (Pins VCC, GND, SCL, SDA) und benötigt eine Betriebsspannung von 3,3 V bis 5 V. Der zulässige Betriebstemperaturbereich liegt zwischen -30 °C und +70 °C. Für die Ansteuerung kommt die Adafruit\_GFX-Bibliothek zum Einsatz, welche eine Vielzahl von Grafikfunktionen für \ac{oled}-Displays mit SSD1306-Controller bereitstellt.\cite{Velleman:WPI438}
 
 \begin{longtable}[h]{|p{5cm}|p{8cm}|}
 	\caption{Spezifikationen OLED-Display}
@@ -49,12 +49,13 @@ Das \ac{oled}-Display mit dem Controller SSD1306 dient der Ausgabe von Messwerte
 
 
 \subsection{Aufbau und Funktionsweise}
-In der Abbildung \ref{fig:OLEDsketch} wird der Aufbau des OLED-Displays gezeigt. Über die vier Pins kann später die Stromversorgung und Logikspannung des OLED-Displays mit dem Mikrocontroller verbunden werden.
+In der Abbildung \ref{fig:OLEDsketch} wird der Aufbau des OLED-Displays gezeigt. Über die vier Pins wird die Stromversorgung und Logikspannung des OLED-Displays mit dem Mikrocontroller verbunden.
 
 \begin{center}
 	\input{../../tikz/Eigene_Bilder/Oled}
-	\captionof{figure}[OLED-Display]{OLED-Display nach} \href{{../../Datenblaetter/Oled_VMA438_A4V01}{[Oled_VMA438_A4V01.Pdf]}}
-	\label{fig:OLEDsketch}
+	\captionof{figure}[OLED-Display]{OLED-Display nach}\label{fig:OLEDsketch}
+	\href{../../Datenblaetter/Oled_VMA438_A4V01.pdf}{Oled\_VMA438\_A4V01.pdf}
+	
 \end{center}
 
 Bei der Ansteuerung eines OLED-Displays über das I\textsuperscript{2}C-Protokoll übernehmen die beiden Leitungen \ac{sda} und \ac{scl} den seriellen Datenaustausch.
@@ -68,7 +69,7 @@ Das I\textsuperscript{2}C-Protokoll ermöglicht eine einfache, bidirektionale Ko
 
 
 \section{Installation}
-Zur Nutzung des OLED-Displays muss dieses nach mit dem Arduino nach Tabelle \ref{tab:oled_pinbelegung} angeschlossen werden. Bei der Benutzung des Arduino Shields, können Grove-Stecker verwendet werden. 
+Zur Nutzung des OLED-Displays muss dieses mit dem Arduino nach Tabelle \ref{tab:oled_pinbelegung} angeschlossen werden.  
 \begin{longtable}[h]{|p{5cm}|p{8cm}|}
 	\caption{Pinbelegung des OLED-Displays}
 	\label{tab:oled_pinbelegung} \\
@@ -176,15 +177,19 @@ Dieses Arduino-Testprogramm dient zur Initialisierung und Darstellung einfacher 
 	\end{tabular}
 \end{center}
 
-\subsection{Testcode}
+\subsection{Funktionstest}
+
+Alle LEDS gehen an oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+
+\section{Beispiel}
 {
 	\captionof{code}{Testprogramm für das OLED-Display}
 	\label{Code:Test:File:TestOLEDDisplay}
 	\ArduinoExternal{}{../../Code/TestOled/TestOled.ino}  
 }
-\section{Tests}
+\section{Anwendung}
 
-\subsection{Test: Fortschrittsbalken per Taster}
+\subsection{Anwendung}
 
 In diesem Test wird überprüft, ob durch Betätigung eines Tasters eine visuelle Rückmeldung auf dem OLED-Display ausgegeben werden kann. Beim Drücken des Tasters wird ein Fortschrittsbalken von 0 \% bis 100 \% in 10 Schritten angezeigt. 
 
@@ -202,7 +207,7 @@ Das OLED-Display wird über die I\textsuperscript{2}C-Schnittstelle angeschlosse
 	\item SCL an A5
 \end{itemize}
 
-\subsection{Test-Code}
+\subsection{Anwendung}
 
 Im \PYTHON{loop()} wird der Zustand des Tasters abgefragt. Da \PYTHON{INPUT\_PULLUP} verwendet wird, entspricht \PYTHON{LOW} einem gedrückten Taster.
 
