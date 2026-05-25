@@ -103,19 +103,7 @@ Die Versorgung der Last erfolgt über die Schraubklemmen VIN und VOUT \cite{JoyI
 Für das MOSFET PWM-Schaltmodul wird keine zusätzliche Bibliothek benötigt. 
 Die Ansteuerung erfolgt über die Standardfunktionen der Arduino-IDE.
 
-\subsection{Installation}
 
-Das Modul wird mit einem PWM-fähigen Ausgang des Mikrocontrollers verbunden.
-
-\begin{itemize}
-	\item SIG $\rightarrow$ PWM-Ausgang des Mikrocontrollers
-	\item VCC $\rightarrow$ Versorgungsspannung
-	\item GND $\rightarrow$ gemeinsame Masse
-\end{itemize}
-
-Die Last wird über die Schraubklemmen VIN und VOUT angeschlossen.
-
-Die Masse des Mikrocontrollers und die Masse der externen Spannungsversorgung müssen miteinander verbunden werden, damit ein gemeinsames Bezugspotential vorhanden ist.
 
 \subsection{Funktionen}
 
@@ -152,13 +140,7 @@ Durch die Veränderung des Tastverhältnisses wird die mittlere Leistung der Las
 
 Ein einfacher Arduino-Code kann verwendet werden, um unterschiedliche PWM-Werte zu testen.
 
-\subsection{Dateien}
 
-\begin{itemize}
-	\item MosfetSimpleSwitch.ino
-	\item MosfetPWMTest.ino
-	\item MosfetHotwireTest.ino
-\end{itemize}
 
 \section{Kalibrierung}
 

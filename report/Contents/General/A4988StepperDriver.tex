@@ -48,6 +48,14 @@ Dies ist wichtig, da der Motor mit einer höheren Versorgungsspannung betrieben 
 
 Zusätzlich verfügt der Treiber über Schutzfunktionen gegen Überstrom, Kurzschluss, Unterspannung und Übertemperatur \cite{Allegro:A4988}.
 
+\subsection{Installation}
+
+Der A4988 wird direkt auf das CNC Shield V3 gesteckt. 
+Bei Verwendung des CNC Shields sind die Anschlüsse für STEP, DIR und ENABLE bereits den jeweiligen Achsen zugeordnet.
+
+Vor dem Anschluss des Motors muss die Strombegrenzung eingestellt werden. 
+Außerdem müssen die Masse des Mikrocontrollers und die Masse der externen Motorspannungsversorgung miteinander verbunden werden.
+
 \section{Spezifikation}
 
 Die technischen Daten des verwendeten A4988 wurden dem Herstellerdatenblatt entnommen \cite{Allegro:A4988}.
@@ -78,13 +86,7 @@ Für den A4988 wird keine zusätzliche Arduino-Bibliothek benötigt.
 Die Ansteuerung erfolgt direkt über digitale Ausgänge des Mikrocontrollers. 
 Im späteren Betrieb des CNC-Hot-Wire-Foam-Cutters erzeugt die GRBL-Firmware die notwendigen STEP- und DIR-Signale.
 
-\subsection{Installation}
 
-Der A4988 wird direkt auf das CNC Shield V3 gesteckt. 
-Bei Verwendung des CNC Shields sind die Anschlüsse für STEP, DIR und ENABLE bereits den jeweiligen Achsen zugeordnet.
-
-Vor dem Anschluss des Motors muss die Strombegrenzung eingestellt werden. 
-Außerdem müssen die Masse des Mikrocontrollers und die Masse der externen Motorspannungsversorgung miteinander verbunden werden.
 
 \subsection{Funktionen}
 
