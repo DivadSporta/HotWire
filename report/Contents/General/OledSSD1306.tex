@@ -17,7 +17,7 @@ In der Praxis kommen verschiedene OLED-Technologien zum Einsatz, insbesondere RG
 
 
 S\section{OLED-Display mit SSD1306 Controller}
-Das \ac{oled}-Display mit dem Controller SSD1306 dient der Ausgabe von Messwerten des Arduinos. Es besitzt Abmessungen von 27 x 27 mm und überzeugt durch seinen hohen Kontrast sowie gute Lesbarkeit. Die Darstellung erfolgt in blauer Farbe. Angesteuert wird das Display über die I\textsuperscript{2}C-Schnittstelle (Pins VCC, GND, SCL, SDA) und benötigt eine Betriebsspannung von 3,3 V bis 5 V. Der zulässige Betriebstemperaturbereich liegt zwischen -30 °C und +70 °C. Für die Ansteuerung kommt die U8glib-Bibliothek zum Einsatz, welche eine Vielzahl von Grafikfunktionen für \ac{oled}-Displays mit SSD1306-Controller bereitstellt.\cite{Velleman:WPI438} (datasheet)
+Das \ac{oled}-Display mit dem Controller SSD1306 dient der Ausgabe von Messwerten des Arduinos. Es besitzt Abmessungen von 27 x 27 mm und überzeugt durch seinen hohen Kontrast sowie gute Lesbarkeit. Die Darstellung erfolgt in blauer Farbe. Angesteuert wird das Display über die I\textsuperscript{2}C-Schnittstelle (Pins VCC, GND, SCL, SDA) und benötigt eine Betriebsspannung von 3,3 V bis 5 V. Der zulässige Betriebstemperaturbereich liegt zwischen -30 °C und +70 °C. Für die Ansteuerung kommt die U8glib-Bibliothek zum Einsatz, welche eine Vielzahl von Grafikfunktionen für \ac{oled}-Displays mit SSD1306-Controller bereitstellt.\cite{Velleman:WPI438}
 
 \begin{longtable}[h]{|p{5cm}|p{8cm}|}
 	\caption{Spezifikationen OLED-Display}
@@ -108,14 +108,14 @@ Für die Verwendung des OLED-Displays sind die folgenden aufgelisteten Bibliothe
 \end{center}
 
 \subsection{Wire.h}
-Die Bibliothek Wire.h ist eine Standardbibliothek für Arduino-Plattformen, welche Funktionen und Methoden für die Kommunikation zur Verfügung stellt. Mit Hilfe der Schnittstelle I\textsuperscript{2}C ermöglicht die Bibliothek die Kommunikation zwischen einem Arduino und einem anderen I\textsuperscript{2}C-fähigen Gerät wie z.B. Sensoren oder Displays. I\textsuperscript{2}C ist ein Kommunikationsbus, der im Vergleich zu seriellen Schnittstellen den Vorteil hat, dass er mit mehr als zwei Geräten kommunizieren kann. Ein I\textsuperscript{2}C-Bus benötigt zwei Leitungen: SCL für ein Taktsignal und SDA für Daten.
+Die Bibliothek Wire.h ist eine Standardbibliothek für Arduino-Plattformen, welche Funktionen und Methoden für die Kommunikation zur Verfügung stellt. Mit Hilfe der Schnittstelle I\textsuperscript{2}C ermöglicht die Bibliothek die Kommunikation zwischen einem Arduino und einem anderen I\textsuperscript{2}C-fähigen Gerät wie z.B. Sensoren oder Displays. I\textsuperscript{2}C ist ein Kommunikationsbus, der im Vergleich zu seriellen Schnittstellen den Vorteil hat, dass er mit mehr als zwei Geräten kommunizieren kann. Ein I\textsuperscript{2}C-Bus benötigt zwei Leitungen: SCL für ein Taktsignal und SDA für Daten.\cite{arduinoLibraries:2025}
 
 \subsection{Adafruit\_GFX.h}
 Die Adafruit\_GFX-Bibliothek bietet grundlegende Grafikfunktionen für viele verschiedene LCD- und OLED-Displays sowie LED-Matrizen von Adafruit. Sie sorgt dafür, dass Programme leicht zwischen unterschiedlichen Displays angepasst werden können. Neue Funktionen und Verbesserungen gelten automatisch für alle unterstützten Displays.
-Die Bibliothek wird immer zusammen mit einer weiteren Bibliothek verwendet, die speziell für das jeweilige Display gedacht ist, für unser spezifisches OLED-Display, welches den Controller-Chip SSD1306 verwendet, muss die Adafruit\_SSD1306.h Bibliothek ebenfalls mit eingebunden werden.
+Die Bibliothek wird immer zusammen mit einer weiteren Bibliothek verwendet, die speziell für das jeweilige Display gedacht ist, für unser spezifisches OLED-Display, welches den Controller-Chip SSD1306 verwendet, muss die Adafruit\_SSD1306.h Bibliothek ebenfalls mit eingebunden werden.\cite{AdafruitGFX:2023}
 
 \subsubsection{Adafruit\_SSD1306.h}
-Die Adafruit\_SSD1306 Bibliothek ist speziell für OLED-Displays mit dem SSD1306-Controller entwickelt worden. Sie arbeitet zusammen mit der Adafruit\_GFX-Bibliothek und ermöglicht die Ansteuerung und Darstellung von Grafiken und Text auf dem Display.
+Die Adafruit\_SSD1306 Bibliothek ist speziell für OLED-Displays mit dem SSD1306-Controller entwickelt worden. Sie arbeitet zusammen mit der Adafruit\_GFX-Bibliothek und ermöglicht die Ansteuerung und Darstellung von Grafiken und Text auf dem Display.\cite{AdafruitGFX:2023}
 
 
 %\subsection{Kalibrierung}
