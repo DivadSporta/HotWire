@@ -47,13 +47,20 @@ Im Projekt wird ein CNC Shield V3 für Arduino verwendet.
 Das Shield wird auf einen Arduino Uno gesteckt und dient als Verbindungsebene zwischen Mikrocontroller, Schrittmotortreibern und Schrittmotoren. 
 Es besitzt Steckplätze für bis zu vier Motortreiber und kann dadurch mehrere Achsen eines kleinen CNC-Systems ansteuern \cite{JoyIT:CNCShield:Datenblatt}.
 
-Für den CNC-Hot-Wire-Foam-Cutter werden insbesondere die Achsausgänge des Shields genutzt. 
+Für das Projekt werden insbesondere die Achsausgänge des Shields genutzt. 
 Die Achsen bewegen den Heizdraht beziehungsweise den Schneidrahmen entlang der programmierten Bahn. 
 Die Bewegung muss gleichmäßig erfolgen, damit der Draht das Material sauber schneiden kann.
 
 Das Shield stellt außerdem Anschlüsse für Endschalter bereit. 
 Diese können für Referenzfahrten oder zur Begrenzung der Achsbewegungen verwendet werden. 
 Dadurch kann das System sicherer betrieben und eine definierte Ausgangsposition angefahren werden.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.85\textwidth]{../../Images/General/CNCGrafik.png}
+	\caption{Anschlussübersicht des CNC Shield V3}
+	\label{fig:CNCShieldAnschluesse}
+\end{figure}
 
 \section{Spezifikation}
 
@@ -103,6 +110,15 @@ Dabei muss auf die korrekte Ausrichtung des Treibermoduls geachtet werden, da ei
 Der Schrittmotor wird an den Motoranschluss der X-Achse angeschlossen. 
 Die externe Motorspannung wird über die Schraubklemmen des CNC Shields bereitgestellt. 
 Vor dem Einschalten muss die Strombegrenzung des eingesetzten Motortreibers eingestellt werden.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.75\textwidth]{../../Images/General/CNCKit.jpeg}
+	\caption{CNC Shield V3 mit eingesetzten A4988-Schrittmotortreibern}
+	\label{fig:CNCShieldA4988Montage}
+\end{figure}
+
+
 
 \subsection{Erklärung des Beispiel-Codes}
 
