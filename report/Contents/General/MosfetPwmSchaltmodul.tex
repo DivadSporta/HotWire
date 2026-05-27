@@ -17,10 +17,10 @@
 \section{Einleitung}
 
 Das MOSFET PWM-Schaltmodul dient zur Steuerung elektrischer Lasten mit Hilfe eines Mikrocontrollers. 
-MOSFET-Module werden in der Leistungselektronik eingesetzt, da sie hohe Ströme bei geringem Steuerstrom schalten können. Dadurch eignen sie sich besonders zur direkten Ansteuerung durch Mikrocontroller \cite{Alles:2024}.
+MOSFET-Module werden in der Leistungselektronik eingesetzt, da sie hohe Ströme bei geringem Steuerstrom schalten können. Dadurch eignen sie sich zur direkten Ansteuerung durch Mikrocontroller \cite{Alles:2024}.
 
 Durch die Ansteuerung mit Pulsweitenmodulation (PWM) kann die mittlere Leistung eines Verbrauchers geregelt werden. 
-Dadurch eignen sich MOSFET-Module besonders für Anwendungen wie Motorsteuerungen, Heizsysteme oder LED-Dimmer \cite{Tietze:2023}.
+Dadurch lassen sich Motoren, Heizsysteme oder LED-Schaltungen gezielt steuern \cite{Tietze:2023}.
 
 \section{Grundlegende Informationen}
 
@@ -31,7 +31,6 @@ Ein MOSFET besitzt die drei Anschlüsse Gate, Drain und Source.
 Der Source-Anschluss dient als Bezugspotential, der Drain-Anschluss ist mit der zu schaltenden Last verbunden.
 Über den Gate-Anschluss wird die Leitfähigkeit zwischen Drain und Source gesteuert. 
 Liegt eine ausreichende Gate-Source-Spannung an, entsteht ein leitfähiger Kanal, durch den Strom fließen kann \cite{Tietze:2023}.
-
 
 Zur Leistungsregelung wird die Pulsweitenmodulation verwendet. 
 Dabei wird ein Verbraucher periodisch ein- und ausgeschaltet. 
@@ -48,33 +47,51 @@ Das Modul dient zur Schaltung und Regelung von Gleichstromverbrauchern über ein
 Auf dem Modul ist ein Leistungs-MOSFET vom Typ IRF9540N verbaut. 
 Durch den geringen Durchlasswiderstand können höhere Ströme mit vergleichsweise geringer Verlustleistung geschaltet werden.
 
-Das MOSFET-Modul kann mit Mikrocontrollern angesteuert werden und eignet sich zur Steuerung von Lasten mit höherer Stromaufnahme \cite{JoyITMOSFET:2025}.
+Das MOSFET-Modul wird mit einem Mikrocontroller angesteuert und eignet sich zur Steuerung von Lasten mit höherer Stromaufnahme \cite{JoyITMOSFET:2025}.
 
 \section{Spezifikation}
 
 Die technischen Daten wurden dem Datenblatt des Herstellers entnommen \cite{JoyITMOSFET:2025}.
 
-\begin{itemize}
-	\item Eingangsspannung: DC 5\,V bis 36\,V
-	\item Steuerspannung: 3,3\,V bis 20\,V
-	\item PWM-Frequenzbereich: 0\,kHz bis 20\,kHz
-	\item Maximale Ausgangsleistung: 400\,W
-	\item Maximaler Dauerstrom: 15\,A
-	\item Betriebstemperatur: -40\,°C bis +85\,°C
-	\item Abmessungen: 34\,mm $\times$ 17\,mm $\times$ 12\,mm
-\end{itemize}
+\begin{table}[htbp]
+	\centering
+	\caption{Technische Daten des MOSFET PWM-Schaltmoduls}
+	\label{tab:mosfet_specification}
+	\begin{tabular}{ll}
+		\hline
+		\textbf{Eigenschaft} & \textbf{Wert} \\
+		\hline
+		Eingangsspannung & DC 5\,V bis 36\,V \\
+		Steuerspannung & 3,3\,V bis 20\,V \\
+		PWM-Frequenzbereich & 0\,kHz bis 20\,kHz \\
+		Maximale Ausgangsleistung & 400\,W \\
+		Maximaler Dauerstrom & 15\,A \\
+		Betriebstemperatur & -40\,°C bis +85\,°C \\
+		Abmessungen & 34\,mm $\times$ 17\,mm $\times$ 12\,mm \\
+		\hline
+	\end{tabular}
+\end{table}
 
 \subsection{Eigenschaften des IRF9540N}
 
 Der verwendete IRF9540N besitzt folgende Eigenschaften:
 
-\begin{itemize}
-	\item p-Kanal-Leistungs-MOSFET
-	\item Einsatz als elektronischer Schalter
-	\item hoher Eingangswiderstand
-	\item geringer Drain-Source-Durchlasswiderstand
-	\item geeignet für PWM-Anwendungen
-\end{itemize}
+\begin{table}[htbp]
+	\centering
+	\caption{Eigenschaften des verwendeten IRF9540N}
+	\label{tab:mosfet_irf9540n}
+	\begin{tabular}{ll}
+		\hline
+		\textbf{Eigenschaft} & \textbf{Beschreibung} \\
+		\hline
+		MOSFET-Typ & p-Kanal-Leistungs-MOSFET \\
+		Funktion & elektronischer Schalter \\
+		Eingangsverhalten & hoher Eingangswiderstand \\
+		Leitverhalten & geringer Drain-Source-Durchlasswiderstand \\
+		Anwendung & geeignet für PWM-Anwendungen \\
+		\hline
+	\end{tabular}
+\end{table}
 
 Der MOSFET wird auf dem Modul zur Schaltung der angeschlossenen Last verwendet.
 
@@ -83,15 +100,15 @@ Der MOSFET wird auf dem Modul zur Schaltung der angeschlossenen Last verwendet.
 Das Modul besitzt folgende Anschlüsse:
 
 \begin{itemize}
-	\item SIG
-	\item VCC
-	\item GND
-	\item VIN
-	\item VOUT
+	\item \PYTHON{SIG}
+	\item \PYTHON{VCC}
+	\item \PYTHON{GND}
+	\item \PYTHON{VIN}
+	\item \PYTHON{VOUT}
 \end{itemize}
 
-Das PWM-Steuersignal wird über den SIG-Anschluss eingespeist. 
-Die Versorgung der Last erfolgt über die Schraubklemmen VIN und VOUT \cite{JoyITMOSFET:2025}.
+Das PWM-Steuersignal wird über den Anschluss \PYTHON{SIG} eingespeist. 
+Die Versorgung der Last erfolgt über die Schraubklemmen \PYTHON{VIN} und \PYTHON{VOUT} \cite{JoyITMOSFET:2025}.
 
 \section{Bibliothek}
 
@@ -100,21 +117,19 @@ Die Versorgung der Last erfolgt über die Schraubklemmen VIN und VOUT \cite{JoyI
 Für das MOSFET PWM-Schaltmodul wird keine zusätzliche Bibliothek benötigt. 
 Die Ansteuerung erfolgt über die Standardfunktionen der Arduino-IDE.
 
-
-
 \subsection{Funktionen}
 
-Zur Steuerung des Moduls können folgende Arduino-Funktionen verwendet werden:
+Zur Steuerung des Moduls werden folgende Arduino-Funktionen verwendet:
 
 \begin{itemize}
-	\item \texttt{pinMode()}
-	\item \texttt{digitalWrite()}
-	\item \texttt{analogWrite()}
-	\item \texttt{delay()}
+	\item \PYTHON{pinMode()}: Konfiguriert einen Pin als Ein- oder Ausgang.
+	\item \PYTHON{digitalWrite()}: Setzt einen digitalen Ausgang auf \PYTHON{HIGH} oder \PYTHON{LOW}.
+	\item \PYTHON{analogWrite()}: Gibt ein PWM-Signal an einem PWM-fähigen Pin aus.
+	\item \PYTHON{delay()}: Erzeugt eine zeitliche Verzögerung im Programmablauf.
 \end{itemize}
 
-Mit \texttt{digitalWrite()} kann die Last ein- oder ausgeschaltet werden. 
-Mit \texttt{analogWrite()} kann ein PWM-Signal erzeugt werden, wodurch sich die mittlere Ausgangsleistung regeln lässt.
+Mit \PYTHON{digitalWrite()} wird die Last ein- oder ausgeschaltet. 
+Mit \PYTHON{analogWrite()} wird ein PWM-Signal erzeugt, wodurch sich die mittlere Ausgangsleistung regeln lässt.
 
 \section{Beispiel}
 
@@ -122,48 +137,57 @@ In diesem Beispiel wird eine elektrische Last über ein PWM-Signal angesteuert.
 
 \subsection{Versuchsaufbau}
 
-Das PWM-Signal des Mikrocontrollers wird mit dem SIG-Eingang des MOSFET-Moduls verbunden. 
-Die Last wird über die Schraubklemmen mit einer externen Spannungsversorgung verbunden.
+Das PWM-Signal des Mikrocontrollers wird mit dem Eingang \PYTHON{SIG} des MOSFET-Moduls verbunden. 
+Der Anschluss \PYTHON{GND} des Moduls muss mit \PYTHON{GND} des Mikrocontrollers verbunden werden, damit beide Schaltungen ein gemeinsames Bezugspotential besitzen. 
+Die Last wird über die Schraubklemmen \PYTHON{VIN} und \PYTHON{VOUT} mit einer externen Spannungsversorgung verbunden. 
+Die externe Versorgung muss zur angeschlossenen Last passen und den erforderlichen Strom liefern können.
 
-Als Testlast kann zunächst eine LED mit Vorwiderstand oder eine kleine Gleichstromlampe verwendet werden.
+Als Testlast kann zunächst eine LED mit Vorwiderstand oder eine kleine Gleichstromlampe verwendet werden. 
+Eine leistungsstarke Last, beispielsweise ein Heizdraht, sollte erst nach erfolgreichem Funktionstest angeschlossen werden.
 
 \subsection{Funktionsweise des Beispiels}
 
-Der Mikrocontroller erzeugt mit der Funktion \texttt{analogWrite()} ein PWM-Signal. 
+Der Mikrocontroller erzeugt mit der Funktion \PYTHON{analogWrite()} ein PWM-Signal. 
 Das MOSFET-Modul schaltet dadurch den Stromfluss periodisch ein und aus. 
 Durch die Veränderung des Tastverhältnisses wird die mittlere Leistung der Last beeinflusst.
 
-\subsection{Code}
+\subsection{Einfacher Code}
 
-Ein einfacher Arduino-Code kann verwendet werden, um unterschiedliche PWM-Werte zu testen.
+Der folgende Code dient als einfacher Funktionstest des MOSFET PWM-Schaltmoduls. 
+Dabei wird der Steuereingang des Moduls über einen digitalen Ausgang des Mikrocontrollers geschaltet.
 
+Für den Test wird \PYTHON{SIG} mit dem im Code verwendeten Ausgangspin verbunden. 
+\PYTHON{GND} des MOSFET-Moduls wird mit \PYTHON{GND} des Mikrocontrollers verbunden. 
+Die Testlast wird über die Lastseite des Moduls angeschlossen. 
+Die externe Versorgung wird über \PYTHON{VIN} eingespeist und die Last über \PYTHON{VOUT} geschaltet.
 
-
-\section{Kalibrierung}
-
-Für Anwendungen mit Heizdraht muss ein geeigneter PWM-Wert experimentell bestimmt werden.
-
-Dazu wird die PWM-Stufe schrittweise erhöht, bis die gewünschte Temperatur erreicht wird. 
-Dabei dürfen die zulässige Stromaufnahme des Moduls und die Belastbarkeit der Spannungsversorgung nicht überschritten werden.
-
-\section{Einfacher Code}
-
-Der folgende Code prüft, ob das MOSFET PWM-Schaltmodul eine Last ein- und ausschalten kann.
-
-\begin{code}
+\begin{code}[H]
 	\captionof{code}{Einfacher Funktionstest des MOSFET PWM-Schaltmoduls}
 	\label{Code:MosfetSimpleSwitch}
 	\ArduinoExternal{}{../../Code/MosfetSimpleSwitch/MosfetSimpleSwitch.ino}
 \end{code}
 
+
+
+\section{Kalibrierung}
+
+Für die Ansteuerung eines Heizdrahts muss ein geeigneter PWM-Wert experimentell bestimmt werden.
+
+Dazu wird die PWM-Stufe schrittweise erhöht, bis die gewünschte Temperatur erreicht wird. 
+Dabei dürfen die zulässige Stromaufnahme des Moduls und die Belastbarkeit der Spannungsversorgung nicht überschritten werden.
+
 \section{Einfache Anwendung}
 
-Das MOSFET PWM-Schaltmodul kann zur Regelung von Gleichstromverbrauchern wie Heizdrähten, Motoren oder LED-Beleuchtungen verwendet werden.
+Das MOSFET PWM-Schaltmodul kann im Projekt zur Regelung eines Gleichstromverbrauchers eingesetzt werden. 
+Eine mögliche Anwendung ist die Leistungsregelung eines Heizdrahts über PWM. 
+Dadurch wird die Drahttemperatur an den verwendeten Werkstoff und die gewünschte Schnittgeschwindigkeit angepasst.
 
-Für einen CNC-Hot-Wire-Foam-Cutter kann das Modul die Leistung des Heizdrahts über PWM verändern. 
-Dadurch kann die Temperatur des Drahts an das verwendete Material angepasst werden.
+Der folgende Code gibt ein PWM-Signal an das MOSFET-Modul aus. 
+Der Steuereingang \PYTHON{SIG} wird dazu mit einem PWM-fähigen Ausgang des Mikrocontrollers verbunden. 
+\PYTHON{GND} des Moduls und \PYTHON{GND} des Mikrocontrollers müssen verbunden sein. 
+Die Lastversorgung wird an \PYTHON{VIN} angeschlossen, während der Verbraucher über \PYTHON{VOUT} geschaltet wird.
 
-\begin{code}
+\begin{code}[H]
 	\captionof{code}{PWM-Test des MOSFET PWM-Schaltmoduls}
 	\label{Code:MosfetPWMTest}
 	\ArduinoExternal{}{../../Code/MosfetPWMTest/MosfetPWMTest.ino}
@@ -176,30 +200,27 @@ Dadurch kann die Temperatur des Drahts an das verwendete Material angepasst werd
 Beim einfachen Funktionstest wird eine Testlast angeschlossen. 
 Das Modul wird für mehrere Sekunden eingeschaltet und anschließend wieder ausgeschaltet.
 
-Dabei wird überprüft:
-
-\begin{itemize}
-	\item ob die Last korrekt schaltet
-	\item ob die Verdrahtung korrekt ist
-	\item ob sich das Modul ungewöhnlich stark erwärmt
-\end{itemize}
+Dabei wird überprüft, ob die Last korrekt schaltet, ob die Verdrahtung passend ausgeführt wurde und ob sich das Modul während des kurzen Tests auffällig erwärmt. 
+Der Test gilt als bestanden, wenn die Last eindeutig ein- und ausgeschaltet wird und keine unzulässige Erwärmung an Modul, Leitungen oder Anschlüssen auftritt.
 
 \subsection{Test aller Funktionen}
 
 Beim vollständigen Test werden mehrere PWM-Werte nacheinander ausgegeben. 
-Dabei wird überprüft, ob sich die Leistung der Last sichtbar oder messbar verändert.
+Dabei wird überprüft, ob sich die Leistung der angeschlossenen Last abhängig vom Tastverhältnis verändert. 
+Bei kleinen PWM-Werten muss die Last nur mit geringer Leistung betrieben werden, während bei höheren PWM-Werten eine deutlich stärkere Wirkung erkennbar sein muss.
 
-Für den Test werden folgende Punkte kontrolliert:
+Zusätzlich wird kontrolliert, ob das Modul bei einem digitalen Schaltsignal zuverlässig ein- und ausschaltet. 
+Dazu wird die Last zunächst vollständig ausgeschaltet und anschließend für eine definierte Zeit eingeschaltet. 
+Während des Tests werden die Erwärmung des MOSFET-Moduls, die Erwärmung der Anschlussleitungen und die Stromaufnahme der Last beobachtet. 
 
-\begin{itemize}
-	\item Schalten der Last bei digitalem Signal
-	\item Veränderung der Lastleistung bei verschiedenen PWM-Werten
-	\item Erwärmung des MOSFET-Moduls
-	\item Erwärmung der Anschlussleitungen
-	\item Stromaufnahme der Last
-\end{itemize}
+Der folgende Code testet die Heizdrahtansteuerung mit dem MOSFET PWM-Schaltmodul. 
+Dabei werden ein PWM-fähiger Ausgang des Mikrocontrollers, der Steuereingang \PYTHON{SIG}, die gemeinsame Masseverbindung und die Lastseite des Moduls geprüft.
 
-\begin{code}
+Der Heizdraht wird über die Lastseite des Moduls geschaltet. 
+\PYTHON{SIG} wird mit dem verwendeten PWM-Ausgang des Mikrocontrollers verbunden. 
+Zusätzlich wird \PYTHON{GND} des Moduls mit \PYTHON{GND} des Mikrocontrollers verbunden.
+
+\begin{code}[H]
 	\captionof{code}{Testprogramm für die Heizdrahtansteuerung}
 	\label{Code:MosfetHotwireTest}
 	\ArduinoExternal{}{../../Code/MosfetHotwireTest/MosfetHotwireTest.ino}

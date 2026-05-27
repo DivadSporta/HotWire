@@ -14,79 +14,91 @@
 % Structure
 \chapter{DC-DC-Abwärtswandler}
 
-In elektronischen Systemen werden variable Spannungsbereiche benötigt. Mikrocontroller, Sensoren und weitere elektronische Baugruppen arbeiten mit niedrigen Gleichspannungen wie 3,3\,V oder 5\,V, während andere Komponenten höhere Versorgungsspannungen benötigen. Spannungswandler ermöglichen die Anpassung vorhandener Versorgungsspannungen an die jeweiligen Verbraucher.
+In elektronischen Systemen werden unterschiedliche Spannungsbereiche benötigt. 
+Mikrocontroller, Sensoren und weitere elektronische Baugruppen arbeiten mit niedrigen Gleichspannungen wie 3,3\,V oder 5\,V, während andere Komponenten höhere Versorgungsspannungen benötigen. 
+Spannungswandler ermöglichen die Anpassung vorhandener Versorgungsspannungen an die jeweiligen Verbraucher.
 
-Für die Versorgung von Mikrocontrollern und Logikschaltungen wird häufig ein DC-DC-Abwärtswandler verwendet. Dieser reduziert eine höhere Eingangsspannung auf eine stabile Ausgangsspannung. Im Projekt wird hierfür ein Buck-Converter-Modul auf Basis des LM2596 beziehungsweise MP2307 eingesetzt.
+Für die Versorgung von Mikrocontrollern und Logikschaltungen wird ein DC-DC-Abwärtswandler eingesetzt. 
+Dieser reduziert eine höhere Eingangsspannung auf eine stabile Ausgangsspannung. 
+Im Projekt wird hierfür ein Buck-Converter-Modul auf Basis des LM2596 beziehungsweise MP2307 verwendet.
 
-Der Arduino Uno kann über den VIN-Anschluss mit einer Eingangsspannung von bis zu 20\,V betrieben werden. Für den direkten Betrieb der Logikschaltungen wird jedoch eine stabile Versorgungsspannung von 5\,V benötigt. \cite{Arduino:Uno} Der eingesetzte DC-DC-Abwärtswandler übernimmt daher die Spannungsanpassung zwischen Netzteil und Mikrocontroller.
+Der Arduino Uno kann laut Datenblatt über den VIN-Anschluss mit einer Eingangsspannung von 6\,V bis 20\,V betrieben werden. 
+Für den direkten Betrieb der Logikschaltungen wird jedoch eine stabile Versorgungsspannung von 5\,V benötigt \cite{Arduino:Uno}. 
+Der eingesetzte DC-DC-Abwärtswandler übernimmt daher die Spannungsanpassung zwischen Netzteil und Mikrocontroller.
 
-Im Gegensatz zu linearen Spannungsreglern arbeitet ein Abwärtswandler im Schaltbetrieb. Dadurch entstehen geringere Verlustleistungen und eine reduzierte Wärmeentwicklung. Gleichzeitig werden hohe Wirkungsgrade erreicht. \cite{Schlienz:2020}
-
-%\section{General}
+Im Gegensatz zu linearen Spannungsreglern arbeitet ein Abwärtswandler im Schaltbetrieb. 
+Dadurch entstehen geringere Verlustleistungen und eine reduzierte Wärmeentwicklung. 
+Gleichzeitig werden hohe Wirkungsgrade erreicht \cite{Schlienz:2020}.
 
 \section{Eingesetzter Spannungswandler}
 
-Für diese Anwendung wird ein einstellbarer DC-DC-Abwärtswandler verwendet, der auf dem LM2596 beziehungsweise MP2307 basiert. Das Modul reduziert die Eingangsspannung des Netzteils auf eine stabile Ausgangsspannung zur Versorgung des Arduino Uno sowie weiterer elektronischer Baugruppen.
+Für diese Anwendung wird ein einstellbarer DC-DC-Abwärtswandler verwendet, der auf dem LM2596 beziehungsweise MP2307 basiert. 
+Das Modul reduziert die Eingangsspannung des Netzteils auf eine stabile Ausgangsspannung zur Versorgung des Arduino Uno sowie weiterer elektronischer Baugruppen.
 
-Der eingesetzte Wandler besitzt eine kompakte Bauform, hohe Effizienz sowie eine einfache Integration in elektronische Schaltungen. Aufgrund der hohen Strombelastbarkeit eignet sich das Modul für Mikrocontroller-Anwendungen und kleinere elektronische Verbraucher.
+Der eingesetzte Wandler besitzt eine kompakte Bauform, eine hohe Effizienz und lässt sich über Schraubklemmen in die Spannungsversorgung des Projekts integrieren. 
+Aufgrund der Strombelastbarkeit eignet sich das Modul für Mikrocontroller-Anwendungen und kleinere elektronische Verbraucher.
 
 \begin{center}
 	\begin{tikzpicture}[node distance=2cm, auto]
 		\node (netzteil) [draw, rectangle] {24 V DC-Netzteil};
 		\node (wandler) [right of=netzteil, draw, rectangle, node distance=4cm] {LM2596 / MP2307};
-		\node (verbraucher) [right of=wandler, draw, rectangle, node distance=4cm] { 5 V Elektronik};
+		\node (verbraucher) [right of=wandler, draw, rectangle, node distance=4cm] {5 V Elektronik};
 		
 		\draw[->] (netzteil) -- (wandler);
 		\draw[->] (wandler) -- (verbraucher);
 	\end{tikzpicture}
 	\captionof{figure}{Blockschaltbild der Spannungsversorgung}
+	\label{fig:dcdc_blockschaltbild}
 \end{center}
 
 \section{Spezifikation}
 
-Das verwendete Modul besitzt folgende technische Eigenschaften: \cite{MP2307:Datasheet}
+Das verwendete Modul besitzt folgende technische Eigenschaften \cite{MP2307:Datasheet}:
 
 \begin{table}[H]
 	\centering
-	\begin{tabular}{|l|l|}
+	\caption{Technische Spezifikationen des LM2596-/MP2307-Abwärtswandlers}
+	\label{tab:dcdc_specification}
+	\begin{tabular}{ll}
 		\hline
 		\textbf{Eigenschaft} & \textbf{Wert} \\
 		\hline
-		Eingangsspannung & 4,75 - 24 V DC \\
-		\hline
-		Ausgangsspannung & 0,93 - 18 V DC \\
-		\hline
-		Ausgangsstrom & bis 2,5 A dauerhaft \\
-		\hline
-		Spitzenstrom & bis 4 A \\
-		\hline
-		Wirkungsgrad & bis zu 98 \% \\
-		\hline
-		Schaltfrequenz & ca. 150 kHz \\
-		\hline
-		Abmessungen & ca. 45 x 32 mm \\
+		Eingangsspannung & 4,75\,V bis 24\,V DC \\
+		Ausgangsspannung & 0,93\,V bis 18\,V DC \\
+		Ausgangsstrom & bis 2,5\,A dauerhaft \\
+		Spitzenstrom & bis 4\,A \\
+		Wirkungsgrad & bis 98\,\% \\
+		Schaltfrequenz & ca. 150\,kHz \\
+		Abmessungen & ca. 45\,mm $\times$ 32\,mm \\
 		\hline
 	\end{tabular}
-	\caption{Technische Spezifikationen des LM2596-/MP2307-Abwärtswandlers}
 \end{table}
 
-Der Arduino Uno unterstützt laut Datenblatt Eingangsspannungen von 6\,V bis 20\,V am VIN-Anschluss. \cite{Arduino:Uno} Die Versorgung über einen externen DC-DC-Wandler reduziert die Belastung des integrierten Spannungsreglers und verbessert die Energieeffizienz des Gesamtsystems. :contentReference[oaicite:0]{index=0}
+Der Arduino Uno unterstützt laut Datenblatt Eingangsspannungen von 6\,V bis 20\,V am Anschluss \PYTHON{VIN} \cite{Arduino:Uno}. 
+Die Versorgung über einen externen DC-DC-Wandler reduziert die Belastung des integrierten Spannungsreglers und verbessert die Energieeffizienz des Gesamtsystems.
 
 \section{Funktionsprinzip}
 
-Ein DC-DC-Abwärtswandler, auch Buck Converter genannt, reduziert eine Gleichspannung auf eine niedrigere Ausgangsspannung. Die Spannungsregelung erfolgt mithilfe eines schnell schaltenden MOSFETs. Durch das periodische Ein- und Ausschalten entsteht ein pulsierender Spannungsverlauf, der durch Induktivitäten und Kondensatoren geglättet wird. \cite{Schlienz:2020}
+Ein DC-DC-Abwärtswandler, auch Buck Converter genannt, reduziert eine Gleichspannung auf eine niedrigere Ausgangsspannung. 
+Die Spannungsregelung erfolgt mithilfe eines schnell schaltenden MOSFETs. 
+Durch das periodische Ein- und Ausschalten entsteht ein pulsierender Spannungsverlauf, der durch Induktivitäten und Kondensatoren geglättet wird \cite{Schlienz:2020}.
 
-Der Betrieb des Abwärtswandlers erfolgt in mehreren Schritten. Zunächst schaltet der MOSFET die Eingangsspannung mit hoher Frequenz ein und aus. Während der Einschaltphase wird Energie in einer Induktivität gespeichert. In der Ausschaltphase gibt die Spule die gespeicherte Energie an den Ausgang ab. Kondensatoren glätten dabei die entstehenden Spannungsschwankungen und stabilisieren die Ausgangsspannung.
+Der Betrieb des Abwärtswandlers erfolgt in mehreren Schritten. 
+Zunächst schaltet der MOSFET die Eingangsspannung mit hoher Frequenz ein und aus. 
+Während der Einschaltphase wird Energie in einer Induktivität gespeichert. 
+In der Ausschaltphase gibt die Spule die gespeicherte Energie an den Ausgang ab. 
+Kondensatoren glätten die entstehenden Spannungsschwankungen und stabilisieren die Ausgangsspannung.
 
-Die Regelung der Ausgangsspannung erfolgt über das Tastverhältnis der Pulsweitenmodulation. Für den idealen Abwärtswandler gilt:
+Die Regelung der Ausgangsspannung erfolgt über das Tastverhältnis der Pulsweitenmodulation. 
+Für den idealen Abwärtswandler gilt:
 
 \[
 \frac{U_a}{U_e} = v_T
 \]
 
-Die Ausgangsspannung \(U_a\) ergibt sich aus der Eingangsspannung \(U_e\) und dem Tastverhältnis \(v_T\) der PWM. Die Ausgangsspannung hängt somit direkt vom Tastverhältnis ab. Durch die hohe Schaltfrequenz kann eine kompakte und effiziente Spannungsregelung realisiert werden. \cite{Schlienz:2020}
-
-
+Die Ausgangsspannung \(U_a\) ergibt sich aus der Eingangsspannung \(U_e\) und dem Tastverhältnis \(v_T\) der PWM. 
+Die Ausgangsspannung hängt somit direkt vom Tastverhältnis ab. 
+Durch die hohe Schaltfrequenz kann eine kompakte und effiziente Spannungsregelung realisiert werden \cite{Schlienz:2020}.
 
 \subsection{Wirkungsgrad}
 
@@ -98,17 +110,20 @@ Der Wirkungsgrad beschreibt das Verhältnis zwischen abgegebener und aufgenommen
 
 Dabei entspricht \(P_{ab}\) der abgegebenen Leistung und \(P_{zu}\) der aufgenommenen Leistung.
 
-Durch den Schaltbetrieb erreicht der Abwärtswandler deutlich höhere Wirkungsgrade als lineare Spannungsregler. Beim verwendeten Modul sind Wirkungsgrade von bis zu 98\,\% möglich. \cite{MP2307:Datasheet}
+Durch den Schaltbetrieb erreicht der Abwärtswandler höhere Wirkungsgrade als lineare Spannungsregler. 
+Beim verwendeten Modul sind Wirkungsgrade von bis zu 98\,\% möglich \cite{MP2307:Datasheet}.
 
 \subsection{Verlustleistungen}
 
-Trotz des hohen Wirkungsgrades entstehen innerhalb des Wandlers verschiedene Verlustleistungen. Dazu gehören Schaltverluste des MOSFETs, ohmsche Leitungsverluste sowie Verluste der Induktivität und der Kondensatoren.
+Trotz des hohen Wirkungsgrades entstehen innerhalb des Wandlers verschiedene Verlustleistungen. 
+Dazu gehören Schaltverluste des MOSFETs, ohmsche Leitungsverluste sowie Verluste der Induktivität und der Kondensatoren.
 
-Die Verlustleistung wird überwiegend in Wärme umgewandelt und führt zu einer Erwärmung der elektronischen Bauteile. Besonders bei höheren Lastströmen müssen diese Verluste berücksichtigt werden. \cite{Schlienz:2020}
+Die Verlustleistung wird überwiegend in Wärme umgewandelt und führt zu einer Erwärmung der elektronischen Bauteile. 
+Besonders bei höheren Lastströmen müssen diese Verluste berücksichtigt werden \cite{Schlienz:2020}.
 
 \section{Schutzvorrichtungen}
 
-Der eingesetzte DC-DC-Wandler verfügt über verschiedene Schutzmechanismen zum Schutz der Elektronik.
+Der eingesetzte DC-DC-Wandler verfügt über Schutzmechanismen zum Schutz der Elektronik.
 
 \subsection{Überstromschutz}
 
@@ -126,30 +141,31 @@ Bei zu hoher Temperatur reduziert der Wandler seine Leistung oder schaltet sich 
 
 Der DC-DC-Abwärtswandler wird über Schraubklemmen mit der Spannungsversorgung und den elektronischen Verbrauchern verbunden.
 
-Anschlussbeschreibung:
+Die Anschlüsse des Moduls sind:
+
 \begin{itemize}
-	\item \textbf{IN+}: positive Eingangsspannung
-	\item \textbf{IN-}: Masse der Eingangsspannung
-	\item \textbf{OUT+}: positive Ausgangsspannung
-	\item \textbf{OUT-}: Masse der Ausgangsspannung
+	\item \PYTHON{IN+}: positive Eingangsspannung
+	\item \PYTHON{IN-}: Masse der Eingangsspannung
+	\item \PYTHON{OUT+}: positive Ausgangsspannung
+	\item \PYTHON{OUT-}: Masse der Ausgangsspannung
 \end{itemize}
 
-Vor dem Anschluss an die Elektronik muss die gewünschte Ausgangsspannung mithilfe des integrierten Potentiometers eingestellt werden.
+Die Eingangsspannung des Netzteils wird an \PYTHON{IN+} und \PYTHON{IN-} angeschlossen. 
+Die reduzierte Ausgangsspannung liegt an \PYTHON{OUT+} und \PYTHON{OUT-} an. 
+Vor dem Anschluss an den Arduino Uno und weitere elektronische Baugruppen wird die Ausgangsspannung mit einem Multimeter geprüft und über das Potentiometer des Wandlers auf 5\,V eingestellt.
 
-Anschließend wird die Ausgangsspannung mit dem Arduino Uno sowie weiteren elektronischen Baugruppen verbunden.
+Anschließend kann die Ausgangsspannung mit dem Arduino Uno sowie weiteren elektronischen Baugruppen verbunden werden. 
+Dabei ist auf eine gemeinsame Masseverbindung der beteiligten Baugruppen zu achten.
 
 \section{Weiterführende Literatur}
 
 \begin{itemize}
 	\item Schlienz, Ulrich: \textit{Schaltnetzteile und ihre Peripherie}. Springer Vieweg, 2020. \cite{Schlienz:2020}
-	
 	\item Erickson, Robert W. und Maksimovic, Dragan: \textit{Fundamentals of Power Electronics}. Springer, 2020.
-	
 	\item Arduino: \textit{Arduino Uno Rev3 Datasheet}. Technisches Datenblatt, 2025. \cite{Arduino:Uno}
-	
 	\item MP2307 / LM2596: \textit{DC-DC Converter Buck Module}. Technisches Datenblatt. \cite{MP2307:Datasheet}
 \end{itemize}
- 
+
 % Schaltung ergänzen
 
 %\section{Messung der Ausgangsspannung}

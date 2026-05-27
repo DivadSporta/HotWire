@@ -17,7 +17,7 @@
 \section{Einleitung}
 
 Für die Ansteuerung der Schrittmotoren im Projekt wird der Schrittmotortreiber A4988 verwendet. 
-Der A4988 ist ein integrierter DMOS-Microstepping-Treiber für bipolare Schrittmotoren und wird in Positioniersystemen, CNC-Systemen und ähnlichen Anwendungen eingesetzt \cite{Allegro:A4988}.
+Der A4988 ist ein integrierter DMOS-Microstepping-Treiber für bipolare Schrittmotoren und wird in Positioniersystemen, CNC-Systemen und vergleichbaren Anwendungen eingesetzt \cite{Allegro:A4988}.
 
 Im Projekt übernimmt der A4988 die Leistungsansteuerung der Achsmotoren. 
 Dadurch können die Bewegungen des Heizdrahts definiert und wiederholbar ausgeführt werden.
@@ -31,9 +31,9 @@ Für die Ansteuerung eines bipolaren Schrittmotors muss die Stromrichtung in den
 Diese Aufgabe wird durch leistungselektronische Schaltungen übernommen \cite{Zach:2022}. 
 Der A4988 enthält hierfür integrierte H-Brücken und eine interne Stromregelung.
 
-Die Ansteuerung erfolgt über die Signale STEP und DIR. 
-Mit jeder steigenden Flanke am STEP-Eingang bewegt der Treiber den Motor um einen Schritt beziehungsweise Mikroschritt weiter. 
-Das DIR-Signal bestimmt die Drehrichtung \cite{Allegro:A4988}.
+Die Ansteuerung erfolgt über die Signale \PYTHON{STEP} und \PYTHON{DIR}. 
+Mit jeder steigenden Flanke am Eingang \PYTHON{STEP} bewegt der Treiber den Motor um einen Schritt beziehungsweise Mikroschritt weiter. 
+Das Signal \PYTHON{DIR} bestimmt die Drehrichtung \cite{Allegro:A4988}.
 
 \section{Spezifischer Treiber}
 
@@ -50,8 +50,8 @@ Zusätzlich verfügt der Treiber über Schutzfunktionen gegen Überstrom, Kurzsc
 
 \subsection{Installation}
 
-Der A4988 wird direkt auf das CNC Shield V3 gesteckt. 
-Bei Verwendung des CNC Shields sind die Anschlüsse für STEP, DIR und ENABLE bereits den jeweiligen Achsen zugeordnet.
+Der A4988 wird direkt auf das CNC-Shield V3 gesteckt. 
+Bei Verwendung des CNC-Shields sind die Anschlüsse für \PYTHON{STEP}, \PYTHON{DIR} und \PYTHON{ENABLE} bereits den jeweiligen Achsen zugeordnet.
 
 Vor dem Anschluss des Motors muss die Strombegrenzung eingestellt werden. 
 Außerdem müssen die Masse des Mikrocontrollers und die Masse der externen Motorspannungsversorgung miteinander verbunden werden.
@@ -60,23 +60,36 @@ Außerdem müssen die Masse des Mikrocontrollers und die Masse der externen Moto
 
 Die technischen Daten des verwendeten A4988 wurden dem Herstellerdatenblatt entnommen \cite{Allegro:A4988}.
 
-\begin{itemize}
-	\item Motorspannung: 8\,V bis 35\,V
-	\item Logikspannung: 3\,V bis 5{,}5\,V
-	\item maximaler Ausgangsstrom: bis $\pm$2\,A
-	\item Schrittmodi: Vollschritt, Halbschritt, Viertelschritt, Achtelschritt und Sechzehntelschritt
-	\item Steuerung über STEP- und DIR-Eingang
-	\item integrierte PWM-Stromregelung
-	\item Schutzfunktionen gegen Übertemperatur, Unterspannung und Überstrom
-\end{itemize}
+\begin{table}[htbp]
+	\centering
+	\caption{Technische Daten des A4988-Schrittmotortreibers}
+	\label{tab:a4988_specification}
+	\begin{tabular}{ll}
+		\hline
+		\textbf{Eigenschaft} & \textbf{Wert} \\
+		\hline
+		Motorspannung & 8\,V bis 35\,V \\
+		Logikspannung & 3\,V bis 5{,}5\,V \\
+		Maximaler Ausgangsstrom & bis $\pm$2\,A \\
+		Schrittmodi & Voll-, Halb-, Viertel-, Achtel- und Sechzehntelschritt \\
+		Steuersignale & \PYTHON{STEP}, \PYTHON{DIR}, \PYTHON{ENABLE} \\
+		Stromregelung & integrierte PWM-Stromregelung \\
+		Schutzfunktionen & Übertemperatur, Unterspannung und Überstrom \\
+		Motortyp & bipolarer Schrittmotor \\
+		\hline
+	\end{tabular}
+\end{table}
 
-Der maximale Motorstrom ergibt sich aus:
+Der maximale Motorstrom ergibt sich aus Gleichung \ref{eq:a4988_itripmax}.
 
-\[
-I_{TripMAX} = \frac{V_{REF}}{8 \cdot R_S}
-\]
+\begin{equation}
+	I_{TripMAX} = \frac{V_{REF}}{8 \cdot R_S}
+	\label{eq:a4988_itripmax}
+\end{equation}
 
-Dabei beschreibt \(R_S\) den Sense-Widerstand und \(V_{REF}\) die Referenzspannung \cite{Allegro:A4988}.
+Dabei beschreibt \(R_S\) den Sense-Widerstand und \(V_{REF}\) die Referenzspannung \cite{Allegro:A4988}. 
+Die Referenzspannung wird am Potentiometer des Treibermoduls eingestellt. 
+Der konkrete Wert von \(R_S\) hängt vom verwendeten A4988-Modul ab und muss am jeweiligen Treiberboard geprüft werden.
 
 \section{Bibliothek}
 
@@ -84,49 +97,69 @@ Dabei beschreibt \(R_S\) den Sense-Widerstand und \(V_{REF}\) die Referenzspannu
 
 Für den A4988 wird keine zusätzliche Arduino-Bibliothek benötigt. 
 Die Ansteuerung erfolgt direkt über digitale Ausgänge des Mikrocontrollers. 
-Im späteren Betrieb des CNC-Hot-Wire-Foam-Cutters erzeugt die GRBL-Firmware die notwendigen STEP- und DIR-Signale.
-
-
+Im späteren Betrieb des Projekts erzeugt die GRBL-Firmware die notwendigen \PYTHON{STEP}- und \PYTHON{DIR}-Signale.
 
 \subsection{Funktionen}
 
 Zur direkten Steuerung des A4988 werden Standardfunktionen der Arduino-IDE verwendet. 
-Mit \texttt{pinMode()} werden die verwendeten Pins als Ausgänge konfiguriert. 
-Mit \texttt{digitalWrite()} werden STEP-, DIR- und ENABLE-Signale ausgegeben. 
-Die Funktion \texttt{delayMicroseconds()} bestimmt die Zeit zwischen den Schrittimpulsen und damit die Drehgeschwindigkeit.
+Mit \PYTHON{pinMode()} werden die verwendeten Pins als Ausgänge konfiguriert. 
+Mit \PYTHON{digitalWrite()} werden \PYTHON{STEP}-, \PYTHON{DIR}- und \PYTHON{ENABLE}-Signale ausgegeben. 
+Die Funktion \PYTHON{delayMicroseconds()} bestimmt die Zeit zwischen den Schrittimpulsen und damit die Drehgeschwindigkeit.
+
+\begin{itemize}
+	\item \PYTHON{pinMode()}: Konfiguriert einen Pin als Ein- oder Ausgang.
+	\item \PYTHON{digitalWrite()}: Setzt einen digitalen Ausgang auf \PYTHON{HIGH} oder \PYTHON{LOW}.
+	\item \PYTHON{delayMicroseconds()}: Erzeugt eine Verzögerung im Mikrosekundenbereich.
+	\item \PYTHON{delay()}: Erzeugt eine Verzögerung im Millisekundenbereich.
+\end{itemize}
 
 \section{Beispiel}
 
-In diesem Abschnitt wird ein einfaches Beispiel beschrieben, das die grundlegende Funktion des A4988 zeigt. 
-Der Mikrocontroller erzeugt Schrittimpulse, die vom Treiber in Motorbewegungen umgesetzt werden.
+In diesem Abschnitt wird ein einfacher Funktionstest des A4988 beschrieben. 
+Der Mikrocontroller erzeugt \PYTHON{STEP}-Impulse, die vom Treiber in eine Motorbewegung umgesetzt werden. 
+Das Beispiel prüft damit die grundlegende Verbindung zwischen Mikrocontroller, Treiber und Schrittmotor.
 
 \subsection{Versuchsaufbau}
 
 Der A4988 wird mit einem bipolaren Schrittmotor verbunden. 
 Die Motorspannung wird über ein externes Netzteil bereitgestellt. 
-Der Arduino erzeugt die STEP- und DIR-Signale. 
-Bei Verwendung des CNC Shield V3 wird der Treiber auf den Steckplatz der gewünschten Achse gesteckt.
+Der Arduino erzeugt die \PYTHON{STEP}- und \PYTHON{DIR}-Signale. 
+Bei Verwendung des CNC-Shield V3 wird der Treiber auf den Steckplatz der gewünschten Achse gesteckt.
+
+Die Anschlüsse der beiden Motorwicklungen werden mit den Motorausgängen des A4988 verbunden. 
+Die Logikseite des Treibers wird mit dem Mikrocontroller verbunden. 
+Dabei werden \PYTHON{STEP}, \PYTHON{DIR} und bei Bedarf \PYTHON{ENABLE} mit digitalen Ausgängen verbunden. 
+Zusätzlich ist eine gemeinsame Masseverbindung zwischen Mikrocontroller, Treiber und externer Motorspannungsversorgung erforderlich.
 
 \subsection{Funktionsweise des Beispiels}
 
-Im Beispiel wird zunächst die Drehrichtung festgelegt. 
-Anschließend werden am STEP-Eingang periodische Impulse ausgegeben. 
+Im Beispiel wird die Drehrichtung über das Signal \PYTHON{DIR} festgelegt. 
+Anschließend werden am Eingang \PYTHON{STEP} periodische Impulse ausgegeben. 
 Jeder Impuls bewegt den Motor um einen Schritt oder Mikroschritt weiter.
 
-\subsection{Code}
+Die Drehgeschwindigkeit hängt von der Frequenz der \PYTHON{STEP}-Impulse ab. 
+Je kürzer die Wartezeit zwischen den Impulsen ist, desto schneller dreht sich der Motor. 
+Zu kurze Wartezeiten können jedoch dazu führen, dass der Motor Schritte verliert oder nicht zuverlässig anläuft.
 
-Für die Dokumentation werden drei Programme verwendet. 
-Das erste Programm prüft die Grundfunktion des Treibers. 
-Das zweite Programm zeigt eine einfache projektbezogene Anwendung. 
-Das dritte Programm dient als vollständiger Funktionstest.
+\subsection{Einfacher Code}
 
-\subsection{Dateien}
+Der einfache Code gehört zu diesem Beispiel und dient zur Überprüfung der Grundfunktion des A4988. 
+Der Motor wird kontinuierlich in eine Richtung bewegt. 
+Dadurch werden die Verdrahtung, die Motorspannungsversorgung, das \PYTHON{STEP}-Signal und die Treiberfunktion geprüft.
 
-\begin{itemize}
-	\item A4988SimpleStep.ino
-	\item A4988FoamCutterAxis.ino
-	\item A4988DriverTest.ino
-\end{itemize}
+Für diesen Test wird der Eingang \PYTHON{STEP} des Treibers mit dem im Code verwendeten digitalen Ausgang verbunden. 
+Der Eingang \PYTHON{DIR} wird ebenfalls mit einem digitalen Ausgang verbunden. 
+Die Motorwicklungen werden an die Motorausgänge des A4988 angeschlossen. 
+Die externe Motorspannung wird an die Versorgungseingänge des Treibermoduls angeschlossen. 
+Die Masse des Mikrocontrollers und die Masse der Motorspannungsversorgung werden miteinander verbunden.
+
+\begin{code}[H]
+	\captionof{code}{Einfacher Funktionstest des A4988-Schrittmotortreibers}
+	\label{Code:A4988SimpleStep}
+	\ArduinoExternal{}{../../Code/A4988SimpleStep/A4988SimpleStep.ino}
+\end{code}
+
+
 
 \section{Kalibrierung}
 
@@ -135,46 +168,47 @@ Die Einstellung erfolgt über ein Potentiometer auf dem Treibermodul.
 
 Eine zu hohe Strombegrenzung führt zu starker Erwärmung und kann eine thermische Abschaltung verursachen. 
 Eine zu niedrige Strombegrenzung kann Schrittverluste verursachen. 
-Für den CNC-Hot-Wire-Foam-Cutter wird die Strombegrenzung so eingestellt, dass der Motor zuverlässig läuft und der Treiber nicht übermäßig heiß wird.
+Für das Projekt wird die Strombegrenzung so eingestellt, dass der Motor zuverlässig läuft und der Treiber nicht übermäßig heiß wird.
 
-\section{Einfacher Code}
-
-Der einfache Code dient zur Überprüfung der Grundfunktion des A4988. 
-Der Motor wird kontinuierlich in eine Richtung bewegt. 
-Dadurch können Verdrahtung, Spannungsversorgung, STEP-Signal und Treiberfunktion überprüft werden.
-
-\begin{code}[H]
-	\captionof{code}{Einfacher Funktionstest des A4988-Schrittmotortreibers}
-	\label{Code:A4988SimpleStep}
-	\ArduinoExternal{}{../../Code/A4988SimpleStep/A4988SimpleStep.ino}
-\end{code}
+Die Einstellung der Strombegrenzung erfolgt über die Referenzspannung \(V_{REF}\). 
+Dazu wird die gewünschte Stromgrenze mit Gleichung \ref{eq:a4988_itripmax} berechnet. 
+Anschließend wird die Referenzspannung am Treibermodul mit einem Multimeter kontrolliert und über das Potentiometer angepasst.
 
 \section{Einfache Anwendung}
 
-Die einfache Anwendung simuliert eine Achsbewegung des CNC-Hot-Wire-Foam-Cutters. 
-Die Achse bewegt sich langsam in Schneidrichtung und anschließend schneller zurück. 
+Die einfache Anwendung simuliert eine Achsbewegung im Projekt. 
+Die Achse bewegt sich langsam in Arbeitsrichtung und anschließend schneller zurück. 
 Dadurch wird der praktische Einsatz des A4988 im Projekt demonstriert.
 
+Der folgende Code erzeugt eine einfache Vor- und Rückbewegung einer Achse. 
+Der Treiber wird dazu über \PYTHON{STEP} und \PYTHON{DIR} angesteuert. 
+Der Schrittmotor wird an die Motorausgänge des A4988 angeschlossen. 
+Bei Nutzung des CNC-Shields erfolgt die Zuordnung der Signale über den jeweiligen Achssteckplatz.
+
 \begin{code}[H]
-	\captionof{code}{Einfache Achsbewegung des CNC-Hot-Wire-Foam-Cutters}
-	\label{Code:A4988FoamCutterAxis}
+	\captionof{code}{Einfache Achsbewegung im Projekt}
+	\label{Code:A4988ProjectAxis}
 	\ArduinoExternal{}{../../Code/A4988FoamCutterAxis/A4988FoamCutterAxis.ino}
 \end{code}
 
 \section{Tests}
 
-\subsection{Einfacher Funktionstest}
-
-Beim einfachen Funktionstest wird überprüft, ob der Motor grundsätzlich auf STEP-Signale reagiert. 
-Dieser Test erfolgt mit dem Programm aus Abschnitt \ref{Code:A4988SimpleStep}. 
-Dabei werden die Verdrahtung, die Versorgungsspannung und die Drehrichtung kontrolliert.
 
 \subsection{Test aller Funktionen}
 
-Beim vollständigen Test werden Drehrichtung, Geschwindigkeit, ENABLE-Signal und Temperaturverhalten überprüft. 
-Der Motor wird in beide Richtungen bewegt. 
-Zusätzlich wird der Treiber kurz deaktiviert und anschließend wieder aktiviert. 
-Während des Tests wird beobachtet, ob der Motor Schritte verliert oder ob sich der Treiber übermäßig erwärmt.
+Beim vollständigen Test wird überprüft, ob der Motor bei \PYTHON{STEP}-Impulsen reproduzierbar läuft, ob sich die Drehrichtung durch \PYTHON{DIR} umkehrt, ob der Treiber über \PYTHON{ENABLE} abschaltbar ist und ob sich Treiber und Motor bei mehreren Bewegungszyklen unauffällig erwärmen. 
+Der Motor wird dazu in beide Richtungen bewegt. 
+Anschließend wird der Treiber über \PYTHON{ENABLE} deaktiviert und wieder aktiviert. 
+Während dieser Abläufe wird beobachtet, ob der Motor Schritte verliert, unruhig läuft oder ob sich der Treiber übermäßig erwärmt.
+
+Die Geschwindigkeitsänderung wird durch unterschiedliche Impulsabstände geprüft. 
+Bei kürzeren Abständen zwischen den \PYTHON{STEP}-Impulsen muss sich die Drehzahl erhöhen, bei längeren Abständen muss sie sinken. 
+Damit wird kontrolliert, ob der Treiber die Schrittimpulse zuverlässig verarbeitet und ob der Motor auch bei wechselnder Ansteuerfrequenz stabil läuft.
+
+Der folgende Code testet die Schrittimpulserzeugung über \PYTHON{STEP}, die Drehrichtungsumschaltung über \PYTHON{DIR}, das Aktivieren und Deaktivieren des Treibers über \PYTHON{ENABLE} sowie das Verhalten des Motors bei unterschiedlichen Impulsabständen. 
+Der Treiber wird über \PYTHON{STEP}, \PYTHON{DIR} und \PYTHON{ENABLE} mit dem Mikrocontroller verbunden. 
+Die Motorwicklungen liegen an den Motorausgängen des Treibers. 
+Die externe Motorspannungsversorgung wird an das Treibermodul angeschlossen.
 
 \begin{code}[H]
 	\captionof{code}{Testprogramm für den A4988-Schrittmotortreiber}
