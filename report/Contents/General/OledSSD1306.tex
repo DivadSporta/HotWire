@@ -87,25 +87,25 @@ Zur Nutzung des OLED-Displays muss dieses mit dem Arduino nach Tabelle \ref{tab:
 \section{Bibliotheken}
 Für die Verwendung des OLED-Displays sind die folgenden aufgelisteten Bibliotheken notwendig \ref{tab:oled_libs}. Um eine Bibliothek in ein Programm zu integrieren muss diese in der Arduino IDE heruntergeladen und installiert sein und anschließend im Programmcode mit dem folgenden Befehl eingebunden werden: \PYTHON{\#include<name.h>} \newline
 
- 
+
 \section{Verwendete Bibliotheken}
 \begin{center}
 	\captionof{table}{Verwendete Bibliotheken zum Testen des OLED-Displays}
 	\label{tab:oled_libs}
 	\begin{tabular}{|p{5cm}|p{9cm}|}
-			\hline
-			\textbf{Bibliothek} & \textbf{Beschreibung} \\
-			\hline
-			\textbf{Wire.h} &  \textbf{Version:} Arduino-Standardbibliothek \newline
-			Funktion: Dient der Kommunikation über den I\textsuperscript{2}C-Bus zwischen Mikrocontroller und OLED-Display. \\
-			\hline
-			\textbf{Adafruit\_GFX.h} & \textbf{Version:} 1.12.6 \newline
-			Grafikbibliothek zur Darstellung von Text, Linien, Rechtecken und weiteren primitiven Elementen auf grafischen Displays. \\
-			\hline
-			\textbf{Adafruit\_SSD1306.h} & \textbf{Version:} 2.5.16 \newline
-			Treiber für SSD1306-basierte OLED-Displays mit Unterstützung für I\textsuperscript{2}C. \\
-			\hline
-		\end{tabular}
+		\hline
+		\textbf{Bibliothek} & \textbf{Beschreibung} \\
+		\hline
+		\textbf{Wire.h} &  \textbf{Version:} Arduino-Standardbibliothek \newline
+		Funktion: Dient der Kommunikation über den I\textsuperscript{2}C-Bus zwischen Mikrocontroller und OLED-Display. \\
+		\hline
+		\textbf{Adafruit\_GFX.h} & \textbf{Version:} 1.12.6 \newline
+		Grafikbibliothek zur Darstellung von Text, Linien, Rechtecken und weiteren primitiven Elementen auf grafischen Displays. \\
+		\hline
+		\textbf{Adafruit\_SSD1306.h} & \textbf{Version:} 2.5.16 \newline
+		Treiber für SSD1306-basierte OLED-Displays mit Unterstützung für I\textsuperscript{2}C. \\
+		\hline
+	\end{tabular}
 \end{center}
 
 \subsection{Wire.h}
@@ -122,84 +122,92 @@ Die Adafruit\_SSD1306 Bibliothek ist speziell für OLED-Displays mit dem SSD1306
 %\subsection{Kalibrierung}
 
 
-\section{Codebeispiel}
+\section{Codebeispiele}
 
-\subsection{Kurzbeschreibung des Programms}
-Dieses Arduino-Testprogramm dient zur Initialisierung und Darstellung einfacher Texte auf einem SSD1306 OLED-Display. Nach der Initialisierung wird die Nachricht \textit{"Hello, world!"} angezeigt. Anschließend wird die Anzeige im Sekundentakt invertiert, um einen Blinke-Effekt zu erzeugen.
-
-%\subsubsection{Verwendete Bibliotheken}
-
-
-
-
+Zur Überprüfung des OLED-Displays wurden zwei Testprogramme erstellt. 
+Der erste Test ist ein einfacher Funktionstest, bei dem alle Pixel des Displays im Abstand von zwei Sekunden ein- und ausgeschaltet werden. 
+Der zweite Test zeigt eine Fortschrittsanzeige, die durch einen Taster ausgelöst wird. 
+Dadurch können sowohl die grundlegende Funktion des Displays als auch die grafische Darstellung und die Verarbeitung eines Eingangssignals überprüft werden.
 
 \subsection{Verwendete Funktionen}
-\begin{center}
-	\captionof{table}{Funktionen im Testprogramm für das OLED-Display.}
-	\begin{tabular}{|p{5cm}|p{9cm}|}
-		\hline
-		\textbf{Funktion} & \textbf{Beschreibung} \\
-		\hline
-		\PYTHON{Serial.begin()} & Startet die serielle Kommunikation mit 9600 Baud. \\
-		\hline
-		\PYTHON{display.begin()} & Initialisiert das OLED-Display mit angegebener I\textsuperscript{2}C-Adresse. \\
-		\hline
-		\PYTHON{display.clearDisplay()} & Löscht alle Inhalte auf dem Display. \\
-		\hline
-		\PYTHON{display.setTextSize()} & Setzt die Schriftgröße für Textausgabe. \\
-		\hline
-		\hline
-		\PYTHON{display.setCursor()} & Positioniert den Textcursor an einer bestimmten Stelle. \\
-		\hline
-		\PYTHON{display.println()} & Gibt eine Textzeile auf dem Display aus. \\
-		\hline
-		\PYTHON{display.display()} & Überträgt die Zeichenpufferdaten auf das Display. \\
-		\hline
-		\PYTHON{display.invertDisplay()} & Invertiert die Anzeige des Displays. \\
-		\hline
-		\hline
-	\end{tabular}
-\end{center}
+
+In den Testprogrammen für das OLED-Display werden verschiedene Funktionen zur Initialisierung, Ausgabe und Steuerung des Displays verwendet:
+
+\begin{itemize}
+	\item \PYTHON{Serial.begin()}: Startet die serielle Kommunikation mit 9600 Baud.
+	
+	\item \PYTHON{Serial.println()}: Gibt eine Textzeile im Serial Monitor aus.
+	
+	\item \PYTHON{pinMode()}: Konfiguriert einen Pin als Ein- oder Ausgang.
+	
+	\item \PYTHON{digitalRead()}: Liest den aktuellen Zustand eines digitalen Eingangs.
+	
+	\item \PYTHON{display.begin()}: Initialisiert das OLED-Display mit angegebener I\textsuperscript{2}C-Adresse.
+	
+	\item \PYTHON{display.clearDisplay()}: Löscht alle Inhalte auf dem Display.
+	
+	\item \PYTHON{display.fillScreen()}: Füllt den gesamten Anzeigebereich mit einer angegebenen Farbe.
+	
+	\item \PYTHON{display.setTextSize()}: Setzt die Schriftgröße für die Textausgabe.
+	
+	\item \PYTHON{display.setTextColor()}: Legt die Farbe der Textausgabe fest.
+	
+	\item \PYTHON{display.setCursor()}: Positioniert den Textcursor an einer bestimmten Stelle.
+	
+	\item \PYTHON{display.print()}: Gibt Text oder Werte auf dem Display aus.
+	
+	\item \PYTHON{display.drawRect()}: Zeichnet den Rahmen eines Rechtecks auf dem Display.
+	
+	\item \PYTHON{display.fillRect()}: Zeichnet ein ausgefülltes Rechteck auf dem Display.
+	
+	\item \PYTHON{display.display()}: Überträgt die Zeichenpufferdaten auf das Display.
+	
+	\item \PYTHON{delay()}: Erzeugt eine zeitliche Verzögerung im Programmablauf.
+\end{itemize}
 
 \subsection{Globale Variablen und Parameter}
-\begin{center}
-	\captionof{table}{Globale Variablen und Parameter im Testprogramm für das OLED-Display.}
-	\begin{tabular}{|p{5cm}|p{9cm}|}
-		\hline
-		\textbf{Variable} & \textbf{Beschreibung} \\
-		\hline
-		\PYTHON{SCREEN\_WIDTH} & Definiert die Breite des Displays in Pixeln (128). \\
-		\hline
-		\PYTHON{SCREEN\_HEIGHT} & Definiert die Höhe des Displays in Pixeln (64). \\
-		\hline
-		\PYTHON{display} & Objekt zur Steuerung des OLED-Displays mit Adafruit SSD1306-Treiber. \\
-		\hline
-	\end{tabular}
-\end{center}
 
-\subsection{Funktionstest}
+In den Testprogrammen werden folgende globale Variablen und Parameter verwendet:
 
-Alle LEDS gehen an oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+\begin{itemize}
+	\item \PYTHON{SCREEN\_WIDTH}: Definiert die Breite des Displays in Pixeln mit 128 Pixeln.
+	
+	\item \PYTHON{SCREEN\_HEIGHT}: Definiert die Höhe des Displays in Pixeln mit 64 Pixeln.
+	
+	\item \PYTHON{OLED\_RESET}: Legt den Reset-Pin des OLED-Displays fest. Der Wert -1 bedeutet, dass kein separater Reset-Pin verwendet wird.
+	
+	\item \PYTHON{OLED\_ADDRESS}: Definiert die I\textsuperscript{2}C-Adresse des OLED-Displays.
+	
+	\item \PYTHON{BUTTON\_PIN}: Definiert den digitalen Eingangspin für den Taster.
+	
+	\item \PYTHON{display}: Erstellt ein Objekt zur Steuerung des OLED-Displays mit dem Adafruit-SSD1306-Treiber.
+	
+	\item \PYTHON{SSD1306\_SWITCHCAPVCC}: Legt die Spannungsversorgung des Displays über die interne Ladungspumpe des SSD1306-Controllers fest.
+	
+	\item \PYTHON{SSD1306\_WHITE}: Gibt die Farbe für eingeschaltete Pixel des OLED-Displays an.
+	
+	\item \PYTHON{INPUT\_PULLUP}: Aktiviert den internen Pull-up-Widerstand des Mikrocontrollers für den Tastereingang.
+	
+	\item \PYTHON{LOW}: Beschreibt den Zustand eines digitalen Eingangs mit niedrigem Pegel. Beim verwendeten Pull-up-Eingang bedeutet dieser Zustand, dass der Taster gedrückt ist.
+	
+	\item \PYTHON{i}: Laufvariable zur schrittweisen Erhöhung des Fortschritts.
+	
+	\item \PYTHON{percent}: Speichert den aktuellen Fortschritt in Prozent.
+	
+	\item \PYTHON{barWidth}: Speichert die berechnete Breite des gefüllten Fortschrittsbalkens.
+\end{itemize}
 
-\section{Beispiel}
-{
-	\captionof{code}{Testprogramm für das OLED-Display}
-	\label{Code:Test:File:TestOLEDDisplay}
-	\ArduinoExternal{}{../../Code/TestOled/TestOled.ino}  
-}
-\section{Anwendung}
 
-\subsection{Anwendung}
+\subsection{Funktionstest des OLED-Displays}
 
-In diesem Test wird überprüft, ob durch Betätigung eines Tasters eine visuelle Rückmeldung auf dem OLED-Display ausgegeben werden kann. Beim Drücken des Tasters wird ein Fortschrittsbalken von 0 \% bis 100 \% in 10 Schritten angezeigt. 
+\subsubsection{Ziel des Tests}
 
-Der Fortschrittsbalken wird dabei schrittweise gefüllt und zusätzlich der aktuelle Prozentwert auf dem Display ausgegeben. Dadurch kann sowohl die Funktion des Tasters als auch die grafische Darstellung auf dem OLED-Display überprüft werden.
+Das Programm \textit{Funktionstest} dient zur Überprüfung des OLED-Displays auf fehlerhafte oder tote Pixel. Dazu werden alle Pixel des Displays im Abstand von zwei Sekunden vollständig ein- und ausgeschaltet. Durch dieses wiederholte Blinken kann kontrolliert werden, ob alle Bildpunkte korrekt funktionieren.
 
-\subsection{Manual}
+\subsubsection{Anschluss des OLED-Displays}
 
-Der Taster wird an den digitalen Pin D2 des Mikrocontrollers angeschlossen. Ein Anschluss des Tasters wird mit D2 verbunden, der andere mit GND. Dabei wird der interne Pull-Up-Widerstand verwendet.
+Das OLED-Display wird über die I\textsuperscript{2}C-Schnittstelle angeschlossen. Die Spannungsversorgung erfolgt über VCC und GND, während SDA für die Datenübertragung und SCL für das Taktsignal verwendet wird.
 
-Das OLED-Display wird über die I\textsuperscript{2}C-Schnittstelle angeschlossen. Die Pins werden wie folgt verbunden:
 \begin{itemize}
 	\item VCC an 3,3 V oder 5 V
 	\item GND an GND
@@ -207,18 +215,45 @@ Das OLED-Display wird über die I\textsuperscript{2}C-Schnittstelle angeschlosse
 	\item SCL an A5
 \end{itemize}
 
-\subsection{Anwendung}
+\subsubsection{Programmablauf}
 
-Im \PYTHON{loop()} wird der Zustand des Tasters abgefragt. Da \PYTHON{INPUT\_PULLUP} verwendet wird, entspricht \PYTHON{LOW} einem gedrückten Taster.
-
-Wird der Taster gedrückt, wird ein Fortschrittsbalken in 10 Schritten angezeigt. Nach jedem Schritt wird der aktuelle Fortschritt in Prozent auf dem OLED-Display angezeigt. Zwischen den einzelnen Schritten wird eine kurze Verzögerung eingefügt, um den Fortschritt zu sehen.
+Im Programm wird das Display zunächst initialisiert und anschließend geleert. Danach werden in der Funktion \PYTHON{loop()} alle Pixel mit \PYTHON{display.fillScreen()} eingeschaltet. Nach einer Wartezeit von zwei Sekunden wird das Display mit \PYTHON{display.clearDisplay()} wieder ausgeschaltet. Dieser Ablauf wiederholt sich dauerhaft, wodurch mögliche Pixelfehler sichtbar werden.
 
 {
-	\captionof{code}{Fortschrittsbalken auf dem OLED-Display durch Tastendruck}
-	\label{lst:oled-progress}
-	\ArduinoExternal{}{../../Code/OLEDProgressBar/OLEDProgressBar.ino}
+	\captionof{code}{Funktionstest für das OLED-Display}
+	\label{Code:Test:File:TestOLEDDisplay}
+	\ArduinoExternal{}{../../Code/OledFunktionsTest/OledFunktionsTest.ino}  
 }
 
 
+\subsection{Fortschrittsanzeige auf dem OLED-Display}
+
+\subsubsection{Ziel des Tests}
+
+In diesem Test wird überprüft, ob durch Betätigung eines Tasters eine visuelle Rückmeldung auf dem OLED-Display ausgegeben werden kann. Beim Drücken des Tasters wird ein Fortschrittsbalken von 0 \% bis 100 \% in zehn Schritten angezeigt. Dadurch kann sowohl die Funktion des Tasters als auch die grafische Ausgabe auf dem OLED-Display überprüft werden.
+
+\subsubsection{Anschluss von Taster und OLED-Display}
+
+Der Taster wird an den digitalen Pin D2 des Mikrocontrollers angeschlossen. Ein Anschluss des Tasters wird mit D2 verbunden, der andere mit GND. Dabei wird der interne Pull-up-Widerstand des Mikrocontrollers verwendet.
+
+Das OLED-Display wird ebenfalls über die I\textsuperscript{2}C-Schnittstelle angeschlossen. Die Pins werden wie folgt verbunden:
+
+\begin{itemize}
+	\item VCC an 3,3 V oder 5 V
+	\item GND an GND
+	\item SDA an A4
+	\item SCL an A5
+	\item Taster an D2 und GND
+\end{itemize}
+
+\subsubsection{Programmablauf}
+
+In der Funktion \PYTHON{loop()} wird der Zustand des Tasters abgefragt. Da \PYTHON{INPUT\_PULLUP} verwendet wird, entspricht der Zustand \PYTHON{LOW} einem gedrückten Taster. Wird der Taster betätigt, wird der Fortschrittsbalken schrittweise gefüllt. Zusätzlich wird der aktuelle Fortschritt als Prozentwert auf dem OLED-Display angezeigt. Zwischen den einzelnen Schritten wird eine kurze Verzögerung eingefügt, damit der Fortschritt sichtbar dargestellt wird.
+
+{
+	\captionof{code}{Fortschrittsbalken auf dem OLED-Display durch Tastendruck}
+	\label{Code:Test:File:OLEDProgressBar}
+	\ArduinoExternal{}{../../Code/OLEDProgressBar/OLEDProgressBar.ino}
+}
 
 
