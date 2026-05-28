@@ -119,18 +119,6 @@ In diesem Abschnitt wird ein einfacher Funktionstest des A4988 beschrieben.
 Der Mikrocontroller erzeugt \PYTHON{STEP}-Impulse, die vom Treiber in eine Motorbewegung umgesetzt werden. 
 Das Beispiel prüft damit die grundlegende Verbindung zwischen Mikrocontroller, Treiber und Schrittmotor.
 
-\subsection{Versuchsaufbau}
-
-Der A4988 wird mit einem bipolaren Schrittmotor verbunden. 
-Die Motorspannung wird über ein externes Netzteil bereitgestellt. 
-Der Arduino erzeugt die \PYTHON{STEP}- und \PYTHON{DIR}-Signale. 
-Bei Verwendung des CNC-Shield V3 wird der Treiber auf den Steckplatz der gewünschten Achse gesteckt.
-
-Die Anschlüsse der beiden Motorwicklungen werden mit den Motorausgängen des A4988 verbunden. 
-Die Logikseite des Treibers wird mit dem Mikrocontroller verbunden. 
-Dabei werden \PYTHON{STEP}, \PYTHON{DIR} und bei Bedarf \PYTHON{ENABLE} mit digitalen Ausgängen verbunden. 
-Zusätzlich ist eine gemeinsame Masseverbindung zwischen Mikrocontroller, Treiber und externer Motorspannungsversorgung erforderlich.
-
 \subsection{Funktionsweise des Beispiels}
 
 Im Beispiel wird die Drehrichtung über das Signal \PYTHON{DIR} festgelegt. 
@@ -143,15 +131,13 @@ Zu kurze Wartezeiten können jedoch dazu führen, dass der Motor Schritte verlie
 
 \subsection{Einfacher Code}
 
-Der einfache Code gehört zu diesem Beispiel und dient zur Überprüfung der Grundfunktion des A4988. 
-Der Motor wird kontinuierlich in eine Richtung bewegt. 
-Dadurch werden die Verdrahtung, die Motorspannungsversorgung, das \PYTHON{STEP}-Signal und die Treiberfunktion geprüft.
+Für diesen Test wird der Eingang \PYTHON{STEP} des Treibers mit Arduino-Pin D2 verbunden. 
+Der Eingang \PYTHON{DIR} wird mit Arduino-Pin D5 verbunden. 
+Der Eingang \PYTHON{ENABLE} wird mit Arduino-Pin D8 verbunden.
 
-Für diesen Test wird der Eingang \PYTHON{STEP} des Treibers mit dem im Code verwendeten digitalen Ausgang verbunden. 
-Der Eingang \PYTHON{DIR} wird ebenfalls mit einem digitalen Ausgang verbunden. 
-Die Motorwicklungen werden an die Motorausgänge des A4988 angeschlossen. 
-Die externe Motorspannung wird an die Versorgungseingänge des Treibermoduls angeschlossen. 
-Die Masse des Mikrocontrollers und die Masse der Motorspannungsversorgung werden miteinander verbunden.
+Die Logikversorgung des A4988 erfolgt über den 5\,V-Anschluss des Arduino Uno. 
+Die Motorspannung wird über ein externes Netzteil bereitgestellt. 
+Die Masse des Arduino Uno und die Masse der externen Spannungsversorgung müssen miteinander verbunden werden.
 
 \begin{code}[H]
 	\captionof{code}{Einfacher Funktionstest des A4988-Schrittmotortreibers}
@@ -184,6 +170,14 @@ Der folgende Code erzeugt eine einfache Vor- und Rückbewegung einer Achse.
 Der Treiber wird dazu über \PYTHON{STEP} und \PYTHON{DIR} angesteuert. 
 Der Schrittmotor wird an die Motorausgänge des A4988 angeschlossen. 
 Bei Nutzung des CNC-Shields erfolgt die Zuordnung der Signale über den jeweiligen Achssteckplatz.
+Im gezeigten Aufbau wird ein CNC-Shield V3 verwendet. 
+Der A4988 wird dabei auf den Steckplatz der X-Achse gesteckt.
+
+Für die X-Achse verwendet das CNC-Shield den Arduino-Pin D2 für \PYTHON{STEP}, den Arduino-Pin D5 für \PYTHON{DIR} sowie den Arduino-Pin D8 für \PYTHON{ENABLE}.
+
+Die Logikversorgung erfolgt über den Arduino Uno. 
+Die Motorspannung wird über ein externes Netzteil bereitgestellt. 
+Die Masse des Arduino und die Masse der externen Spannungsversorgung müssen miteinander verbunden werden.
 
 \begin{code}[H]
 	\captionof{code}{Einfache Achsbewegung im Projekt}
@@ -196,19 +190,19 @@ Bei Nutzung des CNC-Shields erfolgt die Zuordnung der Signale über den jeweilig
 
 \subsection{Test aller Funktionen}
 
-Beim vollständigen Test wird überprüft, ob der Motor bei \PYTHON{STEP}-Impulsen reproduzierbar läuft, ob sich die Drehrichtung durch \PYTHON{DIR} umkehrt, ob der Treiber über \PYTHON{ENABLE} abschaltbar ist und ob sich Treiber und Motor bei mehreren Bewegungszyklen unauffällig erwärmen. 
-Der Motor wird dazu in beide Richtungen bewegt. 
-Anschließend wird der Treiber über \PYTHON{ENABLE} deaktiviert und wieder aktiviert. 
-Während dieser Abläufe wird beobachtet, ob der Motor Schritte verliert, unruhig läuft oder ob sich der Treiber übermäßig erwärmt.
+Beim vollständigen Test wird überprüft, ob der Motor bei \PYTHON{STEP}-Impulsen reproduzierbar läuft, ob sich die Drehrichtung durch \PYTHON{DIR} umkehrt und ob der Treiber über \PYTHON{ENABLE} deaktiviert und wieder aktiviert werden kann.
+Zusätzlich wird beobachtet, ob sich Treiber und Motor während mehrerer Bewegungszyklen unauffällig verhalten oder sich übermäßig erwärmen.
 
-Die Geschwindigkeitsänderung wird durch unterschiedliche Impulsabstände geprüft. 
-Bei kürzeren Abständen zwischen den \PYTHON{STEP}-Impulsen muss sich die Drehzahl erhöhen, bei längeren Abständen muss sie sinken. 
+Die Geschwindigkeitsänderung wird durch unterschiedliche Impulsabstände geprüft.
+Bei kürzeren Abständen zwischen den \PYTHON{STEP}-Impulsen muss sich die Drehzahl erhöhen, bei längeren Abständen muss sie sinken.
 Damit wird kontrolliert, ob der Treiber die Schrittimpulse zuverlässig verarbeitet und ob der Motor auch bei wechselnder Ansteuerfrequenz stabil läuft.
 
-Der folgende Code testet die Schrittimpulserzeugung über \PYTHON{STEP}, die Drehrichtungsumschaltung über \PYTHON{DIR}, das Aktivieren und Deaktivieren des Treibers über \PYTHON{ENABLE} sowie das Verhalten des Motors bei unterschiedlichen Impulsabständen. 
-Der Treiber wird über \PYTHON{STEP}, \PYTHON{DIR} und \PYTHON{ENABLE} mit dem Mikrocontroller verbunden. 
-Die Motorwicklungen liegen an den Motorausgängen des Treibers. 
-Die externe Motorspannungsversorgung wird an das Treibermodul angeschlossen.
+Im Testaufbau wird ein CNC-Shield V3 mit einem A4988-Treiber auf der X-Achse verwendet.
+Für die X-Achse verwendet das CNC-Shield den Arduino-Pin D2 für \PYTHON{STEP}, den Arduino-Pin D5 für \PYTHON{DIR} sowie den Arduino-Pin D8 für \PYTHON{ENABLE}.
+Die Motorspannung wird über ein externes Netzteil bereitgestellt.
+Die Masse des Arduino Uno und die Masse der externen Spannungsversorgung müssen miteinander verbunden werden.
+
+Der folgende Code testet die Schrittimpulserzeugung über \PYTHON{STEP}, die Drehrichtungsumschaltung über \PYTHON{DIR}, das Aktivieren und Deaktivieren des Treibers über \PYTHON{ENABLE} sowie das Verhalten des Motors bei unterschiedlichen Impulsabständen.
 
 \begin{code}[H]
 	\captionof{code}{Testprogramm für den A4988-Schrittmotortreiber}
