@@ -16,15 +16,19 @@
 
 \section{Arduino Allgemein}
 
-Arduino ist eine Open-Source-Plattform für Mikrocontroller. Sie besteht aus programmierbarer Hardware und einer Entwicklungsumgebung, mit der Programme geschrieben und auf ein Board übertragen werden können \cite{arduino:language-reference}. Arduino-Boards werden häufig für Steuerungen, Messaufgaben, Prototypen und Lernprojekte verwendet \cite{arduino:uno-r3}.
+Arduino ist eine open-source-electronic-prototyping-plattform für Mikrocontroller. Sie besteht aus programmierbarer Hardware und einer Entwicklungsumgebung, mit der Programme geschrieben und auf ein Board übertragen werden können \cite{arduino:language-reference}. Arduino-Boards werden für Steuerungen, Messaufgaben, Prototypen und Lernprojekte verwendet \cite{arduino:uno-r3}.
 
 Ein Arduino kann Eingangssignale verarbeiten und Ausgangssignale erzeugen. Eingangssignale können zum Beispiel von Tastern, Sensoren oder Modulen kommen. Ausgangssignale können LEDs, Motoren, Displays oder andere Bauteile steuern \cite{arduino:uno-components}.
 
-Die Programmierung erfolgt meist über die Arduino IDE. Das Programm wird am Computer geschrieben, über USB auf das Board übertragen und danach direkt vom Mikrocontroller ausgeführt \cite{arduino:uno-components}. Arduino-Programme verwenden typische Funktionen wie \python{setup()} und \python{loop()} \cite{arduino:language-reference}.
+Die Programmierung erfolgt meist über die Arduino IDE. Das Programm wird am Computer geschrieben, über USB auf das Board übertragen und danach direkt vom Mikrocontroller ausgeführt \cite{arduino:uno-components}. Arduino-Programme verwenden Funktionen wie \PYTHON{setup()} und \PYTHON{loop()} \cite{arduino:language-reference}.
 
-\section{Arduino Uno}
+\section{Arduino Uno R3}
 
-Der Arduino Uno ist ein Mikrocontroller-Board auf Basis des ATmega328P. Er besitzt 14 digitale Ein- und Ausgänge, davon 6 mit PWM-Funktion, 6 analoge Eingänge, eine USB-Schnittstelle, eine Power-Buchse, einen ICSP-Header und einen Reset-Taster \cite{arduino:uno-r3}\cite{arduino:uno-datasheet}.
+Der Arduino Uno ist ein Mikrocontroller-Board auf Basis des ATmega328P. Er besitzt 14 digitale Ein- und Ausgänge, davon 6 mit PWM-Funktion (Pulsweitenmodulation-Funktion), 6 analoge Eingänge, eine USB-Schnittstelle, eine Power-Buchse, einen ICSP-Header (In-Circuit Serial Programming) und einen Reset-Taster \cite{arduino:uno-r3}\cite{arduino:uno-datasheet}.
+
+PWM bedeutet Pulsweitenmodulation und beschreibt ein sehr schnelles Ein- und Ausschalten eines digitalen Ausgangspins, wodurch zum Beispiel LEDs gedimmt oder Motoren gesteuert werden können.
+
+Der ICSP-Header ist eine Stiftleiste zur direkten Programmierung des Mikrocontrollers, ohne den Mikrocontroller dafür aus der Schaltung zu entfernen.
 
 
 Wichtige Eigenschaften:
@@ -32,8 +36,8 @@ Wichtige Eigenschaften:
 	\item Mikrocontroller: ATmega328P 
 	\item Betriebsspannung: 5 V 
 	\item Empfohlene Eingangsspannung: 7 V bis 12 V 
-	\item Digitale I/O-Pins: 14 
-	\item PWM-Pins: 6 
+	\item Digitale Ein- und Ausgangspins: 14 
+	\item PWM-Ausgangspins: 6 
 	\item Analoge Eingänge: 6 
 	\item Flash-Speicher: 32 KB 
 	\item SRAM: 2 KB 
@@ -47,9 +51,9 @@ Wichtige Eigenschaften:
 
 \subsection{Mikrocontroller ATmega328P}
 
-\subsubsection{Beschreibung}
 
-Der ATmega328P ist der Hauptbaustein des Arduino Uno. Er führt das hochgeladene Programm aus, verarbeitet Eingangssignale und steuert Ausgangssignale \cite{arduino:uno-datasheet}. Auf diesem Mikrocontroller laufen später die Funktionen \python{setup()} und \python{loop()} \cite{arduino:language-reference}.
+
+Der ATmega328P ist der Hauptbaustein des Arduino Uno. Er führt das hochgeladene Programm aus, verarbeitet Eingangssignale und steuert Ausgangssignale \cite{arduino:uno-datasheet}. Auf diesem Mikrocontroller laufen später die Funktionen \PYTHON{setup()} und \PYTHON{loop()} \cite{arduino:language-reference}.
 
 Der Mikrocontroller enthält Speicher für das Programm und Speicher für Daten während der Ausführung. Das Programm bleibt auch nach dem Ausschalten gespeichert, weil es im Flash-Speicher abgelegt wird \cite{arduino:uno-datasheet}.
 
@@ -68,229 +72,224 @@ Der Mikrocontroller enthält Speicher für das Programm und Speicher für Daten 
 
 \subsection{Eingebaute LED}
 
-\subsubsection{Hintergrundwissen}
-
-Der Arduino Uno besitzt eine eingebaute LED. Diese LED ist mit dem digitalen Pin \python{D13} verbunden \cite{arduino:uno-components}. Sie wird häufig für erste Funktionstests verwendet \cite{arduino:uno-r3}.
 
 
-\subsubsection{Beschreibung}
+Der Arduino Uno besitzt eine eingebaute LED. Diese LED ist mit dem digitalen Ausgangspin \textbf{D13} verbunden \cite{arduino:uno-components}. \textbf{D13} wird dafür als Ausgangspin verwendet. Sie kann für erste Funktionstests verwendet werden \cite{arduino:uno-r3}.
 
-Die LED kann direkt über Pin \python{D13} geschaltet werden. Wird der Pin auf \python{HIGH} gesetzt, leuchtet die LED. Wird der Pin auf \python{LOW} gesetzt, ist die LED ausgeschaltet \cite{arduino_digitalwrite}.
 
-Die eingebaute LED eignet sich besonders für das Blink-Beispiel und einfache Tests mit \python{digitalWrite()} \cite{arduino_digitalwrite}.
+
+
+Die LED kann direkt über den Ausgangspin \textbf{D13} geschaltet werden. Dafür wird \textbf{D13} als Ausgangspin verwendet. Wird der Ausgangspin auf \PYTHON{HIGH} gesetzt, leuchtet die LED. Wird der Ausgangspin auf \PYTHON{LOW} gesetzt, ist die LED ausgeschaltet \cite{arduino_digitalwrite}.
+
+Die eingebaute LED eignet sich besonders für das Blink-Beispiel und einfache Tests mit \PYTHON{digitalWrite()} \cite{arduino_digitalwrite}.
 
 
 
 
 \subsection{Reset-Taster}
 
-\subsubsection{Beschreibung}
+
 
 Der Reset-Taster ist auf dem Arduino Uno eingebaut \cite{arduino:uno-r3}. Er startet den Mikrocontroller neu. Dabei wird das gespeicherte Programm nicht gelöscht \cite{arduino:uno-components}.
 
 Ein Reset ist hilfreich, wenn ein Programm neu gestartet werden soll oder sich das Board nicht wie erwartet verhält \cite{arduino:uno-components}.
 
-Zuerst wird \python{setup()} einmal ausgeführt. Danach läuft \python{loop()} dauerhaft weiter \cite{arduino:language-reference}.
+Zuerst wird \PYTHON{setup()} einmal ausgeführt. Danach läuft \PYTHON{loop()} dauerhaft weiter \cite{arduino:language-reference}.
 
 
 \subsection{USB-Schnittstelle}
 
-\subsubsection{Beschreibung}
+
 
 Die USB-Schnittstelle verbindet den Arduino Uno mit dem Computer \cite{arduino:uno-components}. Über USB wird das Programm auf das Board übertragen. Außerdem kann der Arduino Uno darüber mit Spannung versorgt werden \cite{arduino:uno-datasheet}.
 
 Die USB-Verbindung wird auch für den seriellen Monitor verwendet. Damit können Werte und Zustände vom Arduino an den Computer gesendet werden \cite{arduino:language-reference}.
 
-Für Ausgaben im seriellen Monitor werden Funktionen wie \python{Serial.begin()}, \python{Serial.print()} und \python{Serial.println()} verwendet \cite{arduino:language-reference}.
+Für Ausgaben im seriellen Monitor werden Funktionen wie \PYTHON{Serial.begin()}, \PYTHON{Serial.print()} und \PYTHON{Serial.println()} verwendet \cite{arduino:language-reference}.
 
 
 
 \subsection{Spannungsversorgung}
 
-\subsubsection{Hintergrundwissen}
 
-Der Arduino Uno kann über USB, die Power-Buchse oder den Pin \python{VIN} mit Spannung versorgt werden \cite{arduino:uno-datasheet}. Auf dem Board befinden sich Spannungsregler, die die benötigte Betriebsspannung bereitstellen \cite{arduino:uno-components}.
 
-Die Betriebsspannung des Arduino Uno beträgt 5 V. Für eine externe Versorgung wird eine Eingangsspannung von 7 V bis 12 V empfohlen \cite{arduino:uno-datasheet}.
+Der Arduino Uno kann über USB-B, eine DC-Hohlsteckerbuchse oder den Versorgungseingang \textbf{VIN} mit Spannung versorgt werden \cite{arduino:uno-datasheet}. Auf dem Board befinden sich Spannungsregler, die die benötigte Betriebsspannung bereitstellen \cite{arduino:uno-components}.
 
-\subsubsection{Beschreibung}
+Die Betriebsspannung des Arduino Uno beträgt 5 V. Für eine externe Spannungsversorgung wird eine Eingangsspannung von 7 V bis 12 V empfohlen \cite{arduino:uno-datasheet}.
 
-Für einfache Tests reicht meistens die Versorgung über USB \cite{arduino:uno-components}. Für eigenständige Projekte kann eine externe Spannungsquelle über die Power-Buchse oder \python{VIN} verwendet werden \cite{arduino:uno-datasheet}.
 
-Die Pins \python{5V} und \python{3.3V} können kleine externe Bauteile mit Spannung versorgen \cite{arduino:uno-datasheet}. Große Verbraucher wie Motoren oder starke LEDs sollten nicht direkt über diese Pins betrieben werden \cite{arduino:uno-components}.
+Für einfache Tests reicht meistens die Spannungsversorgung über USB \cite{arduino:uno-components}. Für eigenständige Projekte kann eine externe Spannungsquelle über die Power-Buchse oder den Versorgungseingang \textbf{VIN} verwendet werden \cite{arduino:uno-datasheet}.
 
+Die Anschlüsse \textbf{5V} und \textbf{3.3V} sind Versorgungsausgänge und können kleine externe Bauteile mit Spannung versorgen \cite{arduino:uno-datasheet}. Große Verbraucher wie Motoren oder starke LEDs sollten nicht direkt über diese Versorgungsausgänge betrieben werden \cite{arduino:uno-components}.
 
 
 
 
-\section{PINs}
 
-\subsection{Hintergrundwissen}
-
-Die Pins sind die elektrischen Anschlüsse des Arduino Uno. Über sie wird der Mikrocontroller mit externen Bauteilen verbunden. Der Arduino Uno besitzt 14 digitale Ein- und Ausgänge, 6 analoge Eingänge und mehrere Pins für Versorgung und Kommunikation \cite{arduino:uno-r3}\cite{arduino:uno-datasheet}.
-
-Der Arduino Uno arbeitet mit einer Betriebsspannung von 5 V. Deshalb verwenden die digitalen Pins 5-V-Logikpegel. Eine zu hohe Spannung an einem Eingangspin kann das Board beschädigen \cite{arduino:uno-datasheet}.
-
-\subsection{Digitale Pins}
-
-\subsubsection{Hintergrundwissen}
-
-Die digitalen Pins des Arduino Uno sind mit \python{D0} bis \python{D13} beschriftet. Sie können als Eingang oder Ausgang verwendet werden \cite{arduino:uno-r3}\cite{arduino:uno-datasheet}.
-
-Digitale Pins arbeiten mit zwei Zuständen: \python{HIGH} und \python{LOW}. Bei einem Ausgang entspricht \python{HIGH} einem hohen Spannungspegel und \python{LOW} einem niedrigen Spannungspegel \cite{arduino_digitalwrite}. Beim Arduino Uno liegt der Logikpegel bei 5 V \cite{arduino:uno-datasheet}.
-
-\subsubsection{Beschreibung}
-
-Ein digitaler Pin wird im Programm mit \python{pinMode()} als Eingang oder Ausgang festgelegt \cite{arduino_pinmode}. Danach kann der Pin gelesen oder gesetzt werden.
-
-Als Eingang wird ein digitaler Pin zum Beispiel für Taster oder digitale Signale verwendet. Der Zustand wird mit \python{digitalRead()} ausgelesen \cite{arduino_digitalread}.
-
-Als Ausgang kann ein digitaler Pin LEDs, Steuersignale oder kleine Lasten ansteuern. Der Zustand wird mit \python{digitalWrite()} auf \python{HIGH} oder \python{LOW} gesetzt \cite{arduino_digitalwrite}.
+\section{Anschlüsse des Arduino Uno}
 
 
-\subsection{PWM-Pins}
 
-\subsubsection{Hintergrundwissen}
+Die Anschlüsse sind die elektrischen Verbindungen des Arduino Uno. Über diese Anschlüsse wird der Mikrocontroller mit externen Bauteilen verbunden. Der Arduino Uno besitzt 14 digitale Ein- und Ausgänge, 6 analoge Eingangspins und mehrere Anschlüsse für Spannungsversorgung und Kommunikation \cite{arduino:uno-r3}\cite{arduino:uno-datasheet}.
 
-Der Arduino Uno besitzt 6 digitale Pins, die als PWM-Ausgänge verwendet werden können \cite{arduino:uno-r3}. PWM steht für Pulsweitenmodulation. Dabei wird ein digitaler Ausgang sehr schnell ein- und ausgeschaltet \cite{arduino:analogwrite}.
+Der Arduino Uno arbeitet mit einer Betriebsspannung von 5 V. Deshalb verwenden die digitalen Ein- und Ausgangspins 5-V-Logikpegel. Eine zu hohe Spannung an einem Eingangspin kann das Board beschädigen \cite{arduino:uno-datasheet}.
 
-PWM wird verwendet, wenn ein Ausgang nicht nur ein- oder ausgeschaltet werden soll. Typische Anwendungen sind das Dimmen einer LED oder das Steuern der Geschwindigkeit eines Motors über einen Motortreiber \cite{arduino:analogwrite}.
+\subsection{Digitale Ein- und Ausgangspins}
 
-\subsubsection{Beschreibung}
 
-Beim Arduino Uno unterstützen die Pins \python{D3}, \python{D5}, \python{D6}, \python{D9}, \python{D10} und \python{D11} PWM \cite{arduino:uno-r3}\cite{arduino:uno-datasheet}. Diese Pins sind auf dem Board meist mit einem Tilde-Zeichen markiert \cite{arduino:uno-components}.
 
-PWM wird im Programm mit \python{analogWrite()} genutzt \cite{arduino:analogwrite}. Obwohl die Funktion \python{analogWrite()} heißt, wird dabei kein echter analoger Spannungswert ausgegeben. Es handelt sich um ein digitales PWM-Signal \cite{arduino:analogwrite}.
+Die digitalen Ein- und Ausgangspins des Arduino Uno sind mit \textbf{D0} bis \textbf{D13} beschriftet. Sie können je nach Programmierung als Eingangspins oder Ausgangspins verwendet werden \cite{arduino:uno-r3}\cite{arduino:uno-datasheet}.
 
-Der Wert bei \python{analogWrite()} liegt zwischen \python{0} und \python{255}. Der Wert \python{0} bedeutet dauerhaft aus. Der Wert \python{255} bedeutet dauerhaft an. Werte dazwischen erzeugen ein schnelles Ein- und Ausschalten \cite{arduino:analogwrite}.
+Digitale Ein- und Ausgangspins arbeiten mit zwei Zuständen: \PYTHON{HIGH} und \PYTHON{LOW}. Bei einem Ausgangspin entspricht \PYTHON{HIGH} einem hohen Spannungspegel und \PYTHON{LOW} einem niedrigen Spannungspegel \cite{arduino_digitalwrite}. Beim Arduino Uno liegt der Logikpegel bei 5 V \cite{arduino:uno-datasheet}.
+
+
+
+Ein digitaler Anschluss wird im Programm mit \PYTHON{pinMode()} als Eingangspin oder Ausgangspin festgelegt \cite{arduino_pinmode}. Danach kann der Anschluss gelesen oder gesetzt werden.
+
+Als Eingangspin wird ein digitaler Anschluss zum Beispiel für Taster oder digitale Signale verwendet. Der Zustand wird mit \PYTHON{digitalRead()} ausgelesen \cite{arduino_digitalread}.
+
+Als Ausgangspin kann ein digitaler Anschluss LEDs, Steuersignale oder kleine Lasten ansteuern. Der Zustand wird mit \PYTHON{digitalWrite()} auf \PYTHON{HIGH} oder \PYTHON{LOW} gesetzt \cite{arduino_digitalwrite}.
+
+
+\subsection{PWM-Ausgangspins}
+
+
+
+Der Arduino Uno besitzt 6 digitale Anschlüsse, die als PWM-Ausgangspins verwendet werden können \cite{arduino:uno-r3}. PWM steht für Pulsweitenmodulation. Dabei wird ein digitaler Ausgangspin sehr schnell ein- und ausgeschaltet \cite{arduino:analogwrite}.
+
+PWM wird verwendet, wenn ein Ausgangspin nicht nur ein- oder ausgeschaltet werden soll. Anwenden kann man es für das Dimmen einer LED oder das Steuern der Geschwindigkeit eines Motors über einen Motortreiber \cite{arduino:analogwrite}.
+
+
+
+Beim Arduino Uno unterstützen die digitalen Anschlüsse \textbf{D3}, \textbf{D5}, \textbf{D6}, \textbf{D9}, \textbf{D10} und \textbf{D11} PWM \cite{arduino:uno-r3}\cite{arduino:uno-datasheet}. Diese Anschlüsse werden bei PWM als Ausgangspins verwendet und sind auf dem Board meist mit einem Tilde-Zeichen markiert \cite{arduino:uno-components}.
+
+PWM wird im Programm mit \PYTHON{analogWrite()} genutzt \cite{arduino:analogwrite}. Obwohl die Funktion \PYTHON{analogWrite()} heißt, wird dabei kein echter analoger Spannungswert ausgegeben. Es handelt sich um ein digitales PWM-Signal \cite{arduino:analogwrite}.
+
+Der Wert bei \PYTHON{analogWrite()} liegt zwischen 0 und 255. Der Wert 0 bedeutet dauerhaft aus. Der Wert 255 bedeutet dauerhaft an. Werte dazwischen erzeugen ein schnelles Ein- und Ausschalten \cite{arduino:analogwrite}.
 
 
 
 \subsection{Analoge Eingänge}
 
-\subsubsection{Hintergrundwissen}
 
-Die analogen Eingänge des Arduino Uno sind mit \python{A0} bis \python{A5} beschriftet. Sie messen Spannungen und wandeln diese in digitale Werte um \cite{arduino:uno-r3}\cite{arduino:analogread}.
 
-Der Arduino Uno besitzt einen Analog-Digital-Wandler. Dieser wandelt eine Eingangsspannung in einen Zahlenwert um. Der Wertebereich bei \python{analogRead()} reicht normalerweise von \python{0} bis \python{1023} \cite{arduino:analogread}.
+Die analogen Eingänge des Arduino Uno sind mit \textbf{A0} bis \textbf{A5} beschriftet. Sie werden normalerweise als Eingangspins verwendet, messen Spannungen und wandeln diese in digitale Werte um \cite{arduino:uno-r3}\cite{arduino:analogread}.
 
-\subsubsection{Beschreibung}
+Der Arduino Uno besitzt einen Analog-Digital-Wandler. Dieser wandelt eine Eingangsspannung in einen Zahlenwert um. Der Wertebereich bei \PYTHON{analogRead()} reicht normalerweise von 0 bis 1023 \cite{arduino:analogread}.
 
-Analoge Eingänge werden mit \python{analogRead()} ausgelesen. Ein Messwert von \python{0} entspricht ungefähr 0 V. Ein Messwert von \python{1023} entspricht ungefähr der verwendeten Referenzspannung \cite{arduino:analogread}.
+
+
+Analoge Eingänge werden mit \PYTHON{analogRead()} ausgelesen. Ein Messwert von 0 entspricht ungefähr 0 V. Ein Messwert von 1023 entspricht ungefähr der verwendeten Referenzspannung \cite{arduino:analogread}.
 
 Analoge Eingänge werden zum Beispiel für Potentiometer, Fotowiderstände, analoge Temperatursensoren oder Spannungsteiler verwendet \cite{arduino:analogread}.
 
-Die analogen Pins können bei Bedarf auch als digitale Pins verwendet werden \cite{arduino:uno-datasheet}. Dann entsprechen sie zusätzlichen digitalen Eingängen oder Ausgängen.
+Die analogen Anschlüsse können bei Bedarf auch als digitale Eingangspins oder Ausgangspins verwendet werden \cite{arduino:uno-datasheet}. Dann entsprechen sie zusätzlichen digitalen Eingangspins oder Ausgangspins.
 
 
-\subsection{Versorgungspins}
-
-\subsubsection{Hintergrundwissen}
-
-Die Versorgungspins liefern Spannungen oder dienen als Masseanschluss. Sie werden verwendet, um kleine externe Schaltungen, Sensoren oder Module mit Strom zu versorgen \cite{arduino:uno-datasheet}.
-
-Diese Pins sind keine normalen Ein- oder Ausgänge. Sie dienen nur zur Stromversorgung oder als Bezugspunkt \cite{arduino:uno-components}.
-
-\subsubsection{Beschreibung}
-
-Der Pin \python{5V} liefert die geregelte 5-V-Spannung des Boards. Der Pin \python{3.3V} liefert eine 3,3-V-Spannung für kleine Verbraucher. \python{GND} ist der Masseanschluss. \python{VIN} kann zur externen Versorgung des Boards verwendet werden \cite{arduino:uno-datasheet}.
-
-Bei allen angeschlossenen Bauteilen muss \python{GND} mit dem Arduino verbunden sein. Ohne gemeinsame Masse können Signale nicht zuverlässig erkannt werden \cite{arduino:uno-components}.
-
-
-\subsection{Serielle Pins D0 und D1}
-
-\subsubsection{Hintergrundwissen}
-
-Die Pins \python{D0} und \python{D1} sind digitale Pins mit einer zusätzlichen Funktion. Sie werden für die serielle Kommunikation verwendet \cite{arduino:uno-datasheet}.
-
-\python{D0} ist der Empfangspin \python{RX}. \python{D1} ist der Sendepin \python{TX}. Über diese Verbindung kommuniziert der Arduino Uno unter anderem mit dem Computer \cite{arduino:uno-datasheet}\cite{arduino:language-reference}.
-
-\subsubsection{Beschreibung}
-
-Die serielle Kommunikation wird zum Beispiel für den seriellen Monitor verwendet. Im Programm wird sie mit \python{Serial.begin()} gestartet. Danach können Daten mit \python{Serial.print()} oder \python{Serial.println()} gesendet werden \cite{arduino:language-reference}.
-
-Da \python{D0} und \python{D1} auch für die USB-Kommunikation verwendet werden, sollten sie bei einfachen Projekten möglichst frei bleiben. Angeschlossene Bauteile können sonst das Hochladen von Programmen oder die serielle Ausgabe stören \cite{arduino:uno-components}.
+\subsection{Versorgungsanschlüsse}
 
 
 
-\subsection{I2C-Pins}
+Die Versorgungsanschlüsse liefern Spannungen oder dienen als Masseanschluss. Sie werden verwendet, um kleine externe Schaltungen, Sensoren oder Module mit Strom zu versorgen \cite{arduino:uno-datasheet}.
 
-\subsubsection{Hintergrundwissen}
+Diese Versorgungsanschlüsse sind keine normalen Eingangspins oder Ausgangspins. Sie dienen nur zur Stromversorgung oder als Bezugspunkt \cite{arduino:uno-components}.
 
-\python{I2C} ist eine Schnittstelle zur Kommunikation mit mehreren Bauteilen über zwei Datenleitungen. Beim Arduino Uno werden dafür die Pins \python{A4/SDA} und \python{A5/SCL} verwendet \cite{arduino:uno-datasheet}.
 
-\python{SDA} ist die Datenleitung. \python{SCL} ist die Taktleitung. Über diese beiden Leitungen können zum Beispiel Displays, Sensoren oder Erweiterungsmodule angesprochen werden \cite{arduino:language-reference}.
+Der Anschluss \textbf{5V} liefert die geregelte 5-V-Spannung des Boards. Der Anschluss \textbf{3.3V} liefert eine 3,3-V-Spannung für kleine Verbraucher. \textbf{GND} ist der Masseanschluss. \textbf{VIN} ist ein Versorgungseingang. Über diesen Anschluss kann der Arduino Uno mit einer externen Spannung versorgt werden \cite{arduino:uno-datasheet}.
+Bei allen angeschlossenen Bauteilen muss \textbf{GND} mit dem Arduino verbunden sein. Ohne gemeinsame Masse können Signale nicht zuverlässig erkannt werden \cite{arduino:uno-components}.
 
-\subsubsection{Beschreibung}
 
-Ein \python{I2C}-Bauteil wird mit \python{SDA}, \python{SCL}, Versorgungsspannung und \python{GND} verbunden \cite{arduino:uno-datasheet}. Mehrere \python{I2C}-Bauteile können an denselben zwei Leitungen angeschlossen werden, wenn sie unterschiedliche Adressen besitzen \cite{arduino:language-reference}.
-
-Im Programm wird \python{I2C} häufig über die Bibliothek \python{Wire} verwendet \cite{arduino:language-reference}.
+\subsection{Serielle Ein- und Ausgangspins D0 und D1}
 
 
 
-\subsection{SPI-Pins}
+Die Anschlüsse \textbf{D0} und \textbf{D1} sind digitale Ein- und Ausgangspins mit einer zusätzlichen Funktion. Sie werden für die serielle Kommunikation verwendet \cite{arduino:uno-datasheet}.
 
-\subsubsection{Hintergrundwissen}
+\textbf{D0} ist der Empfangspin \textbf{RX} und wird als Eingangspin für serielle Daten verwendet. \textbf{D1} ist der Sendepin \textbf{TX} und wird als Ausgangspin für serielle Daten verwendet. Über diese Verbindung kommuniziert der Arduino Uno unter anderem mit dem Computer \cite{arduino:uno-datasheet}\cite{arduino:language-reference}.
 
-\python{SPI} ist eine schnelle Schnittstelle zur Kommunikation mit Bauteilen wie Displays, Speicherbausteinen oder Funkmodulen \cite{arduino:language-reference}. Beim Arduino Uno liegen die SPI-Signale auf den Pins \python{D10} bis \python{D13} \cite{arduino:uno-datasheet}.
 
-\python{SPI} verwendet mehrere Leitungen. Dadurch ist die Verbindung schneller als einfache digitale Signale, benötigt aber mehr Pins \cite{arduino:language-reference}.
+Die serielle Kommunikation wird zum Beispiel für den seriellen Monitor verwendet. Im Programm wird sie mit \PYTHON{Serial.begin()} gestartet. Danach können Daten mit \PYTHON{Serial.print()} oder \PYTHON{Serial.println()} gesendet werden \cite{arduino:language-reference}.
 
-\subsubsection{Beschreibung}
+Da \textbf{D0} und \textbf{D1} auch für die USB-Kommunikation verwendet werden, sollten sie bei einfachen Projekten möglichst frei bleiben. Angeschlossene Bauteile können sonst das Hochladen von Programmen oder die serielle Ausgabe stören \cite{arduino:uno-components}.
 
-Die wichtigsten SPI-Pins beim Arduino Uno sind:
+
+
+\subsection{I2C-Kommunikationsanschlüsse}
+
+
+
+\textbf{I2C} ist eine Schnittstelle zur Kommunikation mit mehreren Bauteilen über zwei Datenleitungen. Beim Arduino Uno werden dafür die Kommunikationsanschlüsse \textbf{A4/SDA} und \textbf{A5/SCL} verwendet \cite{arduino:uno-datasheet}.
+
+\textbf{SDA} ist die Datenleitung und arbeitet als bidirektionale Kommunikationsleitung. \textbf{SCL} ist die Taktleitung und wird beim Arduino Uno meist als Ausgang für das Taktsignal verwendet. Über diese beiden Leitungen können zum Beispiel Displays, Sensoren oder Erweiterungsmodule angesprochen werden \cite{arduino:language-reference}.
+
+
+
+Ein \textbf{I2C}-Bauteil wird mit \textbf{SDA}, \textbf{SCL}, Versorgungsspannung und \textbf{GND} verbunden \cite{arduino:uno-datasheet}. Mehrere \textbf{I2C}-Bauteile können an denselben zwei Leitungen angeschlossen werden, wenn sie unterschiedliche Adressen besitzen \cite{arduino:language-reference}.
+
+Im Programm kann \textbf{I2C} über die Bibliothek \PYTHON{Wire} verwendet werden \cite{arduino:language-reference}.
+
+
+
+\subsection{SPI-Kommunikationsanschlüsse}
+
+
+\textbf{SPI} ist eine schnelle Schnittstelle zur Kommunikation mit Bauteilen wie Displays, Speicherbausteinen oder Funkmodulen \cite{arduino:language-reference}. Beim Arduino Uno liegen die SPI-Signale auf den Kommunikationsanschlüssen \textbf{D10} bis \textbf{D13} \cite{arduino:uno-datasheet}.
+
+\textbf{SPI} verwendet mehrere Leitungen. Dadurch ist die Verbindung schneller als einfache digitale Signale, benötigt aber mehr Anschlüsse \cite{arduino:language-reference}.
+
+
+
+Die wichtigsten SPI-Anschlüsse beim Arduino Uno sind:
 \begin{itemize}
-	\item \python{D10}: \python{SS} oder \python{CS}
-	\item \python{D11}: \python{MOSI} 
-	\item \python{D12}: \python{MISO} 
-	\item \python{D13}: \python{SCK} \cite{arduino:uno-datasheet}
+	\item \textbf{D10}: \textbf{SS} oder \textbf{CS}, meist Ausgangspin zur Auswahl eines Bauteils
+	\item \textbf{D11}: \textbf{MOSI}, Ausgangspin für Daten vom Arduino zum Bauteil
+	\item \textbf{D12}: \textbf{MISO}, Eingangspin für Daten vom Bauteil zum Arduino
+	\item \textbf{D13}: \textbf{SCK}, Ausgangspin für das Taktsignal \cite{arduino:uno-datasheet}
 \end{itemize}
 
-\python{MOSI} sendet Daten vom Arduino zum Bauteil. \python{MISO} empfängt Daten vom Bauteil. \python{SCK} ist die Taktleitung. \python{SS} oder \python{CS} wählt das jeweilige Bauteil aus \cite{arduino:language-reference}.
+\textbf{MOSI} sendet Daten vom Arduino zum Bauteil und ist deshalb ein Ausgangssignal. \textbf{MISO} empfängt Daten vom Bauteil und ist deshalb ein Eingangssignal. \textbf{SCK} ist die Taktleitung und wird beim Arduino als Ausgang verwendet. \textbf{SS} oder \textbf{CS} wählt das jeweilige Bauteil aus und wird meist als Ausgang verwendet \cite{arduino:language-reference}.
 
 
 
 
-\subsection{AREF-Pin}
-
-\subsubsection{Hintergrundwissen}
-
-Der Pin \python{AREF} steht für Analog Reference. Er kann als externe Referenzspannung für die analogen Eingänge verwendet werden \cite{arduino:uno-datasheet}.
-
-Normalerweise verwendet der Arduino Uno eine Standardreferenz für \python{analogRead()}. Mit \python{AREF} kann eine andere Referenzspannung verwendet werden, wenn genauere Messungen in einem kleineren Spannungsbereich benötigt werden \cite{arduino:analogread}.
-
-\subsubsection{Beschreibung}
-
-Der \python{AREF}-Pin wird nur für spezielle analoge Messungen verwendet. In einfachen Projekten bleibt dieser Pin normalerweise unbenutzt \cite{arduino:uno-components}.
-
-Wenn eine externe Referenzspannung verwendet wird, muss sie im Programm korrekt eingestellt werden. Dafür wird \python{analogReference()} genutzt \cite{arduino:analogread}.
+\subsection{AREF-Referenzeingang}
 
 
 
-\subsection{RESET-Pin}
+Der Anschluss \textbf{AREF} steht für Analog Reference. Er ist ein Referenzeingang und kann als externe Referenzspannung für die analogen Eingänge verwendet werden \cite{arduino:uno-datasheet}.
 
-\subsubsection{Hintergrundwissen}
+Normalerweise verwendet der Arduino Uno eine Standardreferenz für \PYTHON{analogRead()}. Mit \textbf{AREF} kann eine andere Referenzspannung verwendet werden, wenn genauere Messungen in einem kleineren Spannungsbereich benötigt werden \cite{arduino:analogread}.
 
-Der \python{RESET}-Pin kann den Mikrocontroller neu starten. Er hat dieselbe Grundfunktion wie der Reset-Taster auf dem Board \cite{arduino:uno-datasheet}\cite{arduino:uno-components}.
 
-\subsubsection{Beschreibung}
 
-Wird der \python{RESET}-Pin kurz mit \python{GND} verbunden, startet der Arduino Uno neu. Das gespeicherte Programm bleibt erhalten und beginnt wieder bei \python{setup()} \cite{arduino:uno-components}\cite{arduino:language-reference}.
+Der \textbf{AREF}-Referenzeingang wird nur für spezielle analoge Messungen verwendet. In einfachen Projekten bleibt dieser Referenzeingang normalerweise unbenutzt \cite{arduino:uno-components}.
+
+Wenn eine externe Referenzspannung verwendet wird, muss sie im Programm korrekt eingestellt werden. Dafür wird \PYTHON{analogReference()} genutzt \cite{arduino:analogread}.
+
+
+
+\subsection{RESET-Eingang}
+
+
+
+Der \textbf{RESET}-Eingang kann den Mikrocontroller neu starten. Er ist ein spezieller Eingangspin und hat dieselbe Grundfunktion wie der Reset-Taster auf dem Board \cite{arduino:uno-datasheet}\cite{arduino:uno-components}.
+
+
+
+Wird der \textbf{RESET}-Eingang kurz mit \textbf{GND} verbunden, startet der Arduino Uno neu. Das gespeicherte Programm bleibt erhalten und beginnt wieder bei \PYTHON{setup()} \cite{arduino:uno-components}\cite{arduino:language-reference}.
 
 
 \section{Beispiel Code}
 
 \subsection{Manual}
 
-Ein einfaches Beispiel ist das Blinken der eingebauten LED. Dafür wird die LED auf Pin \python{D13} verwendet \cite{arduino:uno-components}. Da diese LED bereits auf dem Arduino Uno verbaut ist, muss keine externe LED angeschlossen werden.
+Ein einfaches Beispiel ist das Blinken der eingebauten LED. Dafür wird die LED am Ausgangspin \textbf{D13} verwendet \cite{arduino:uno-components}. \textbf{D13} wird dabei als Ausgangspin genutzt. Da diese LED bereits auf dem Arduino Uno verbaut ist, muss keine externe LED angeschlossen werden.
 
 Der Arduino Uno muss nur über USB mit dem Computer verbunden sein. Die Stromversorgung und das Hochladen des Programms erfolgen über das USB-Kabel.
 
-Der Pin wird in \python{setup()} mit \python{pinMode()} als Ausgang festgelegt \cite{arduino_pinmode}. In \python{loop()} wird die LED mit \python{digitalWrite()} ein- und ausgeschaltet \cite{arduino_digitalwrite}.
+Der Anschluss wird in \PYTHON{setup()} mit \PYTHON{pinMode()} als Ausgangspin festgelegt \cite{arduino_pinmode}. In \PYTHON{loop()} wird die LED mit \PYTHON{digitalWrite()} ein- und ausgeschaltet \cite{arduino_digitalwrite}.
 
-Mit \python{delay()} wird eine Pause zwischen den Zuständen erzeugt. Dadurch blinkt die LED sichtbar \cite{arduino:language-reference}.
+Mit \PYTHON{delay()} wird eine Pause zwischen den Zuständen erzeugt. Dadurch blinkt die LED sichtbar \cite{arduino:language-reference}.
 
 \subsection{Code}
 
@@ -305,11 +304,11 @@ Mit \python{delay()} wird eine Pause zwischen den Zuständen erzeugt. Dadurch bl
 
 In dieser Anwendung wird ein einfacher Reaktionstest mit einer LED und einem Druckknopf aufgebaut. Die LED zeigt an, wann der Benutzer reagieren soll. Sobald die LED leuchtet, muss der Druckknopf möglichst schnell gedrückt werden.
 
-Der Druckknopf wird zwischen den digitalen Pin \python{D2} und \python{GND} angeschlossen. Im Programm wird der interne Pull-up-Widerstand mit \python{INPUT PULLUP} verwendet. Dadurch wird kein externer Widerstand für den Druckknopf benötigt.
+Der Druckknopf wird zwischen den digitalen Eingangspin \textbf{D2} und \textbf{GND} angeschlossen. \textbf{D2} wird dabei als Eingangspin verwendet. Im Programm wird der interne Pull-up-Widerstand mit \PYTHON{INPUT PULLUP} verwendet. Dadurch wird kein externer Widerstand für den Druckknopf benötigt.
 
-Die LED wird an den digitalen Pin \python{D13} angeschlossen. Alternativ kann auch die eingebaute LED des Arduino Uno verwendet werden, da diese ebenfalls mit Pin \python{D13} verbunden ist.
+Die LED wird an den digitalen Ausgangspin \textbf{D13} angeschlossen. \textbf{D13} wird dabei als Ausgangspin verwendet. Alternativ kann auch die eingebaute LED des Arduino Uno verwendet werden, da diese ebenfalls mit dem Ausgangspin \textbf{D13} verbunden ist.
 
-Nach dem Start wartet der Arduino eine zufällige Zeit. Danach wird die LED eingeschaltet. Wenn der Druckknopf gedrückt wird, erkennt der Arduino den Tastendruck mit \python{digitalRead()}. Im seriellen Monitor wird angezeigt, dass der Druckknopf gedrückt wurde. Danach beginnt der Test erneut.
+Nach dem Start wartet der Arduino eine zufällige Zeit. Danach wird die LED eingeschaltet. Wenn der Druckknopf gedrückt wird, erkennt der Arduino den Tastendruck mit \PYTHON{digitalRead()}. Im seriellen Monitor wird angezeigt, dass der Druckknopf gedrückt wurde. Danach beginnt der Test erneut.
 
 Die Anwendung zeigt, wie ein Eingangssignal von einem Druckknopf ausgewertet und mit einer Ausgabe über LED und seriellen Monitor verbunden wird.
 
@@ -322,28 +321,28 @@ Die Anwendung zeigt, wie ein Eingangssignal von einem Druckknopf ausgewertet und
 \subsubsection*{Verwendete Arduino-Befehle}
 
 \begin{itemize}
-	\item \python{setup()}: Wird einmal beim Start des Arduino ausgeführt.
-	\item \python{loop()}: Wird nach \python{setup()} dauerhaft wiederholt.
-	\item \python{pinMode()}: Legt fest, ob ein Pin als Eingang oder Ausgang verwendet wird.
-	\item \python{INPUT PULLUP}: Aktiviert den internen Pull-up-Widerstand für den Druckknopf.
-	\item \python{digitalRead()}: Liest den Zustand des Druckknopfes aus.
-	\item \python{digitalWrite()}: Schaltet die LED ein oder aus.
-	\item \python{Serial.begin()}: Startet die serielle Kommunikation.
-	\item \python{Serial.println()}: Gibt Text im seriellen Monitor aus.
-	\item \python{delay()}: Erzeugt eine Pause im Programm.
-	\item \python{random()}: Erzeugt eine zufällige Wartezeit.
-	\item \python{randomSeed()}: Startet den Zufallsgenerator mit einem veränderlichen Startwert.
-	\item \python{analogRead()}: Liest einen analogen Wert ein, der hier als Startwert für den Zufallsgenerator genutzt wird.
+	\item \PYTHON{setup()}: Wird einmal beim Start des Arduino ausgeführt.
+	\item \PYTHON{loop()}: Wird nach \PYTHON{setup()} dauerhaft wiederholt.
+	\item \PYTHON{pinMode()}: Legt fest, ob ein Anschluss als Eingangspin oder Ausgangspin verwendet wird.
+	\item \PYTHON{INPUT PULLUP}: Aktiviert den internen Pull-up-Widerstand für den Druckknopf.
+	\item \PYTHON{digitalRead()}: Liest den Zustand des Druckknopfes aus.
+	\item \PYTHON{digitalWrite()}: Schaltet die LED ein oder aus.
+	\item \PYTHON{Serial.begin()}: Startet die serielle Kommunikation.
+	\item \PYTHON{Serial.println()}: Gibt Text im seriellen Monitor aus.
+	\item \PYTHON{delay()}: Erzeugt eine Pause im Programm.
+	\item \PYTHON{random()}: Erzeugt eine zufällige Wartezeit.
+	\item \PYTHON{randomSeed()}: Startet den Zufallsgenerator mit einem veränderlichen Startwert.
+	\item \PYTHON{analogRead()}: Liest einen analogen Wert ein, der hier als Startwert für den Zufallsgenerator genutzt wird.
 \end{itemize}
 
 \section{Testcode}
 
 \subsection{Manual}
-Der Testcode prüft, ob der Arduino einen Tastendruck erkennt. Der Taster wird zwischen den digitalen Pin \python{D2} und \python{GND} angeschlossen. Eine Seite des Tasters kommt an \python{D2}, die andere Seite an \python{GND}.
+Der Testcode prüft, ob der Arduino einen Tastendruck erkennt. Der Taster wird zwischen den digitalen Eingangspin \textbf{D2} und \textbf{GND} angeschlossen. \textbf{D2} wird dabei als Eingangspin verwendet. Eine Seite des Tasters kommt an \textbf{D2}, die andere Seite an \textbf{GND}.
 
-Im Programm wird der Eingang mit \python{pinMode()} als \python{INPUT PULLUP} eingestellt. Dadurch wird kein externer Widerstand benötigt. Der Arduino liest bei nicht gedrücktem Taster den Zustand \python{HIGH}. Beim Drücken verbindet der Taster \python{D2} mit \python{GND}, wodurch der Zustand \python{LOW} gelesen wird.
+Im Programm wird der Eingangspin mit \PYTHON{pinMode()} als \PYTHON{INPUT PULLUP} eingestellt. Dadurch wird kein externer Widerstand benötigt. Der Arduino liest bei nicht gedrücktem Taster den Zustand \PYTHON{HIGH}. Beim Drücken verbindet der Taster \textbf{D2} mit \textbf{GND}, wodurch der Zustand \PYTHON{LOW} gelesen wird.
 
-Der Zustand wird mit \python{digitalRead()} ausgelesen und mit \python{Serial.println()} im seriellen Monitor angezeigt \python{delay()} erzeugt eine Pause im Programm \cite{arduino_pinmode}\cite{arduino_digitalread}\cite{arduino:language-reference}.
+Der Zustand wird mit \PYTHON{digitalRead()} ausgelesen und mit \PYTHON{Serial.println()} im seriellen Monitor angezeigt \PYTHON{delay()} erzeugt eine Pause im Programm \cite{arduino_pinmode}\cite{arduino_digitalread}\cite{arduino:language-reference}.
 
 \subsection{Code}
 
