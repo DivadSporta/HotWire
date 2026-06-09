@@ -54,19 +54,16 @@ In der Abbildung \ref{fig:OLEDsketch} wird der Aufbau des OLED-Displays gezeigt.
 \begin{center}
 	\input{../../tikz/Eigene_Bilder/Oled}
 	\captionof{figure}[OLED-Display]{OLED-Display nach}\label{fig:OLEDsketch}
-	\href{../../Datenblaetter/Oled_VMA438_A4V01.pdf}{Oled\_VMA438\_A4V01.pdf}
+	\cite{Velleman:WPI438}
 	
 \end{center}
 
-Bei der Ansteuerung eines OLED-Displays über das I\textsuperscript{2}C-Protokoll übernehmen die beiden Leitungen \ac{sda} und \ac{scl} den seriellen Datenaustausch.
+Bei der Ansteuerung eines OLED-Displays über das I\textsuperscript{2}C-Protokoll erfolgt der serielle Datenaustausch über die beiden Leitungen \ac{sda} und \ac{scl}. Dabei ermöglicht das I\textsuperscript{2}C-Protokoll eine bidirektionale Kommunikation über zwei Leitungen. Mehrere Geräte können dabei über individuelle Adressen gezielt angesprochen werden.\cite{Velleman:WPI438UserManual}
 
 \begin{itemize}
-	\item SDA überträgt die eigentlichen Datenbits (z.B. Befehle oder Bildinhalte).
-	\item SCL gibt den Takt vor, der bestimmt, wann ein Bit gelesen oder geschrieben wird.
+	\item \ac{sda} überträgt die eigentlichen Datenbits, beispielsweise Befehle oder Bildinhalte.
+	\item \ac{scl} gibt den Takt vor, der bestimmt, wann ein Bit gelesen oder geschrieben wird.
 \end{itemize}
-
-Das I\textsuperscript{2}C-Protokoll ermöglicht eine einfache, bidirektionale Kommunikation über nur zwei Leitungen, wobei mehrere Geräte über individuelle Adressen angesprochen werden können.\cite{Velleman:WPI438UserManual}
-
 
 \section{Installation}
 Zur Nutzung des OLED-Displays muss dieses mit dem Arduino nach Tabelle \ref{tab:oled_pinbelegung} angeschlossen werden.  
@@ -106,6 +103,8 @@ Für die Verwendung des OLED-Displays sind die folgenden aufgelisteten Bibliothe
 		Treiber für SSD1306-basierte OLED-Displays mit Unterstützung für I\textsuperscript{2}C. \\
 		\hline
 	\end{tabular}
+	\cite{arduinoLibraries:2025}
+	\cite{AdafruitGFX:2023}
 \end{center}
 
 \subsection{Wire.h}
