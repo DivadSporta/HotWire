@@ -1,5 +1,6 @@
 /**
  * @file MicroSwitch_BasicRead.ino
+
  * @brief Basic example for reading a micro switch.
 */
 const int MICRO_SWITCH_PIN = 2; /**< Digital input pin for the micro switch. */

@@ -12,7 +12,7 @@
 %%%%%%%%%%%%
 
 % Structure
-\chapter{Arduino Uno}
+\chapter{Arduino Uno R3}
 
 \section{Arduino Allgemein}
 
@@ -150,6 +150,8 @@ Als Eingangspin wird ein digitaler Anschluss zum Beispiel für Taster oder digit
 
 Als Ausgangspin kann ein digitaler Anschluss LEDs, Steuersignale oder kleine Lasten ansteuern. Der Zustand wird mit \PYTHON{digitalWrite()} auf \PYTHON{HIGH} oder \PYTHON{LOW} gesetzt \cite{arduino_digitalwrite}.
 
+Codebeispiel wären für die Ausgangspins \ref{lst:BlinkInternalLED} und für die Eingangspins \ref{lst:TestButton} wie auch \ref{lst:druckknopftest}. Kombiniert eingesetzt werden Aus- und Eingangspin in \ref{lst:ReaktionstestDruckknopf}.
+
 
 \subsection{PWM-Ausgangspins}
 
@@ -167,6 +169,25 @@ PWM wird im Programm mit \PYTHON{analogWrite()} genutzt \cite{arduino:analogwrit
 
 Der Wert bei \PYTHON{analogWrite()} liegt zwischen 0 und 255. Der Wert 0 bedeutet dauerhaft aus. Der Wert 255 bedeutet dauerhaft an. Werte dazwischen erzeugen ein schnelles Ein- und Ausschalten \cite{arduino:analogwrite}.
 
+\subsubsection{Beispielcode}
+
+In diesem Beispiel wird eine LED über einen PWM-Ausgangspin gedimmt. Dafür wird die LED an den digitalen PWM-Ausgangspin \textbf{D9} angeschlossen. Der lange Anschluss der LED ist die Anode und wird über einen Vorwiderstand mit \textbf{D9} verbunden. Der kurze Anschluss der LED ist die Kathode und wird mit \textbf{GND} verbunden.
+
+Im Programm wird \textbf{D9} mit \PYTHON{pinMode()} als Ausgangspin festgelegt. Anschließend wird mit \PYTHON{analogWrite()} ein PWM-Signal ausgegeben. Obwohl die Funktion \PYTHON{analogWrite()} heißt, wird beim Arduino Uno kein echter analoger Spannungswert erzeugt. Stattdessen wird der Ausgangspin sehr schnell ein- und ausgeschaltet.
+
+Der Wert bei \PYTHON{analogWrite()} liegt zwischen 0 und 255. Der Wert 0 bedeutet, dass die LED ausgeschaltet ist. Der Wert 255 bedeutet, dass die LED dauerhaft eingeschaltet ist. Werte dazwischen verändern das Verhältnis zwischen Ein- und Ausschaltzeit und dadurch die wahrgenommene Helligkeit der LED.
+
+Dieses Beispiel zeigt die Verwendung eines PWM-Ausgangspins zur Helligkeitssteuerung einer LED.
+
+\subsubsection{Code}
+
+{
+	\captionof{code}{LED dimmen mit PWM}\label{lst:LEDDimmenPWM}
+	\ArduinoExternal{}{../../Code/LEDDimmenPWM/LEDDimmenPWM.ino}
+}
+
+
+
 
 
 \subsection{Analoge Eingänge}
@@ -175,7 +196,7 @@ Der Wert bei \PYTHON{analogWrite()} liegt zwischen 0 und 255. Der Wert 0 bedeute
 
 Die analogen Eingänge des Arduino Uno sind mit \textbf{A0} bis \textbf{A5} beschriftet. Sie werden normalerweise als Eingangspins verwendet, messen Spannungen und wandeln diese in digitale Werte um \cite{arduino:uno-r3}\cite{arduino:analogread}.
 
-Der Arduino Uno besitzt einen Analog-Digital-Wandler. Dieser wandelt eine Eingangsspannung in einen Zahlenwert um. Der Wertebereich bei \PYTHON{analogRead()} reicht normalerweise von 0 bis 1023 \cite{arduino:analogread}.
+Der Arduino Uno besitzt einen Analog-Digital-Wandler. Dieser wandelt eine Eingangsspannung in einen Zahlenwert um. Der Wertebereich bei \PYTHON{analogRead()} reicht von 0 bis 1023 \cite{arduino:analogread}.
 
 
 
@@ -212,6 +233,7 @@ Die serielle Kommunikation wird zum Beispiel für den seriellen Monitor verwende
 
 Da \textbf{D0} und \textbf{D1} auch für die USB-Kommunikation verwendet werden, sollten sie bei einfachen Projekten möglichst frei bleiben. Angeschlossene Bauteile können sonst das Hochladen von Programmen oder die serielle Ausgabe stören \cite{arduino:uno-components}.
 
+Beispielcodes hierfür wären \ref{lst:TestButton}, \ref{lst:druckknopftest} wie auch \ref{lst:ReaktionstestDruckknopf}.
 
 
 \subsection{I2C-Kommunikationsanschlüsse}
@@ -227,6 +249,8 @@ Da \textbf{D0} und \textbf{D1} auch für die USB-Kommunikation verwendet werden,
 Ein \textbf{I2C}-Bauteil wird mit \textbf{SDA}, \textbf{SCL}, Versorgungsspannung und \textbf{GND} verbunden \cite{arduino:uno-datasheet}. Mehrere \textbf{I2C}-Bauteile können an denselben zwei Leitungen angeschlossen werden, wenn sie unterschiedliche Adressen besitzen \cite{arduino:language-reference}.
 
 Im Programm kann \textbf{I2C} über die Bibliothek \PYTHON{Wire} verwendet werden \cite{arduino:language-reference}.
+
+Ein Beispielcode wäre hierfür \ref{lst:TestOLEDDisplay} wie auch \ref{lst:OLEDProgressBar}.
 
 
 
@@ -250,6 +274,22 @@ Die wichtigsten SPI-Anschlüsse beim Arduino Uno sind:
 \textbf{MOSI} sendet Daten vom Arduino zum Bauteil und ist deshalb ein Ausgangssignal. \textbf{MISO} empfängt Daten vom Bauteil und ist deshalb ein Eingangssignal. \textbf{SCK} ist die Taktleitung und wird beim Arduino als Ausgang verwendet. \textbf{SS} oder \textbf{CS} wählt das jeweilige Bauteil aus und wird meist als Ausgang verwendet \cite{arduino:language-reference}.
 
 
+\subsubsection{Beispielcode}
+
+In diesem Beispiel wird die SPI-Kommunikation mit einem einfachen Testprogramm gezeigt. Beim Arduino Uno werden für SPI die Kommunikationsanschlüsse \textbf{D10}, \textbf{D11}, \textbf{D12} und \textbf{D13} verwendet. \textbf{D10} wird als \textbf{SS} oder \textbf{CS} verwendet, \textbf{D11} ist \textbf{MOSI}, \textbf{D12} ist \textbf{MISO} und \textbf{D13} ist \textbf{SCK}.
+
+Für den Test wird ein SPI-Bauteil mit dem Arduino verbunden. Der Anschluss \textbf{MOSI} sendet Daten vom Arduino zum Bauteil. Der Anschluss \textbf{MISO} empfängt Daten vom Bauteil. Der Anschluss \textbf{SCK} gibt das Taktsignal vor. Der Anschluss \textbf{SS} oder \textbf{CS} wählt das angeschlossene Bauteil aus.
+
+Im Programm wird die SPI-Schnittstelle mit \PYTHON{SPI.begin()} gestartet. Der Chip-Select-Anschluss wird mit \PYTHON{pinMode()} als Ausgangspin festgelegt. Vor der Datenübertragung wird \textbf{CS} auf \PYTHON{LOW} gesetzt. Dadurch wird das SPI-Bauteil ausgewählt. Danach wird mit \PYTHON{SPI.transfer()} ein Datenbyte übertragen. Nach der Übertragung wird \textbf{CS} wieder auf \PYTHON{HIGH} gesetzt.
+
+Dieses Beispiel zeigt die grundlegende Verwendung der SPI-Kommunikationsanschlüsse des Arduino Uno.
+
+\subsubsection{Code}
+
+{
+	\captionof{code}{SPI Grundtest}\label{lst:SPIGrundtest}
+	\ArduinoExternal{}{../../Code/SPIGrundtest/SPIGrundtest.ino}
+}
 
 
 \subsection{AREF-Referenzeingang}
