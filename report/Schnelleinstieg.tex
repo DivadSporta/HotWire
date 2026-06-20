@@ -1,0 +1,148 @@
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{titlesec}
+
+\geometry{
+	left=1.3cm,
+	right=1.3cm,
+	top=1.2cm,
+	bottom=1.2cm
+}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.25em}
+\setlist[itemize]{leftmargin=1.2em, itemsep=0.15em}
+\setlist[enumerate]{leftmargin=1.4em, itemsep=0.15em}
+
+\titleformat{\section}
+{\Large\bfseries\color{blue}}
+{}{0em}{}
+
+\titleformat{\subsection}
+{\normalsize\bfseries}
+{}{0em}{}
+
+\begin{document}
+	
+	\begin{center}
+		{\Huge \textbf{Schnelleinstieg}}\\
+		\vspace{0.2em}
+		{\LARGE ELMAR CNC-Cutter}\\
+		\vspace{0.4em}
+		\textbf{Bedienung über UGS mit vorhandenem G-Code}
+	\end{center}
+	
+	\vspace{0.5em}
+	
+	\textbf{Kurzbeschreibung:}  
+	Mit vorhandenem G-Code kann der ELMAR CNC-Cutter über UGS vom Laptop aus angesteuert werden. UGS überträgt die Fahrbefehle an die Steuerung, sodass der Cutter die programmierten Bahnen automatisch abfährt und das Styropor mit dem erhitzten Draht entlang der vorgegebenen Kontur schneidet.
+	
+	\vspace{0.5em}
+	
+	\section*{1. Vorbereitung}
+	
+	\begin{enumerate}
+		\item ELMAR auf eine ebene, feste und nicht brennbare Oberfläche stellen.
+		\item Prüfen, ob der Fahrbereich der Achsen frei ist.
+		\item Styropor-Rohling sicher im Arbeitsbereich befestigen.
+		\item Kontrollieren, ob Heizdraht, Kabel und Antrieb sichtbar unbeschädigt sind.
+		\item Laptop, USB-Kabel und passende G-Code-Datei bereitlegen.
+	\end{enumerate}
+	
+	\section*{2. Einschalten und verbinden}
+	
+	\begin{enumerate}
+		\item Netzstecker einstecken und Netzschalter einschalten.
+		\item Laptop über USB-B mit dem Cutter verbinden.
+		\item UGS auf dem Laptop starten.
+		\item Den passenden COM-Port auswählen.
+		\item Baudrate auf \textbf{115200} einstellen.
+		\item Auf \textbf{Connect} klicken.
+		\item Prüfen, ob UGS eine erfolgreiche Verbindung anzeigt.
+	\end{enumerate}
+	
+	\section*{3. Maschine referenzieren}
+	
+	\begin{enumerate}
+		\item Vor dem Schneiden muss die Maschine referenziert werden.
+		\item In UGS das Homing starten.
+		\item Warten, bis die Achsen ihre Referenzposition angefahren haben.
+		\item Danach ist der Cutter für den Schneidvorgang bereit.
+	\end{enumerate}
+	
+	\textbf{Hinweis:}  
+	Wenn das Homing nicht funktioniert, Endschalter, Verkabelung und freie Achsbewegung prüfen. Erst danach weiterarbeiten.
+	
+	\section*{4. G-Code laden}
+	
+	\begin{enumerate}
+		\item In UGS die gewünschte G-Code-Datei öffnen.
+		\item Den angezeigten Werkzeugpfad kontrollieren.
+		\item Prüfen, ob der Schnitt zur Größe und Position des Styropor-Rohlings passt.
+		\item Startposition passend anfahren.
+		\item Nullpunkt in UGS setzen, zum Beispiel mit \textbf{Zero All}.
+	\end{enumerate}
+	
+	\section*{5. Schneidvorgang starten}
+	
+	\begin{enumerate}
+		\item Sicherstellen, dass niemand in den Bewegungsbereich greift.
+		\item Heizdraht aktivieren und kurz aufheizen lassen.
+		\item Schneidvorgang in UGS starten.
+		\item Cutter während des Schneidens beobachten.
+		\item Bei ungewöhnlichen Geräuschen, starker Rauchentwicklung oder falscher Bewegung sofort stoppen.
+	\end{enumerate}
+	
+	\section*{6. Während des Betriebs}
+	
+	\begin{itemize}
+		\item \textbf{Pause:} Der laufende Vorgang kann in UGS pausiert werden.
+		\item \textbf{Fortsetzen:} Nach einer Pause kann der Vorgang wieder gestartet werden.
+		\item \textbf{Stopp:} Bei Fehlern oder unsicherem Verhalten den Vorgang sofort stoppen.
+		\item \textbf{Not-Aus:} Im Gefahrenfall Not-Aus betätigen oder ELMAR vom Strom trennen.
+	\end{itemize}
+	
+	\section*{7. Nach dem Schneiden}
+	
+	\begin{enumerate}
+		\item Warten, bis keine Bewegung mehr stattfindet.
+		\item Heizdraht abkühlen lassen und nicht direkt berühren.
+		\item Werkstück erst nach dem Abkühlen entnehmen.
+		\item Cutter ausschalten.
+		\item USB-Verbindung trennen.
+		\item Arbeitsplatz kontrollieren und Materialreste entfernen.
+	\end{enumerate}
+	
+	\section*{Wichtige Sicherheitshinweise}
+	
+	\begin{itemize}
+		\item Heizdraht nicht berühren. Es besteht Verbrennungsgefahr.
+		\item Nicht in den Bewegungsbereich der Achsen greifen.
+		\item Cutter während des Betriebs nicht unbeaufsichtigt lassen.
+		\item Nur geeignete Schaumstoffe schneiden.
+		\item Für gute Belüftung sorgen, da beim Schneiden Dämpfe entstehen können.
+		\item Bei Rauch, Geruch, blockierter Achse oder elektrischen Auffälligkeiten sofort stoppen.
+		\item Vor Arbeiten an Elektronik oder Mechanik den Cutter spannungsfrei schalten.
+	\end{itemize}
+	
+	\section*{Kurze Fehlerhilfe}
+	
+	\begin{tabular}{p{0.34\linewidth} p{0.58\linewidth}}
+		\textbf{Problem} & \textbf{Mögliche Abhilfe} \\
+		\hline
+		Keine Verbindung & COM-Port, USB-Kabel und Baudrate prüfen. \\
+		Achsen fahren nicht & Verbindung, Stromversorgung und UGS-Status prüfen. \\
+		Homing schlägt fehl & Endschalter, Verkabelung und freie Achsbewegung prüfen. \\
+		Draht wird nicht heiß & Spannungsversorgung und Heizdraht prüfen. \\
+		Schnitt ungleichmäßig & Geschwindigkeit, Drahttemperatur und Materialbefestigung prüfen. \\
+	\end{tabular}
+	
+\end{document}
+

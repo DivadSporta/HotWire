@@ -1,0 +1,141 @@
+\documentclass[25pt,a0paper, portrait]{tikzposter}
+\usepackage[utf8]{inputenc}
+\usepackage{xcolor}
+\usepackage{graphicx,mwe}
+\usepackage{filecontents}
+\usepackage{lipsum}
+\usepackage{tikz}
+\usepackage{multicol}
+\usepackage{adjustbox}
+\usepackage{blindtext}
+\usepackage{comment}
+
+\makeatletter
+\def\TP@titlegraphictotitledistance{-6cm}
+\settitle{ \centering \vbox{
+		\@titlegraphic \\ [\TP@titlegraphictotitledistance] 
+		\centering
+		\color{titlefgcolor} 
+		{\bfseries \Huge \sc \@title \par}
+		\vspace*{1em}
+		{\huge \@author \par}
+}}
+\makeatother
+
+\setlength{\columnsep}{2cm}
+
+\title{ELMAR CNC-Cutter}
+\author{\raggedleft Alexandra Roth, David Atrops, Dennis Smirnow, Leon Ronge, Samuel Drees}
+\titlegraphic{\includegraphics[height=6.5cm]{images/logo_hs_technik}
+	\hspace{60cm}
+	\hfill
+	%	\includegraphics[height=6.5cm]{images/logo}
+}
+
+\usetheme{Desert}
+
+\begin{document}
+	
+	\maketitle
+	
+	\begin{columns} 
+		
+		\column{0.36}
+		{
+			\colorlet{blocktitlebgcolor}{blue}
+			
+			\block{Problembeschreibung}
+			{
+				Styropor wird besonders im Modellbau und in der Verpackungsindustrie häufig verwendet, da es leicht, günstig und vielseitig einsetzbar ist. Gerade dort, wo große Formen mit geringem Gewicht benötigt werden, ist Styropor ein geeignetes Material.\\
+				
+				Die manuelle Bearbeitung ist jedoch oft ungenau, zeitaufwendig und mit Risiken verbunden. Beim Schneiden mit Messern besteht Verletzungsgefahr. Handgeführte Heißdrahtschneider reduzieren zwar den Kraftaufwand, erfordern jedoch eine ruhige Hand, viel Konzentration und direkten Kontakt zum Schneidbereich. Dadurch können Verbrennungen entstehen und gleichmäßige Konturen sind nur schwer wiederholbar.\\
+				
+				Unser ELMAR CNC-Cutter automatisiert diesen Schneidvorgang. Statt das Material von Hand zu schnitzen oder den Draht manuell zu führen, fährt der Cutter vorgegebene G-Code-Bahnen ab. Dadurch können Konturen gleichmäßiger, reproduzierbarer und mit weniger manueller Nacharbeit hergestellt werden. Gleichzeitig muss der Bediener nicht dauerhaft aktiv schneiden, wodurch der Arbeitsaufwand reduziert und der Prozess sicherer wird.\\
+				
+				Gerade für den Flugzeugmodellbau ist das ein Vorteil: Styroporbauteile können präzise und wiederholbar hergestellt werden, ohne auf schwerere 3D-gedruckte Bauteile ausweichen zu müssen. So entstehen leichte Strukturen mit mehr Freiheit bei der Gestaltung.
+			}
+		}
+		
+		\column{0.64}
+		{
+			\colorlet{blocktitlebgcolor}{blue}
+			
+			\block{Ergebnis}
+			{
+				\begin{center}
+					\includegraphics[width=0.95\linewidth,height=0.20\textheight,keepaspectratio]{images/ELMAR.JPEG}
+				\end{center}
+				
+				\vspace{1em}
+				
+				Elmar ist ein CNC-Heißdraht-Cutter, der G-Code über UGS einlesen und die vorgegebenen Bahnen automatisch abfahren kann. Der Cutter bewegt insgesamt vier Achsen, von denen drei unabhängig voneinander angesteuert werden können. Nach einem Kurzschluss konnte das beschädigte MOSFET ersetzt werden. Dadurch lässt sich der Heizdraht wieder ansteuern und der Cutter kann erneut Styropor schneiden. Die geplante OLED-Anzeige wurde nicht umgesetzt, da die Kombination aus GRBL und eigener Programmierung aufwendiger war als erwartet. Die Bedienung, Navigation und Übergabe des G-Codes erfolgen daher aktuell über UGS. \textbf{Schnelleinstieg:} Vorhandener G-Code kann über UGS vom Laptop an den ELMAR CNC-Cutter übertragen werden. Dadurch fährt der Cutter die programmierten Bahnen automatisch ab und schneidet das Styropor entlang der vorgegebenen Kontur.
+			}
+			
+		}
+		
+	\end{columns}
+	
+	\colorlet{blocktitlebgcolor}{blue}
+	
+	\block{\centering \Huge Herausforderungen}
+		{
+			Bei der Entwicklung des ELMAR CNC-Cutters traten verschiedene mechanische, elektrische und softwareseitige Herausforderungen auf. Besonders deutlich wurde dabei, dass die einzelnen Baugruppen stark voneinander abhängig sind: Änderungen an der Mechanik beeinflussen den Lauf der Achsen, die Einstellung des Heizdrahtes wirkt sich direkt auf die Schnittqualität aus und Fehler in der Elektronik können den gesamten Betrieb beeinträchtigen.
+			
+			Dadurch mussten während der Umsetzung immer wieder Kompromisse gefunden, Einstellungen angepasst und einzelne Komponenten überprüft werden. Die Herausforderungen zeigten, dass nicht nur die Konstruktion des Cutters wichtig ist, sondern auch die genaue Abstimmung zwischen Mechanik, Elektronik und Steuerung.
+			
+			
+	}
+	
+	\begin{columns} 
+		
+		\column{0.5}
+		{
+			\colorlet{blocktitlebgcolor}{blue}
+			
+			\block{Achsenführungen}
+			{
+				Die Achsenführung stellte eine zentrale mechanische Herausforderung dar. Ursprünglich wurden horizontale Führungen verwendet, die während der Bewegung jedoch gescheuert haben. Dadurch musste ein Kompromiss zwischen einer möglichst stabilen Führung und einer reibungsarmen Bewegung gefunden werden.
+				
+				\textbf{Lösung:} Die Führungen wurden so angepasst, dass das Scheuern reduziert werden konnte. Dabei wurde ein leichtes Wackeln der Achsen in Kauf genommen, da der Cutter trotz dieses Kompromisses gleichmäßig verfahren kann.
+			}
+			
+			\block{Heizdraht}
+			{
+				Die mechanische Spannung des Heizdrahtes war problematisch. Der Draht musste ausreichend gespannt sein, um gerade zu schneiden, durfte dabei jedoch nicht zu stark belastet werden. Während der Umsetzung ist der Draht mehrfach gerissen. Zusätzlich ist die elektrische Spannung noch nicht vollständig kalibriert, wodurch der Draht teilweise rot leuchtet.
+				
+				\textbf{Lösung:} Als Führung wurden die Düsen von 0,4 mm auf 0,5 mm gewechselt, da die 0,4-mm-Düsen am Heizdraht gescheuert haben. Zusätzlich muss der Draht beim Einspannen vorsichtig gespannt werden, um Risse zu vermeiden. Die elektrische Spannung muss weiter angepasst werden, damit der Draht zuverlässig schneidet, ohne zu stark zu glühen.
+			}
+			
+			\block{Elektronik}
+			{
+				Durch das Verlängern der Motorkabel kam es beim späteren Zusammenstecken zu einer falschen Polung. Dadurch entstand ein Kurzschluss mit 24 V, bei dem mehrere elektronische Bauteile beschädigt wurden. Besonders kritisch war das durchgebrannte MOSFET, da es nicht direkt ersetzt werden konnte.
+				
+				\textbf{Lösung:} Bei der Elektronik wird das Vier-Augen-Prinzip angewendet. Dadurch werden Steckverbindungen und Polungen vor dem Einschalten von einer zweiten Person überprüft, um Fehler beim Anschließen frühzeitig zu erkennen.
+			}
+		}
+		
+		\column{0.5}
+		{
+			\colorlet{blocktitlebgcolor}{blue}
+			
+		\block{Kalibrierung}
+		{
+			Die Kalibrierung der Achsen erforderte besondere Aufmerksamkeit. Vor allem die passende Geschwindigkeit war entscheidend, damit die Achsen ruhig laufen und keine ungleichmäßigen Bewegungen entstehen. Zu hohe oder unpassende Verfahrgeschwindigkeiten wirkten sich direkt auf die Laufruhe und damit auf die Qualität des Schnitts aus.
+			
+			\textbf{Lösung:} Die Microsteps der Motortreiber sowie die Feedrate wurden angepasst. Zusätzlich wurden die Beschleunigungs- und Geschwindigkeitswerte so eingestellt, dass die Achsen ruhiger verfahren und der Schneidvorgang gleichmäßiger abläuft.
+		}
+			
+			\block{Endschalter}
+			{
+				Die Ansteuerung der Endschalter brachte zusätzliche Schwierigkeiten mit sich. Während zwei Endschalter vergleichsweise einfach eingebunden werden konnten, war die korrekte Referenzierung der Achsen zunächst nicht zuverlässig möglich. Dadurch konnte der Cutter anfangs nicht sauber in seine Ausgangsposition gefahren werden.
+				
+				\textbf{Lösung:} In UGS wurden die Hard Limits deaktiviert. Dadurch konnte das Homing durchgeführt werden, sodass die Achsen ihre Referenzposition anfahren und der Cutter anschließend kontrolliert verfahren werden konnte.
+			}
+			
+			\block{OLED-Anzeige} { Eine weitere Herausforderung war die geplante OLED-Anzeige. Sie sollte zusätzliche Informationen direkt am Cutter darstellen und die Bedienung unabhängiger vom Laptop machen. In der Umsetzung zeigte sich jedoch, dass die Ansteuerung nicht direkt über GRBL möglich war. Dafür wäre eine zusätzliche Programmierung und eine genauere Einbindung in die bestehende Steuerung notwendig gewesen, was deutlich aufwendiger war als zunächst angenommen. \textbf{Lösung:} Die OLED-Anzeige wurde weggelassen, um den Fokus auf die zuverlässige Bewegung der Achsen und die Funktion des Heizdrahtes zu legen. Die Bedienung, Navigation und Kontrolle des Cutters erfolgt stattdessen über UGS. }
+		}
+		
+	\end{columns}
+	
+\end{document}
+
