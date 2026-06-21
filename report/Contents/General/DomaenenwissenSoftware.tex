@@ -1,0 +1,98 @@
+%%%
+%
+% $Autor: Wings $
+% $Date: 2024-10-31 11:15:45Z $
+% $File: file.tex $
+% $Version: 1 $
+%
+% Project: 
+%
+%%%
+
+\chapter{Softwareseitiges Domänenwissen}
+\label{chap:domaenenwissen_software}
+
+Dieses Kapitel beschreibt die softwareseitigen Fachbegriffe und Zusammenhänge, die für die Bewegungserzeugung eines CNC-Heißdrahtschneiders erforderlich sind. Es beschreibt die Umwandlung einer geometrischen Kontur in steuerbare Achsbewegungen.
+
+Für die softwareseitige Betrachtung sind Koordinatensystem, Nullpunkt, Schritt-Millimeter-Kalibrierung, Vorschubgeschwindigkeit und Achskoordination relevant. Diese Größen bestimmen, ob eine digitale Kontur maßstäblich und reproduzierbar auf das Werkstück übertragen werden kann.
+
+Die Grundlage bildet die computergesteuerte Fertigung. Dabei werden digitale Daten genutzt, um Fertigungsinformationen abzuleiten und Maschinenbewegungen vorzubereiten \cite{Hehenberger:2020}. 
+
+\section{Digitale Prozesskette}
+\label{sec:digitale_prozesskette}
+
+Der Arbeitsablauf beginnt mit einer vorgegebenen Kontur. Diese Kontur kann als Skizze, technische Zeichnung oder digitale Geometrie vorliegen. Im nächsten Schritt wird sie in eine maschinenverständliche Form gebracht. In CNC-Systemen erfolgt dies typischerweise über Bewegungsbefehle, die Positionen, Richtungen und Vorschubgeschwindigkeiten beschreiben.
+
+Die digitale Prozesskette lässt sich für das Projekt in mehrere Schritte einteilen:
+
+\begin{itemize}
+	\item Festlegen der gewünschten Werkstückgeometrie,
+	\item Überführen der Geometrie in Bewegungsdaten,
+	\item Prüfen von Maßstab, Nullpunkt und Achsrichtung,
+	\item Übertragen der Bewegungsdaten an die Steuerung,
+	\item Ausführen der Achsbewegung an der Maschine,
+	\item Bewerten des erzeugten Schnitts am Werkstück.
+\end{itemize}
+
+Diese Kette entspricht dem Grundgedanken der computerunterstützten Fertigung, bei der digitale Daten zur Steuerung realer Fertigungsprozesse eingesetzt werden \cite{Hehenberger:2020}.
+
+\section{CNC-Steuerung und Bewegungsdaten}
+\label{sec:cnc_steuerung_bewegungsdaten}
+
+CNC (Computerized Numerical Control) bedeutet, dass die Bewegung einer Maschine numerisch beschrieben und durch eine Steuerung ausgeführt wird. Die Steuerung verarbeitet Bewegungsinformationen und setzt diese in Signale für die Achsantriebe um. In der Praxis werden CNC-Bewegungen mit G-Code beschrieben. Dabei enthalten die Befehle Informationen zu Zielkoordinaten, Bewegungsart und Vorschubgeschwindigkeit.
+
+
+
+\section{Koordinatensystem, Nullpunkt und Referenzfahrt}
+\label{sec:koordinatensystem_nullpunkt_referenzfahrt}
+
+Damit eine digitale Kontur richtig auf das reale Werkstück übertragen werden kann, benötigt die Maschine ein definiertes Koordinatensystem. Der Nullpunkt legt fest, von welcher Position aus die Bewegungen berechnet werden. Stimmen digitaler Nullpunkt und reale Startposition nicht überein, verschiebt sich die gesamte Kontur auf dem Werkstück.
+
+Eine Referenzfahrt dient dazu, eine definierte Ausgangsposition der Maschine herzustellen. Dabei fährt eine Achse in Richtung eines Endschalters, bis dieser betätigt wird. Die Steuerung kann diese Position als Referenz verwenden. Dadurch wird die Startposition reproduzierbarer als bei einer rein manuellen Positionierung.
+
+Im Projekt ist die Referenzfahrt besonders relevant, weil Schrittmotoren im einfachen Aufbau keine absolute Positionsrückmeldung liefern. Die Steuerung kennt nur die ausgegebenen Schritte, nicht aber automatisch die tatsächliche mechanische Position. Eine definierte Referenzposition reduziert dieses Problem und erleichtert wiederholbare Schnitte.
+
+\section{Schritt-Millimeter-Kalibrierung}
+\label{sec:schritt_mm_kalibrierung}
+
+ Die Schrittmotortreiber erhalten Schrittimpulse. Jeder Impuls bewegt den Motor um einen Schritt oder Mikroschritt. Damit daraus ein realer Verfahrweg entsteht, muss bekannt sein, wie viele Schritte einem Millimeter Achsbewegung entsprechen.
+
+Die Umrechnung hängt von mehreren Faktoren ab:
+
+\begin{itemize}
+	\item Schrittwinkel des Motors,
+	\item eingestellter Mikroschrittbetrieb,
+	\item mechanische Übersetzung der Achse,
+	\item Spindelsteigung oder wirksamer Riemenumfang,
+	\item Schlupf, Spiel und mechanische Toleranzen.
+\end{itemize}
+
+Schrittmotoren bewegen sich in diskreten Winkelschritten und eignen sich dadurch für Positionieraufgaben \cite{Schroeder:2017}. Für eine CNC-Anwendung reicht diese Eigenschaft allein jedoch nicht aus. Der rechnerische Schrittwert muss durch reale Messfahrten überprüft werden. Dazu wird eine bekannte Strecke verfahren und der tatsächliche Weg gemessen. Weicht der reale Weg vom Sollwert ab, muss der Schrittwert korrigiert werden.
+
+\section{Bewegungsalgorithmus}
+\label{sec:bewegungsalgorithmus}
+
+Der Bewegungsalgorithmus legt fest, wie die Maschine von einer Position zur nächsten fährt. Bei einer einzelnen Achse ist dies vergleichsweise einfach, da nur Schrittimpulse für diese Achse erzeugt werden müssen. Bei einer zweiachsigen Bewegung müssen die Achsen jedoch zeitlich aufeinander abgestimmt werden, damit eine gerade oder definierte Bahn entsteht.
+
+
+Für einfache Tests kann eine Bewegung mit festen Schrittzahlen und festen Verzögerungen programmiert werden. Für einen vollständigen CNC-Betrieb ist jedoch eine Steuerung erforderlich, die Bewegungsdaten interpretiert, Achsen koordiniert und Vorschubgeschwindigkeiten umsetzt. Genau darin liegt der Unterschied zwischen einem einfachen Motortest und einer anwendungsbezogenen CNC-Steuerung.
+
+\section{Vorschubgeschwindigkeit}
+\label{sec:vorschubgeschwindigkeit_software}
+
+Die Vorschubgeschwindigkeit beschreibt, wie schnell der Draht durch das Material bewegt wird. Softwareseitig wird sie über den zeitlichen Abstand der Schrittimpulse beeinflusst. Kürzere Zeitabstände zwischen den Impulsen führen zu einer höheren Geschwindigkeit. Längere Zeitabstände führen zu einer langsameren Bewegung.
+
+Beim Heißdrahtschneiden darf die Vorschubgeschwindigkeit nicht unabhängig von der Heizleistung betrachtet werden. Eine zu hohe Geschwindigkeit kann dazu führen, dass der Draht das Material nicht vollständig trennt. Eine zu geringe Geschwindigkeit kann zu einer zu breiten Schnittfuge führen. Untersuchungen zur thermischen Bearbeitung von EPS-Schaum zeigen, dass Schnittfuge und thermische Wirkung wesentliche Prozessgrößen sind \cite{Petkov:2017}.
+
+Die Software muss daher eine gleichmäßige und reproduzierbare Vorschubbewegung ermöglichen. Besonders an Richtungswechseln und engen Radien ist dies wichtig, weil der Draht dort länger in einem kleinen Materialbereich wirkt.
+
+
+\section{Softwareseitige Fehlerquellen}
+\label{sec:softwareseitige_fehlerquellen}
+
+Typische softwareseitige Fehlerquellen sind ein falscher Nullpunkt, eine falsch eingestellte Achsrichtung, ein fehlerhafter Maßstab oder ein ungeeigneter Vorschub. Auch eine falsche Schritt-Millimeter-Kalibrierung führt direkt zu Maßabweichungen am Werkstück.
+
+Ein weiterer Fehler entsteht, wenn Bewegungsdaten nicht zur realen Mechanik passen. Eine Kontur kann digital korrekt sein, aber trotzdem falsch geschnitten werden, wenn die Maschine eine Achse invertiert, eine andere Skalierung verwendet oder der Startpunkt falsch gesetzt wurde. Deshalb müssen Bewegungsdaten vor dem realen Schnitt mit einfachen Testgeometrien überprüft werden.
+
+Geeignete softwareseitige Tests sind gerade Linien, Rechtecke und einfache Radien. Gerade Linien zeigen, ob die Achsen gleichmäßig fahren. Rechtecke prüfen Maßhaltigkeit und Achsrichtung. Radien zeigen, ob die Bewegung auch bei Richtungsänderungen stabil bleibt. Die Ergebnisse dieser Tests bilden die Grundlage für die spätere Bewertung der Anwendung.
+

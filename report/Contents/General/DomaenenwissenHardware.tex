@@ -1,0 +1,118 @@
+%%%
+%
+% $Autor: Wings $
+% $Date: 2024-10-31 11:15:45Z $
+% $File: file.tex $
+% $Version: 1 $
+%
+% Project: 
+%
+%%%
+
+\chapter{Hardwareseitiges Domänenwissen}
+\label{chap:domaenenwissen_hardware}
+
+\section{Fachliche Grundlagen des Heißdrahtschneidens}
+\label{sec:hardware_grundlagen_heissdrahtschneiden}
+
+Das Heißdrahtschneiden wird in diesem Kapitel nicht als Projektziel, sondern als technischer Prozess betrachtet. Es beschreibt die physikalischen Größen, die den Schnitt beeinflussen: Wärmeeintrag, Drahttemperatur, Drahtspannung, Materialverhalten, Vorschubbewegung und Schnittfuge.
+
+Beim Schneiden wirkt der erhitzte Widerstandsdraht als thermisches Werkzeug. Die Qualität des Schnitts hängt davon ab, ob die eingebrachte Wärme, die Bewegung des Drahts und das Verhalten des Schaumstoffs zueinander passen. Eine gleichmäßige Bahnbewegung allein reicht deshalb nicht aus. Erst durch passende Prozessparameter entsteht eine maßhaltige und reproduzierbare Schnittkante.
+
+Für die Bewertung des Schneidprozesses sind insbesondere Schnittfugenbreite, Temperaturverteilung und Schmelzzone relevant. Untersuchungen zur thermischen Bearbeitung von EPS-Schaum zeigen, dass diese Größen das Schneidergebnis wesentlich beeinflussen \cite{Petkov:2017}. 
+
+
+\section{Werkstoff Schaumstoff}
+\label{sec:hardware_werkstoff_schaumstoff}
+
+Der bearbeitete Werkstoff ist ein Kunststoffschaum. Solche Werkstoffe besitzen eine geringe Dichte und werden häufig für Modelle, Verpackungen, Dämmungen oder leichte Formteile verwendet. Für das Heißdrahtschneiden ist entscheidend, dass der Werkstoff auf Wärme reagiert und dadurch mit einem erhitzten Draht getrennt werden kann.
+
+
+Kunststoffe unterscheiden sich in Aufbau, thermischem Verhalten und Verarbeitung deutlich von metallischen Werkstoffen. Werkstoffauswahl und Verarbeitungseigenschaften sind daher wichtige Grundlagen der Kunststofftechnik \cite{Bonnet:2025}. 
+
+Die optimalen Prozessparameter sind deshalb materialabhängig. Unterschiedliche Plattendicken, Dichten oder Oberflächen können ein unterschiedliches Schneidverhalten verursachen. Aus diesem Grund müssen Probeschnitte durchgeführt werden, bevor endgültige Werkstücke geschnitten werden.
+
+\section{Thermischer Schneidprozess}
+\label{sec:hardware_thermischer_schneidprozess}
+
+Beim thermischen Schneidprozess wird elektrische Energie im Widerstandsdraht in Wärme umgewandelt. Diese Wärme wird an den Schaumstoff abgegeben. Sobald der lokale Wärmeeintrag groß genug ist, wird das Material entlang der Bahn des Drahts getrennt. Dabei entsteht eine Schnittfuge.
+
+Die Schnittfuge ist ein wichtiger Qualitätsparameter. Sie beschreibt den Materialbereich, der durch den thermischen Prozess entfernt oder verformt wird. Eine zu breite Schnittfuge führt zu Maßabweichungen. Eine ungleichmäßige Schnittfuge deutet auf unpassende Prozessparameter oder eine unruhige Drahtbewegung hin.
+
+
+\section{Widerstandsdraht und Heizleistung}
+\label{sec:widerstandsdraht_heizleistung}
+
+Der Schneiddraht wird als elektrische Last betrieben. Fließt Strom durch den Draht, erwärmt er sich aufgrund seines elektrischen Widerstands. Die Heizleistung kann grundlegend mit
+\(
+P = U \cdot I
+\)
+und für eine ohmsche Last auch mit
+\(
+P = I^2 \cdot R
+\)
+beschrieben werden. Dabei ist \(P\) die Leistung, \(U\) die Spannung, \(I\) der Strom und \(R\) der elektrische Widerstand.
+
+Im Projekt darf der Heizdraht nicht direkt über einen Mikrocontroller-Pin betrieben werden. Der Mikrocontroller ist nur für Logiksignale ausgelegt. Der Laststrom des Heizdrahts muss über eine geeignete Leistungsstufe geschaltet werden. Die fachliche Grundlage dafür liegt in der Leistungselektronik, die sich mit dem Schalten, Steuern und Umformen elektrischer Energie beschäftigt \cite{Zach:2015}.
+
+Die Heizleistung muss so gewählt werden, dass der Draht den Schaumstoff sauber trennt. Zu geringe Leistung führt zu einem unvollständigen Schnitt oder zu mechanischer Belastung des Drahts. Zu hohe Leistung kann zu einer breiten Schnittfuge, starker Materialverformung oder Beschädigung des Drahts führen.
+
+```latex
+\section{PWM-Ansteuerung des Heizdrahts}
+\label{sec:pwm_ansteuerung_heizdraht}
+
+Die Heizleistung kann über eine PWM-Ansteuerung beeinflusst werden. PWM steht für Pulsweitenmodulation. Dabei wird eine Last schnell ein- und ausgeschaltet. Durch das Verhältnis zwischen Einschaltzeit und Ausschaltzeit innerhalb einer Schaltperiode verändert sich die mittlere zugeführte Leistung \cite{DeDoncker:2024}.
+
+ Die mittlere Leistung kann über das Tastverhältnis beeinflusst werden. Die eigentliche Last wird dabei durch das MOSFET-Schaltmodul geschaltet. Der Arduino liefert nur das Steuersignal.
+
+Die PWM-Einstellung muss praktisch geprüft werden. Ein bestimmter PWM-Wert ist nicht automatisch für jedes Material geeignet, weil Drahtlänge, Drahtwiderstand, Versorgungsspannung, Materialdicke und Vorschubgeschwindigkeit zusammenwirken. Deshalb gehören Probeschnitte zur Inbetriebnahme des Heizdrahts.
+
+
+
+\section{Drahtspannung und mechanische Führung}
+\label{sec:drahtspannung_mechanische_fuehrung}
+
+Neben der Temperatur ist die mechanische Spannung des Drahts entscheidend. Beim Erwärmen dehnt sich der Draht aus. Wenn diese Längenänderung nicht ausgeglichen wird, kann der Draht durchhängen. Ein durchhängender Draht folgt nicht mehr exakt der programmierten Bahn und verursacht ungenaue Konturen.
+
+Die Drahtspannung muss deshalb mechanisch aufrechterhalten werden. Dies kann beispielsweise über eine Feder oder eine vergleichbare Spannvorrichtung erfolgen. Die Spannvorrichtung soll die thermische Längenänderung ausgleichen und den Draht während des Schnitts möglichst gerade halten.
+
+Die Führung des Drahts muss außerdem so ausgelegt sein, dass keine ungewollten Reibstellen oder Hindernisse entstehen. Der Draht darf während des Schnitts nicht an der Maschine schleifen. Andernfalls können Temperatur, Zugspannung und Schnittlinie beeinflusst werden.
+
+\section{Achsen, Schrittmotoren und mechanische Belastung}
+\label{sec:hardware_achsen_schrittmotoren}
+
+Die Achsen bewegen den Heizdraht entlang der vorgesehenen Kontur. Dabei sollen sie gleichmäßig und wiederholbar verfahren. Die mechanische Belastung ist beim Heißdrahtschneiden geringer als bei spanenden Verfahren, weil der Draht das Material thermisch trennt. Trotzdem müssen Reibung, Massenträgheit und Drahtspannung von den Motoren überwunden werden.
+
+Schrittmotoren bewegen sich in diskreten Winkelschritten und werden deshalb häufig für Positionieraufgaben eingesetzt \cite{Schroeder:2017}. Im Projekt ist dies vorteilhaft, weil der Verfahrweg über Schrittimpulse bestimmt werden kann. Gleichzeitig besteht das Risiko von Schrittverlusten, wenn die Last zu hoch oder die Bewegung zu schnell ist.
+
+Mechanische Schwergängigkeit, zu hohe Beschleunigung oder falsch eingestellte Motortreiber können dazu führen, dass die reale Achsposition von der angenommenen Position abweicht. Deshalb müssen Achsen leichtgängig aufgebaut, Treiber korrekt eingestellt und Bewegungen durch Funktionstests geprüft werden.
+
+\section{Prozessparameter des Schnitts}
+\label{sec:hardware_prozessparameter}
+
+Die wichtigsten hardwareseitigen Prozessparameter sind Heizleistung, Drahttemperatur, Drahtspannung, Drahtdurchmesser, Materialdicke und mechanische Achsbewegung. Diese Parameter beeinflussen sich gegenseitig. Wird die Vorschubgeschwindigkeit erhöht, bleibt dem Draht weniger Zeit, Wärme in das Material einzubringen. Wird die Heizleistung erhöht, kann die Schnittfuge breiter werden.
+
+Besonders kritisch ist die Abstimmung zwischen Heizleistung und Vorschub. Ein zu kalter Draht oder ein zu schneller Vorschub führt zu unvollständigem Schneiden. Ein zu heißer Draht oder ein zu langsamer Vorschub kann Material übermäßig schmelzen. Untersuchungen zur thermischen Bearbeitung von EPS-Schaum zeigen, dass Schnittfuge und Temperaturverteilung wesentliche Prozessgrößen sind \cite{Petkov:2017}.
+
+Auch die Materialdicke wirkt auf den Prozess. Dickere Schaumstoffplatten benötigen eine längere thermische Einwirkung als dünnere Platten. Deshalb können für unterschiedliche Werkstückdicken unterschiedliche Einstellungen notwendig sein.
+
+\section{Fehlerbilder und Ursachen}
+\label{sec:hardware_fehlerbilder_ursachen}
+
+Typische hardwareseitige Fehlerbilder lassen sich an der Schnittkante, an der Schnittfuge und am Maschinenverhalten erkennen. Ein unvollständiger Schnitt deutet auf zu geringe Heizleistung, zu hohen Vorschub oder schlechten Kontakt zwischen Draht und Material hin. Eine zu breite Schnittfuge deutet auf zu hohe Heizleistung oder zu langsamen Vorschub hin.
+
+Eine schräge oder gekrümmte Schnittlinie kann durch einen durchhängenden Draht, eine unzureichende Drahtspannung oder eine fehlerhafte mechanische Führung entstehen. Ruckartige Bewegungen oder Schrittverluste können auf mechanische Schwergängigkeit, zu hohe Geschwindigkeit oder eine ungünstige Treibereinstellung hinweisen.
+
+Auch elektrische Fehler sind möglich. Dazu gehören lose Verbindungen, ungeeignete Leitungsquerschnitte, unzureichende Masseverbindungen oder eine Überlastung des MOSFET-Moduls. Da der Heizdraht eine stromführende und heiße Last ist, müssen diese Fehler besonders sorgfältig vermieden werden.
+
+\section{Bewertung der Schnittqualität}
+\label{sec:bewertung_schnittqualitaet}
+
+Die Schnittqualität wird anhand mehrerer Merkmale bewertet. Dazu gehören Maßhaltigkeit, Gleichmäßigkeit der Schnittkante, Breite der Schnittfuge und Wiederholbarkeit. Ein guter Schnitt liegt vor, wenn die Kontur vollständig getrennt wird, die Kante gleichmäßig bleibt und die Abmessungen zur Sollgeometrie passen.
+
+Die Schnittfuge ist dabei ein besonders wichtiger Bewertungsmaßstab. Untersuchungen zur thermischen Bearbeitung von EPS-Schaum zeigen, dass Schnittfugenbreite, Temperaturverteilung und Schmelzzone wesentliche Größen für die Beurteilung des Schneidprozesses sind \cite{Petkov:2017}. Außerdem wird beim Heißdraht-Schneiden die Qualität des Schneidprozesses durch die Wechselwirkung zwischen heißem Draht und Werkstück beeinflusst \cite{Gallina:2005}.
+
+Zur Bewertung eignen sich einfache Testgeometrien. Gerade Linien zeigen, ob Draht und Achsen gleichmäßig arbeiten. Rechtecke prüfen Maßhaltigkeit und Rechtwinkligkeit. Radien zeigen, ob die Maschine auch bei Richtungsänderungen gleichmäßig schneidet.
+
+Zusätzlich zur Schnittkante müssen die Baugruppen beobachtet werden. Motoren, Motortreiber, MOSFET-Modul, Leitungen und Spannungsversorgung dürfen sich im Betrieb nicht unzulässig erwärmen. Die Ergebnisse der Probeschnitte werden dokumentiert und dienen zur Festlegung geeigneter Betriebsparameter.
+
