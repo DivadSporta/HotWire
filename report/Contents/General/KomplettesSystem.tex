@@ -1,0 +1,201 @@
+%%%
+%
+% $Autor: Wings $
+% $Date: 2024-10-31 11:15:45Z $
+% $File: file.tex $
+% $Version: 1 $
+%
+% Project: 
+%
+%%%
+
+
+```latex
+\chapter{Komplettes System}
+\label{chap:komplettes_system}
+
+\section{Beschreibung des Gesamtsystems}
+\label{sec:komplettes_system_beschreibung}
+
+Das Gesamtsystem besteht aus einer mechanischen Achskonstruktion, einer elektrischen Leistungsversorgung, einer Mikrocontrollersteuerung und einem thermischen Schneidwerkzeug. 
+
+Die zentrale Funktion des Systems besteht darin, einen elektrisch erwärmten Schneiddraht entlang einer definierten Bahn durch Schaumstoff zu führen. Die Bahnbewegung wird durch Schrittmotoren erzeugt. Die Ansteuerung der Schrittmotoren erfolgt über den Arduino Uno, das CNC Shield V3 und die eingesetzten A4988-Schrittmotortreiber. Der Heizdraht wird getrennt von der Motorsteuerung über ein MOSFET-PWM-Schaltmodul geschaltet.
+
+Die Maschine besitzt damit zwei wesentliche Wirkbereiche. Der erste Bereich ist die Bewegungssteuerung der Achsen. Der zweite Bereich ist die thermische Trennung des Werkstoffs durch den Heizdraht. Beide Bereiche müssen aufeinander abgestimmt werden, da die Schnittqualität sowohl von der Achsbewegung als auch von der Heizleistung abhängt.
+
+\section{Design und Aufbau}
+\label{sec:komplettes_system_design_aufbau}
+
+Der Aufbau ist modular ausgeführt. Die mechanische Baugruppe trägt die Achsen und den Schneiddraht. Die elektrische Baugruppe enthält die Steuer- und Leistungskomponenten. Die Software erzeugt die Steuerbefehle für die Bewegung und stellt die Bedien- beziehungsweise Testfunktionen bereit.
+
+Der Arduino Uno dient als zentrale Steuereinheit. Auf ihm befindet sich das CNC Shield V3, das die Steuerpins des Arduino auf die Anschlüsse der Schrittmotortreiber, Motoren und Endschalter verteilt. Die A4988-Schrittmotortreiber übernehmen die Leistungsansteuerung der Schrittmotoren. Die Motoren bewegen die Achsen der Maschine und führen dadurch den Heizdraht entlang der gewünschten Kontur.
+
+Der Heizdraht wird nicht direkt über den Arduino versorgt. Stattdessen wird ein MOSFET-PWM-Schaltmodul verwendet. Dieses Modul schaltet den Laststrom des Heizdrahts. Der Arduino liefert nur das Steuersignal. Dadurch werden Logikteil und Lastteil funktional getrennt.
+
+Die Spannungsversorgung ist ebenfalls aufgeteilt. Die Motoren und der Heizdraht benötigen eine eigene Leistungsversorgung. Der Arduino und die Logiksignale arbeiten mit niedrigeren Spannungen. Für zusätzliche Verbraucher oder Hilfsschaltungen kann ein DC-DC-Abwärtswandler eingesetzt werden.
+
+\section{Hardware-Schnittstellen}
+\label{sec:komplettes_system_hardware_schnittstellen}
+
+Die Hardware-Schnittstellen verbinden die einzelnen Baugruppen elektrisch und mechanisch miteinander. Die Signalleitungen übertragen Steuerinformationen. Die Leistungsleitungen versorgen Motoren und Heizdraht.
+
+\begin{table}[H]
+	\centering
+	\caption{Wichtige Hardware-Schnittstellen des Gesamtsystems}
+	\label{tab:hardware_schnittstellen_gesamtsystem}
+	\begin{tabular}{p{4cm} p{4cm} p{6cm}}
+		\hline
+		\textbf{Schnittstelle} & \textbf{Verbindung} & \textbf{Funktion} \\
+		\hline
+		Arduino Uno -- CNC Shield V3 & Steckverbindung & Übergabe der digitalen Steuerpins an das Shield \\
+		CNC Shield -- A4988 & Treibersteckplätze & Übergabe von STEP-, DIR- und ENABLE-Signalen \\
+		A4988 -- Schrittmotor & Motoranschlüsse & Leistungsansteuerung der Motorwicklungen \\
+		CNC Shield -- Endschalter & Digitale Eingänge & Erfassung von Referenz- oder Endpositionen \\
+		Arduino/CNC Shield -- MOSFET-Modul & PWM-Signal und GND & Ansteuerung der Heizdraht-Leistungsstufe \\
+		MOSFET-Modul -- Heizdraht & Lastanschluss & Schalten des Heizdrahtstroms \\
+		Netzteil -- CNC Shield & Versorgungsklemme & Motorspannung für die Schrittmotortreiber \\
+		Netzteil -- MOSFET-Modul & Versorgungsklemme & Versorgung des Heizdrahtkreises \\
+		DC-DC-Wandler -- Zusatzmodule & Versorgungsausgang & Bereitstellung angepasster Hilfsspannungen \\
+		\hline
+	\end{tabular}
+\end{table}
+
+Für alle Signale, die zwischen Steuerung und Leistungsmodulen übertragen werden, ist ein gemeinsamer Massebezug erforderlich. 
+
+\section{Eigenschaften des Gesamtsystems}
+\label{sec:komplettes_system_eigenschaften}
+
+Das Gesamtsystem besitzt folgende funktionale Eigenschaften:
+
+\begin{itemize}
+	\item rechnergestützte Bewegung des Heizdrahts über Schrittmotorachsen,
+	\item getrennte Ansteuerung von Bewegungs- und Heizdrahtkreis,
+	\item Verwendung von STEP-, DIR- und ENABLE-Signalen für die Achsantriebe,
+	\item Möglichkeit zur Einstellung der Mikroschrittauflösung über das CNC Shield,
+	\item Möglichkeit zur Leistungsbeeinflussung des Heizdrahts über PWM,
+	\item Verwendung von Endschaltern zur Erkennung definierter Positionen,
+	\item modulare Erweiterbarkeit durch zusätzliche Anzeige- oder Bedienelemente.
+\end{itemize}
+
+Die Genauigkeit des Systems hängt nicht nur von den elektronischen Komponenten ab. Auch mechanische Faktoren wie Achsspiel, Reibung, Drahtspannung und Rahmensteifigkeit beeinflussen das Ergebnis. Zusätzlich wirken thermische Prozessgrößen wie Heizleistung, Vorschubgeschwindigkeit und Materialdicke auf die Schnittqualität.
+
+\section{Software-Schnittstellen}
+\label{sec:komplettes_system_software_schnittstellen}
+
+Die Programmierung und Inbetriebnahme erfolgen über einen Computer mit Arduino IDE. Der Arduino Uno wird über USB mit dem Computer verbunden. Über diese Verbindung werden Programme auf den Mikrocontroller übertragen. Zusätzlich kann die serielle Schnittstelle zur Ausgabe von Status- und Testinformationen verwendet werden.
+
+Für einfache Funktionstests werden Arduino-Sketches eingesetzt. Diese erzeugen direkt die benötigten Ausgangssignale für STEP, DIR, ENABLE oder PWM. Dadurch können einzelne Baugruppen unabhängig geprüft werden. Beispiele sind Motortests, Endschaltertests, OLED-Tests und Heizdrahttests.
+
+Für einen CNC-nahen Betrieb können Bewegungsdaten in Form von G-Code oder vergleichbaren Koordinateninformationen verwendet werden. Dabei beschreibt die Software Zielpositionen, Bewegungsrichtungen und Vorschubgeschwindigkeiten. Die Steuerung muss diese Daten in zeitlich koordinierte Schrittimpulse für die Achsen umsetzen.
+
+Die softwareseitigen Schnittstellen:
+
+\begin{itemize}
+	\item USB-Verbindung zwischen Computer und Arduino,
+	\item serielle Kommunikation zur Ausgabe von Test- und Statusinformationen,
+	\item digitale Ausgangssignale für STEP, DIR und ENABLE,
+	\item PWM-Ausgang zur Ansteuerung des MOSFET-Schaltmoduls,
+	\item digitale Eingangssignale der Endschalter.
+\end{itemize}
+
+\section{Installation des Gesamtsystems}
+\label{sec:komplettes_system_installation}
+
+Die Installation beginnt mit der mechanischen Montage des Rahmens, der Achsen und der Drahtführung. Der Schneiddraht wird mechanisch befestigt und gespannt. Dabei muss geprüft werden, ob der Draht frei durch den Arbeitsbereich geführt werden kann und nicht an Bauteilen schleift.
+
+Anschließend werden Arduino Uno und CNC Shield montiert. Die A4988-Schrittmotortreiber werden in die vorgesehenen Steckplätze des Shields eingesetzt. Dabei muss auf die korrekte Ausrichtung der Treibermodule geachtet werden. Eine falsche Orientierung kann die Treiber beschädigen.
+
+Danach werden die Schrittmotoren an die Motoranschlüsse des CNC Shields angeschlossen. Die Endschalter werden mit den vorgesehenen Eingängen verbunden. Das MOSFET-PWM-Schaltmodul wird mit dem Steuersignal, Masse und dem Heizdrahtkreis verbunden. Abschließend werden die Spannungsversorgung für Motoren, Logik und Heizdraht geprüft.
+
+Vor dem ersten Betrieb dürfen Motor- und Heizdrahtversorgung noch nicht dauerhaft aktiv betrieben werden. Zuerst müssen alle Leitungen, Steckverbindungen, Polaritäten und Masseverbindungen kontrolliert werden.
+
+\section{Konfiguration}
+\label{sec:komplettes_system_konfiguration}
+
+Nach der Installation wird das System konfiguriert. Zuerst wird die Arduino IDE eingerichtet und das verwendete Board ausgewählt. Danach wird der passende Port eingestellt und ein einfacher Testsketch übertragen.
+
+Die Schrittmotortreiber müssen vor dem Betrieb eingestellt werden. Besonders wichtig ist die Strombegrenzung. Eine zu hohe Einstellung kann zu starker Erwärmung oder zur Abschaltung des Treibers führen. Eine zu niedrige Einstellung kann Schrittverluste verursachen. Zusätzlich wird die Mikroschrittauflösung über die Jumper am CNC Shield festgelegt.
+
+Die Achsen müssen anschließend kalibriert werden. Dazu wird bestimmt, wie viele Schritte einem Millimeter Verfahrweg entsprechen. Der rechnerische Wert wird durch Messfahrten überprüft. Wenn die gemessene Strecke vom Sollwert abweicht, muss der Schrittwert angepasst werden.
+
+Auch die Heizdrahtleistung muss eingestellt werden. Dazu wird die PWM-Ansteuerung zunächst mit niedriger Leistung getestet. Danach werden Probeschnitte durchgeführt, um Heizleistung und Vorschubgeschwindigkeit aufeinander abzustimmen.
+
+\section{Daten, Strukturen und Typen}
+\label{sec:komplettes_system_daten}
+
+Im Gesamtsystem werden verschiedene Daten und Parameter verwendet. Sie beschreiben die Achsbewegung, die elektrische Ansteuerung und die Bewertung des Schneidprozesses.
+
+\begin{table}[H]
+	\centering
+	\caption{Wichtige Daten und Parameter des Gesamtsystems}
+	\label{tab:daten_parameter_gesamtsystem}
+	\begin{tabular}{p{4cm} p{4cm} p{6cm}}
+		\hline
+		\textbf{Parameter} & \textbf{Typ} & \textbf{Bedeutung} \\
+		\hline
+		Schrittzahl & Ganzzahl & Anzahl der ausgegebenen STEP-Impulse \\
+		Richtung & Boolescher oder digitaler Zustand & Bewegungsrichtung einer Achse \\
+		Vorschubgeschwindigkeit & Zahlenwert & Geschwindigkeit der Drahtbewegung durch das Material \\
+		Schritte pro Millimeter & Zahlenwert & Umrechnung zwischen Steuerimpulsen und realem Verfahrweg \\
+		PWM-Wert & Ganzzahl & Tastverhältnis zur Beeinflussung der Heizleistung \\
+		Endschalterzustand & Digitaler Eingangswert & Erkennung einer Referenz- oder Endposition \\
+		Heizdrahtleistung & Zahlenwert & elektrische Leistung des Drahts \\
+		Schnittfugenbreite & Messwert & Bewertungsgröße für die Schnittqualität \\
+		Werkstückabmessung & Messwert & Vergleich zwischen Soll- und Ist-Kontur \\
+		\hline
+	\end{tabular}
+\end{table}
+
+In den Testprogrammen werden diese Daten als Konstanten, Variablen oder Messwerte verwendet. Konstanten legen zum Beispiel Pinbelegungen und Schrittzahlen fest. Variablen speichern Zustände wie Endschalterwerte oder aktuelle Bewegungsrichtungen. Messwerte entstehen bei der Auswertung des realen Schnitts.
+
+\section{Einschränkungen und offene Punkte}
+\label{sec:komplettes_system_einschraenkungen_todos}
+
+Das System besitzt mehrere Einschränkungen, die beim Betrieb berücksichtigt werden müssen. Die verwendeten Schrittmotoren arbeiten im einfachen Aufbau ohne direkte Positionsrückmeldung. Die Steuerung erkennt daher nicht automatisch, ob ein Motor Schritte verliert. Schrittverluste müssen durch geeignete Parameter, leichtgängige Mechanik und Funktionstests vermieden werden.
+
+Die Heizdrahttemperatur wird nicht gemessen. Die Einstellung erfolgt über die elektrische Ansteuerung und die Bewertung der Probeschnitte. Dadurch ist die Heizleistung material- und erfahrungsabhängig. Unterschiedliche Schaumstoffarten oder Materialdicken können andere Einstellungen erfordern.
+
+Weitere offene Punkte sind:
+
+\begin{itemize}
+	\item genaue Dokumentation der endgültigen Maschinenabmessungen,
+	\item Festlegung geeigneter Standardwerte für Vorschub und PWM,
+	\item Prüfung der Wiederholgenauigkeit über mehrere Schnitte,
+	\item Ergänzung einer direkten Temperatur- oder Strommessung am Heizdraht,
+	\item Verbesserung der Kabelführung und Zugentlastung,
+	\item Schutzabdeckung für heiße und bewegte Bereiche.
+\end{itemize}
+
+\section{Abmaße}
+\label{sec:komplettes_system_abmasse}
+
+Die Abmaße des Gesamtsystems ergeben sich aus dem mechanischen Rahmen, dem nutzbaren Arbeitsbereich und der Anordnung der elektrischen Baugruppen. 
+
+\begin{table}[H]
+	\centering
+	\caption{Abmaße des Gesamtsystems}
+	\label{tab:abmasse_gesamtsystem}
+	\begin{tabular}{p{5cm} p{4cm} p{6cm}}
+		\hline
+		\textbf{Größe} & \textbf{Wert} & \textbf{Bemerkung} \\
+		\hline
+		Gesamtlänge & einzutragen & Außenmaß der Maschine \\
+		Gesamtbreite & einzutragen & Außenmaß der Maschine \\
+		Gesamthöhe & einzutragen & Außenmaß einschließlich Drahtführung \\
+		Nutzbarer Arbeitsbereich X & einzutragen & maximaler Verfahrweg der X-Achse \\
+		Nutzbarer Arbeitsbereich Y & einzutragen & maximaler Verfahrweg der Y-Achse \\
+		Drahtlänge & einzutragen & freie Länge des gespannten Schneiddrahts \\
+		Grundplattenmaß & einzutragen & Abmessung der Montage- oder Arbeitsplatte \\
+		\hline
+	\end{tabular}
+\end{table}
+
+
+\section{Schlussfolgerung}
+\label{sec:komplettes_system_schlussfolgerung}
+
+Das Gesamtsystem verbindet die zuvor beschriebenen Einzelkomponenten zu einem funktionsfähigen CNC-Heißdrahtschneider. Der Arduino Uno übernimmt die Steuerlogik, das CNC Shield verteilt die Achssignale, die A4988-Treiber versorgen die Schrittmotoren und das MOSFET-PWM-Schaltmodul schaltet den Heizdrahtkreis. Die mechanische Baugruppe führt den Draht entlang der gewünschten Kontur.
+
+
+Ein einsatzfähiger Zustand liegt vor, wenn die Achsen reproduzierbar verfahren, der Heizdraht kontrolliert erwärmt wird, die Endschalter zuverlässig reagieren und Probeschnitte eine nachvollziehbare Schnittqualität zeigen. Die abschließende Bewertung erfolgt daher nicht nur über elektrische Funktionstests, sondern über das reale Schneidergebnis am Werkstück.
+
