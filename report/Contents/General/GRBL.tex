@@ -1,0 +1,233 @@
+%%%%%%%%%%%%
+%
+% $Autor: Alexandra $
+% $Datum: 2026-06-22 $
+% $Pfad: HotWire/report/Contents/General $
+% !TeX spellcheck = de_DE
+% !TeX encoding = utf8
+% !TeX root = ../../System/EdgeComputer/filename.tex
+% !TeX TXS-program:bibliography = txs:///biber
+%
+%%%%%%%%%%%%
+
+% Structure
+\chapter{GRBL v1.1}
+\label{cha:grbl}
+
+Dieses Kapitel beschreibt die GRBL-Firmware, deren Installation auf einem Arduino Uno sowie die grundlegende Konfiguration. GRBL bildet die Echtzeitschicht der CNC-Steuerung und wird in Verbindung mit UGS als übergeordneter Bediensoftware eingesetzt \cite{grbl:github}.
+
+\section{Beschreibung der GRBL-Firmware}
+
+GRBL ist ein quelloffener, eingebetteter G-Code-Parser und CNC-Bewegungscontroller, der in hochoptimiertem C geschrieben ist und auf Arduino-basierter Hardware ausgeführt wird. Das Projekt wurde 2009 von Simen Svale Skogsrud initiiert und wird seitdem als Community-Projekt weiterentwickelt \cite{grbl:github}.
+
+Wesentliche Merkmale der GRBL-Firmware:
+
+\begin{itemize}
+	\item Hochperformanter G-Code-Parser: GRBL verarbeitet G-Code-Kommandos in Echtzeit und ist auf die rechenleistungsbeschränkte AVR-Architektur des ATmega328P optimiert.
+	\item Präzise Schrittmotorsteuerung: Erzeugung stabiler, jitterfreier Steuerimpulse mit bis zu 30 kHz Impulsfrequenz durch Nutzung von Hardware-Timern des AVR-Chips.
+	\item Asynchroner Betrieb: Trennung von Kommunikations- und Bewegungssteuerungs-Tasks ermöglicht gleichzeitigen Empfang neuer Befehle während laufender Maschinenbewegungen.
+	\item Echtzeit-Overrides: Anpassung von Vorschubgeschwindigkeit, Eilgang-Geschwindigkeit und Spindeldrehzahl während des laufenden Betriebs ohne Programmunterbrechung.
+	\item Laser-Modus (\PYTHON{\$32=1}): Dynamische Anpassung der Laserleistung (PWM) proportional zur Bewegungsgeschwindigkeit für gleichmäßige Ergebnisse.
+	\item Low-Cost-Alternative: Ersatz kostenintensiver paralleler Portlösungen (LPT-Port-basierter Motion-Controller) durch kostengünstige Arduino-Hardware.
+\end{itemize}
+
+\section{Version}
+
+\begin{longtable}{p{0.35\linewidth}p{0.55\linewidth}}
+	\caption{Eckdaten zu GRBL v1.1}\label{tab:grbl_version}\\
+	\hline
+	Aktuelle stabile Version & GRBL v1.1h \\
+	Veröffentlichungsdatum & 25. August 2019 \\
+	GitHub-Repository & \url{https://github.com/gnea/grbl} \\
+	Zielplattform & Arduino mit ATmega328P (Uno, Nano, Duemilanove) \\
+	Implementierungssprache & Hochoptimiertes C mit AVR-Assembler-Optimierungen \\
+	\hline
+\end{longtable}
+
+Hinweis: Das \PYTHON{gnea/grbl}-Repository wurde 2019 abgeschlossen und erhält keine weiteren Commits. Aktive Weiterentwicklungen erfolgen in Projekten wie grblHAL und FluidNC, die auf leistungsfähigeren Mikrocontrollern basieren. Für Arduino-Uno-basierte Systeme bleibt GRBL v1.1h der empfohlene und weitverbreitete Standard \cite{grbl:github}.
+
+\section{Installation auf dem Arduino Uno}
+
+\subsection{Voraussetzungen}
+
+\begin{itemize}
+	\item Hardware: Arduino Uno (Original oder kompatibles Board mit ATmega328P).
+	\item Verbindungskabel: USB-Kabel (Typ A auf Typ B für Uno).
+	\item Software: Arduino IDE (Version 1.8.x oder 2.x), Download unter \url{https://www.arduino.cc/en/software}.
+	\item GRBL-Quellcode: Download von \url{https://github.com/gnea/grbl/archive/master.zip}.
+	\item USB-Treiber: CH340- oder ATmega16U2-Treiber (bei Original-Arduino in der Regel automatisch installiert).
+\end{itemize}
+
+\subsection{Schritt-für-Schritt-Installation}
+
+\begin{enumerate}
+	\item Arduino IDE herunterladen und installieren (siehe Kapitel Arduino IDE).
+	\item GRBL-Repository herunterladen: Auf \url{https://github.com/gnea/grbl} den Button \emph{Code} $\rightarrow$ \emph{Download ZIP} klicken (Datei: \PYTHON{grbl-master.zip}).
+	\item GRBL in den Arduino-Libraries-Ordner kopieren: Das ZIP-Archiv entpacken, den Ordner \PYTHON{grbl} (nicht \PYTHON{grbl-master}) in das Arduino-Libraries-Verzeichnis kopieren:
+\end{enumerate}
+
+\begin{lstlisting}[caption={Arduino-Libraries-Verzeichnis},label={lst:grbl_libraries_path}]
+	C:\Users\<Benutzername>\Documents\Arduino\libraries\
+\end{lstlisting}
+
+\begin{enumerate}
+	\setcounter{enumi}{3}
+	\item Arduino Uno über USB verbinden.
+	\item In der Arduino IDE: Menü \emph{File} $\rightarrow$ \emph{Examples} $\rightarrow$ \emph{grbl} $\rightarrow$ \emph{grblUpload} auswählen.
+	\item Board konfigurieren: Menü \emph{Tools} $\rightarrow$ \emph{Board} $\rightarrow$ \emph{Arduino AVR Boards} $\rightarrow$ \emph{Arduino Uno}.
+	\item Port setzen: Menü \emph{Tools} $\rightarrow$ \emph{Port} $\rightarrow$ zugewiesenen COM-Port auswählen.
+	\item Sketch kompilieren: Menü \emph{Sketch} $\rightarrow$ \emph{Verify/Compile} (Strg+R) -- auf Fehlermeldungen achten.
+	\item Upload durchführen: Menü \emph{Sketch} $\rightarrow$ \emph{Upload} (Strg+U) -- der Upload dauert ca. 10--30 Sekunden.
+	\item Erfolgsbestätigung: In der IDE-Konsole erscheint \PYTHON{avrdude done. Thank you.} -- GRBL ist nun installiert.
+\end{enumerate}
+
+\subsection{Hardware-Anschlüsse -- Pin-Belegung}
+
+Die Standard-Pin-Belegung von GRBL auf dem Arduino Uno (ATmega328P):
+
+\begin{longtable}{p{0.58\linewidth}p{0.32\linewidth}}
+	\caption{Standard-Pin-Belegung von GRBL auf dem Arduino Uno}\label{tab:grbl_pinbelegung}\\
+	\hline
+	Funktion & Arduino-Pin \\
+	\hline
+	\endfirsthead
+	\hline
+	Funktion & Arduino-Pin \\
+	\hline
+	\endhead
+	\hline
+	\endfoot
+	X-Achse Schritt (Step) & \PYTHON{Digital Pin 2} \\
+	X-Achse Richtung (Direction) & \PYTHON{Digital Pin 5} \\
+	Y-Achse Schritt (Step) & \PYTHON{Digital Pin 3} \\
+	Y-Achse Richtung (Direction) & \PYTHON{Digital Pin 6} \\
+	Z-Achse Schritt (Step) & \PYTHON{Digital Pin 4} \\
+	Z-Achse Richtung (Direction) & \PYTHON{Digital Pin 7} \\
+	Schritt-Enable (Step Enable) & \PYTHON{Digital Pin 8} (LOW-aktiv) \\
+	X-Endschalter (Limit Switch) & \PYTHON{Digital Pin 9} \\
+	Y-Endschalter (Limit Switch) & \PYTHON{Digital Pin 10} \\
+	Z-Endschalter (Limit Switch) & \PYTHON{Digital Pin 11} \\
+	Spindel/Laser PWM & \PYTHON{Digital Pin 12} \\
+	Spindel-Richtung & \PYTHON{Digital Pin 13} \\
+	Tastsystem (Probe) & \PYTHON{Analog Pin A5} \\
+	\hline
+\end{longtable}
+
+Die Schrittmotortreiber (z. B. A4988, DRV8825) werden typischerweise über ein CNC-Shield-Board (Arduino CNC Shield V3) angeschlossen, das die oben genannte Pin-Belegung elektrisch bereitstellt und eine einfache Schraubklemmen-Verbindung zu den Schrittmotoren ermöglicht (vgl. Kapitel CNC-Shield V3) \cite{grbl:github}.
+
+\section{Konfiguration}
+
+\subsection{Laufzeitkonfiguration über GRBL-Variablen}
+
+Nach dem Upload erfolgt die Maschinenkonfiguration über die \PYTHON{\$\$}-Variablen (vgl. Referenztabelle in Abschnitt \ref{sec:grbl_referenztabelle}). Eine typische Erstkonfiguration:
+
+\begin{lstlisting}[caption={Typische Erstkonfiguration von GRBL},label={lst:grbl_erstkonfiguration}]
+	$100=250.000   ; X-Achse: 250 Schritte/mm
+	$101=250.000   ; Y-Achse: 250 Schritte/mm
+	$102=250.000   ; Z-Achse: 250 Schritte/mm
+	
+	$110=3000.000  ; X-Achse max. Vorschub: 3000 mm/min
+	$111=3000.000  ; Y-Achse max. Vorschub: 3000 mm/min
+	$112=1000.000  ; Z-Achse max. Vorschub: 1000 mm/min
+	
+	$120=300.000   ; X-Achse Beschleunigung: 300 mm/s^2
+	$121=300.000   ; Y-Achse Beschleunigung: 300 mm/s^2
+	$122=100.000   ; Z-Achse Beschleunigung: 100 mm/s^2
+	
+	$30=1000       ; Max. Spindel-RPM (= 100% PWM)
+	$31=0          ; Min. Spindel-RPM (= 0% PWM)
+	$32=1          ; Laser-Modus aktivieren (bei Laserbetrieb)
+	
+	$22=1          ; Homing aktivieren
+	$23=0          ; Homing-Richtung (0 = negative Richtung)
+\end{lstlisting}
+
+Wichtig: Alle über \PYTHON{\$x=y} gesetzten Werte werden automatisch im EEPROM des ATmega328P-Chips gespeichert und bleiben nach einem Neustart erhalten. Eine explizite Speicheranweisung ist nicht erforderlich \cite{sainsmart:grblquickreference}.
+
+\subsection{GRBL-Variablen Referenztabelle}
+\label{sec:grbl_referenztabelle}
+
+Die folgende Tabelle enthält die wichtigsten GRBL-Konfigurationsparameter mit deutschen Beschreibungen, typischen Startwerten und Einheiten \cite{sainsmart:grblquickreference}:
+
+\begin{longtable}{p{0.12\linewidth}p{0.23\linewidth}p{0.36\linewidth}p{0.14\linewidth}p{0.10\linewidth}}
+	\caption{Wichtige GRBL-Konfigurationsparameter}\label{tab:grbl_parameter}\\
+	\hline
+	Variable & Name & Beschreibung & Typischer Wert & Einheit \\
+	\hline
+	\endfirsthead
+	\hline
+	Variable & Name & Beschreibung & Typischer Wert & Einheit \\
+	\hline
+	\endhead
+	\hline
+	\endfoot
+	\PYTHON{\$0} & Schrittimpulszeit & Dauer des Schrittimpulses & 10 & µs \\
+	\PYTHON{\$1} & Schritt-Leerlaufverzögerung & Verzögerung bis Schrittmotoren deaktiviert werden & 25 & ms \\
+	\PYTHON{\$2} & Schritt-Port-Inversion & Bitmaske zur Invertierung der Schrittimpulse & 0 & Maske \\
+	\PYTHON{\$3} & Richtungs-Port-Inversion & Bitmaske zur Invertierung der Fahrtrichtung & 0 & Maske \\
+	\PYTHON{\$4} & Schritt-Enable-Inversion & Invertiert das Enable-Signal der Schrittmotoren & 0 & Bool \\
+	\PYTHON{\$5} & Limit-Pins-Inversion & Invertiert die Endschalter-Signale (NC/NO) & 0 & Bool \\
+	\PYTHON{\$6} & Sonde-Pin-Inversion & Invertiert das Tastsystem-Signal & 0 & Bool \\
+	\PYTHON{\$10} & Statusmeldung & Bestimmt den Inhalt der Statusberichte (?) & 1 & Maske \\
+	\PYTHON{\$11} & Verbindungsabweichung & Max. Abweichung bei Bogenbewegungen & 0.010 & mm \\
+	\PYTHON{\$12} & Bogenschritt-Auflösung & Auflösung für Bogenbewegungen (G2/G3) & 0.002 & mm \\
+	\PYTHON{\$13} & Zoll-Modus & Statusberichte in Zoll statt Millimeter & 0 & Bool \\
+	\PYTHON{\$20} & Soft-Limits & Aktiviert Software-Endanschläge & 0 & Bool \\
+	\PYTHON{\$21} & Hard-Limits & Aktiviert Hardware-Endschalter als Schutz & 0 & Bool \\
+	\PYTHON{\$22} & Homing-Zyklus & Aktiviert den automatischen Referenzpunkt-Zyklus & 0 & Bool \\
+	\PYTHON{\$23} & Homing-Richtung & Bitmaske: Homing-Richtung der Achsen invertieren & 0 & Maske \\
+	\PYTHON{\$24} & Homing-Geschwindigkeit & Langsame Geschwindigkeit beim Homing & 25.000 & mm/min \\
+	\PYTHON{\$25} & Homing-Suchgeschw. & Schnelle Suchgeschwindigkeit beim Homing & 500.000 & mm/min \\
+	\PYTHON{\$26} & Homing-Entprellung & Entprellzeit für Endschalter beim Homing & 250 & ms \\
+	\PYTHON{\$27} & Homing-Rückzug & Rückzugdistanz nach Endschalter beim Homing & 1.000 & mm \\
+	\PYTHON{\$30} & Max. Spindel-RPM & Maximale Spindeldrehzahl (= 100\% PWM) & 1000 & U/min \\
+	\PYTHON{\$31} & Min. Spindel-RPM & Minimale Spindeldrehzahl (kleinste PWM) & 0 & U/min \\
+	\PYTHON{\$32} & Laser-Modus & Aktiviert den Laser-Modus (0 = aus, 1 = an) & 0 & Bool \\
+	\PYTHON{\$100} & X-Schritte/mm & Anzahl der Motorschritte pro Millimeter X-Achse & 250.000 & Schritte/mm \\
+	\PYTHON{\$101} & Y-Schritte/mm & Anzahl der Motorschritte pro Millimeter Y-Achse & 250.000 & Schritte/mm \\
+	\PYTHON{\$102} & Z-Schritte/mm & Anzahl der Motorschritte pro Millimeter Z-Achse & 250.000 & Schritte/mm \\
+	\PYTHON{\$110} & Max. X-Vorschub & Maximale Vorschubgeschwindigkeit der X-Achse & 500.000 & mm/min \\
+	\PYTHON{\$111} & Max. Y-Vorschub & Maximale Vorschubgeschwindigkeit der Y-Achse & 500.000 & mm/min \\
+	\PYTHON{\$112} & Max. Z-Vorschub & Maximale Vorschubgeschwindigkeit der Z-Achse & 500.000 & mm/min \\
+	\PYTHON{\$120} & X-Beschleunigung & Beschleunigung der X-Achse & 10.000 & mm/s\textsuperscript{2} \\
+	\PYTHON{\$121} & Y-Beschleunigung & Beschleunigung der Y-Achse & 10.000 & mm/s\textsuperscript{2} \\
+	\PYTHON{\$122} & Z-Beschleunigung & Beschleunigung der Z-Achse & 10.000 & mm/s\textsuperscript{2} \\
+	\PYTHON{\$130} & X-Max. Verfahrweg & Maximaler Verfahrweg der X-Achse (Soft-Limits) & 200.000 & mm \\
+	\PYTHON{\$131} & Y-Max. Verfahrweg & Maximaler Verfahrweg der Y-Achse (Soft-Limits) & 200.000 & mm \\
+	\PYTHON{\$132} & Z-Max. Verfahrweg & Maximaler Verfahrweg der Z-Achse (Soft-Limits) & 200.000 & mm \\
+	\hline
+\end{longtable}
+
+\subsection{Diagnose und Fehlerbehebung}
+
+GRBL stellt folgende Diagnose-Schnittstellen zur Verfügung \cite{sainsmart:grblquickreference}:
+
+\begin{itemize}
+	\item Statusabfrage: Eingabe von \PYTHON{?} -- Antwort im Format \PYTHON{<Status|MPos:x,y,z|FS:Vorschub,Spindel>}.
+	\item Homing-Zyklus testen: Eingabe von \PYTHON{\$H} -- GRBL fährt alle Achsen an die Endschalter-Position und setzt den Maschinennullpunkt.
+	\item Software-Reset: \PYTHON{Ctrl+X} (Byte 0x18) -- setzt GRBL ohne Hardware-Neustart in den Ausgangszustand zurück.
+	\item G-Code-Parser-Status: Eingabe von \PYTHON{\$G} -- gibt alle aktiven modalen G-Code-Zustände aus.
+	\item Alarm freigeben: Eingabe von \PYTHON{\$X} -- hebt einen Alarmzustand auf.
+\end{itemize}
+
+Häufige Alarm-Codes und deren Bedeutung:
+
+\begin{longtable}{p{0.24\linewidth}p{0.66\linewidth}}
+	\caption{Häufige GRBL-Alarm-Codes}\label{tab:grbl_alarmcodes}\\
+	\hline
+	Alarm-Code & Ursache \\
+	\hline
+	\endfirsthead
+	\hline
+	Alarm-Code & Ursache \\
+	\hline
+	\endhead
+	\hline
+	\endfoot
+	\PYTHON{ALARM:1} & Hard Limit ausgelöst -- Endschalter während Bewegung aktiviert \\
+	\PYTHON{ALARM:2} & Soft Limit ausgelöst -- Bewegung überschreitet \PYTHON{\$130--\$132} \\
+	\PYTHON{ALARM:3} & Reset bei aktiver Maschinenbewegung \\
+	\PYTHON{ALARM:6} & Probe fehlgeschlagen -- kein Tastersignal empfangen \\
+	\PYTHON{ALARM:9} & Homing-Fehler -- Endschaltersignal nicht empfangen (\PYTHON{\$5} prüfen) \\
+	\hline
+\end{longtable}

@@ -1,0 +1,98 @@
+
+\chapter{Einrichtung des Arduino UNO}
+
+
+In diesem Abschnitt wird der Vorgang beschrieben, wie der Arduino UNO
+mit einem Computer verbunden und in der Arduino IDE eingerichtet wird.
+Dazu werden die notwendigen Pakete installiert, das Board sowie der
+zugehörige Port ausgewählt und abschließend anhand eines
+Beispiel-Sketches überprüft, ob die Einrichtung erfolgreich war.
+
+\section{Installation der Pakete für den Arduino UNO}
+
+Um den Arduino UNO zu programmieren, wird zunächst das passende
+Treiberpaket in der Arduino IDE installiert. Dazu wird in der Menüleiste
+der Punkt Tools ausgewählt und darunter der Eintrag Board Manager
+geöffnet. Im Suchfeld des Board Managers wird "Arduino UNO" eingegeben
+(vgl. Abbildung 1.24). Aus den Suchergebnissen wird das Paket "Arduino
+AVR Boards" ausgewählt und über die Schaltfläche "Install"
+installiert.
+
+Abbildung 1.24: Installation der Arduino AVR Boards
+
+Das Paket Arduino AVR Boards enthält die Unterstützung für mehrere
+Boards der AVR-Familie, unter anderem für den Arduino UNO. Nach
+Abschluss der Installation wird der Arduino UNO über ein
+USB-A-auf-USB-B-Kabel mit dem Computer verbunden.
+
+\section{Verbindung und Auswahl des Boards}
+
+Nachdem der Arduino UNO über das USB-Kabel mit dem Computer verbunden
+wurde, wird die Arduino IDE geöffnet. Es erscheint eine leere
+Umgebungsseite mit den standardmäßigen Funktionen void setup() und void
+loop(). Anschließend wird in der Menüleiste unter dem Punkt Tools der
+Unterpunkt Board ausgewählt und dort der Arduino UNO als angeschlossenes
+Board festgelegt (vgl. Abbildung 1.25).
+
+Abbildung 1.25: Auswahl des angeschlossenen Boards -- hier Arduino UNO
+
+Mit dieser Auswahl ist die Arduino IDE darauf vorbereitet, den Arduino
+UNO zu erkennen und mit ihm zu kommunizieren.
+
+\section{Auswahl des Ports}
+
+Nach der Boardauswahl wird der verbundene Port überprüft. Im Gegensatz
+zu einigen anderen Arduino-Boards muss der Arduino UNO dafür nicht
+zusätzlich in einen Bootloader-Modus versetzt werden, der Port wird beim
+Anschließen automatisch erkannt. Dazu wird in der Menüleiste unter dem
+Punkt Tools der Unterpunkt Port ausgewählt und der verfügbare Port für
+das Hochladen des Programms festgelegt (vgl. Abbildung 1.26).
+
+Abbildung 1.26: Auswahl des verfügbaren Ports zum Hochladen des Arduino-Sketches
+\section{Hochladen und Überprüfen eines Sketches}
+
+Nachdem der passende Port ausgewählt wurde, kann das Arduino-Programm
+hochgeladen werden. Vor dem Hochladen wird der Code zunächst überprüft
+(verifiziert), um sicherzustellen, dass keine Fehler oder Warnungen
+vorliegen. Anschließend wird der Code über die Schaltfläche Upload auf
+das Board übertragen (vgl. Abbildung 1.27). Ob der Arduino UNO korrekt
+mit der Arduino IDE verbunden ist, lässt sich anhand der Meldung in der
+unteren rechten Ecke des IDE-Fensters überprüfen, welche das verbundene
+Board und den Port anzeigt.
+
+ Abbildung 1.27: Hochladen des Programms auf das Arduino Board
+
+Nach dem Hochladen wird der Code kompiliert und etwaige Fehler werden im
+unteren Ausgabefenster angezeigt. Sobald der Code erfolgreich übertragen
+wurde, wird der Port erneut über Tools und Port überprüft (vgl.
+Abbildung 1.28), um die Ausgabe im Serial Monitor anzeigen zu können.
+
+
+Abbildung 1.28: Einstellen des Ports
+
+\section{Test der Konfiguration anhand des Beispiels Blink}
+
+Um zu überprüfen, ob das Board korrekt mit der Arduino IDE verbunden
+ist, wird das eingebaute Beispiel \emph{Blink} verwendet. Dieser
+einfache Test lässt die auf dem Board integrierte LED blinken und
+bestätigt damit sowohl die Verbindung als auch die grundlegende
+Funktionalität des Arduino UNO.
+
+Dazu wird in der Arduino IDE über das Menü File der Punkt Examples
+ausgewählt. Unter den eingebauten Beispielen wird unter 01.Basics der
+Eintrag Blink ausgewählt (vgl. Abbildung 1.29). Das Beispiel-Sketch
+öffnet sich daraufhin in einem neuen Fenster innerhalb der IDE (vgl.
+Abbildung 1.30). Über die Schaltfläche Upload in der Werkzeugleiste wird
+das Beispiel kompiliert und auf den Arduino UNO übertragen. Nach
+Abschluss des Uploads beginnt die integrierte LED zu blinken.
+
+Abbildung 1.29: Beispiel-Sketch Blink
+
+
+Abbildung 1.30: Beispielcode Blink
+
+Mit dem erfolgreichen Blinken der integrierten LED ist bestätigt, dass
+der Arduino UNO ordnungsgemäß mit der Arduino IDE verbunden ist und
+seine grundlegende Funktionalität überprüft wurde. Das Board ist damit
+bereit für die weitere Entwicklung.
+

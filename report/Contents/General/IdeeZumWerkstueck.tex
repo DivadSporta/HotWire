@@ -1,0 +1,120 @@
+\chapter{Von der Idee zum Werkstück}
+
+In diesem Kapitel wird der gesamte Ablauf des CNC-Hot-Wire-Foam-Cutters
+"ELMAR" beschrieben -- vom ersten Entwurf einer Kontur bis zum fertig
+geschnittenen Werkstück aus Schaumstoff. Die vorangegangenen Kapitel
+haben die einzelnen Komponenten des Systems im Detail behandelt: den
+Arduino Uno als Steuerzentrale mit der GRBL-Firmware, das CNC Shield V3
+mit den Schrittmotortreibern, die Endschalter zur Positionsbestimmung,
+den Druckknopf zur Bedienung, das MOSFET-PWM-Schaltmodul zur Ansteuerung
+des Heizdrahtes sowie den Universal G-Code Sender (UGS) als
+Bediensoftware auf dem angeschlossenen Computer. Dieses Kapitel führt
+diese Bausteine zu einem durchgängigen Arbeitsablauf zusammen.
+
+\section{Idee und Entwurf der Kontur}
+
+Am Anfang jedes Werkstücks steht die Idee, welche Form aus dem
+Schaumstoffblock herausgeschnitten werden soll. Diese Form wird zunächst
+als zweidimensionale Kontur entworfen, beispielsweise als Skizze oder
+als digitale Zeichnung. Da der Heizdraht beim Schneiden entlang einer
+durchgehenden Bahn geführt wird, muss die Kontur als geschlossener oder
+durchgehend befahrbarer Linienzug vorliegen, ohne Sprungstellen, die der
+Draht nicht abfahren kann.
+
+Bei der Erstellung der Kontur ist außerdem die Größe des verwendeten
+Schaumstoffblocks sowie der Verfahrbereich der Achsen zu
+berücksichtigen. Die Kontur darf den durch die Endschalter begrenzten
+Arbeitsbereich der Maschine nicht überschreiten, da es sonst beim
+späteren Schneidvorgang zu einer Kollision mit den mechanischen
+Endanschlägen kommen kann.
+
+\section{Erzeugung der Steuerbefehle (G-Code)}
+
+Aus der entworfenen Kontur werden anschließend die Steuerbefehle für die
+Maschine abgeleitet. Diese liegen im G-Code-Format vor, einer
+standardisierten Befehlssprache für die Steuerung von CNC-Maschinen. Der
+G-Code beschreibt die einzelnen Bewegungen der Achsen in Form von
+Koordinaten und Verfahrgeschwindigkeiten, die der Heizdraht beim
+Schneidvorgang nacheinander abfährt. Der G-Code kann dabei entweder
+manuell geschrieben oder mithilfe einer CAM-Software aus einem
+CAD-Modell erzeugt und als Datei (z. B. .nc oder .gcode) exportiert
+werden.
+
+Die Umsetzung der G-Code-Befehle in konkrete Schrittmotorsignale
+übernimmt die auf dem Arduino Uno installierte GRBL-Firmware. GRBL
+interpretiert die im G-Code enthaltenen Bewegungsanweisungen und erzeugt
+daraus die STEP- und DIR-Signale, die über das CNC Shield V3 an die
+Motortreiber der einzelnen Achsen weitergegeben werden. Auf diese Weise
+wird aus einer abstrakten Bewegungsbeschreibung eine reale, koordinierte
+Bewegung der Achsen.
+
+Die Übertragung des G-Codes an den Arduino Uno erfolgt über den
+Universal G-Code Sender (UGS). UGS verbindet sich seriell über USB mit
+dem Controller, zeigt den geladenen Werkzeugpfad als 2D/3D-Vorschau im
+Visualizer-Fenster an und übernimmt im sogenannten Batch-Mode die
+geordnete, gepufferte Übertragung der einzelnen G-Code-Zeilen an GRBL.
+
+\section{Einrichten und Referenzieren der Maschine}
+
+Bevor ein Werkstück geschnitten werden kann, muss die Maschine in einen
+definierten Ausgangszustand gebracht werden. Dazu fahren die Achsen
+nacheinander in Richtung der Endschalter, bis diese ausgelöst werden.
+Auf diese Weise erkennt die Steuerung die jeweilige Nullposition der
+Achsen, unabhängig davon, an welcher Stelle sich der Schneidrahmen zuvor
+befunden hat. Diese sogenannte Referenzfahrt (Homing) wird durch den
+Befehl \$H ausgelöst und stellt sicher, dass die im G-Code hinterlegten
+Koordinaten korrekt auf die tatsächliche Position der Maschine
+übertragen werden.
+
+Der aktuelle Zustand der Maschine -- Status (Idle, Run, Hold, Alarm),
+Achspositionen sowie Vorschub -- wird während des gesamten Vorgangs im
+Digital Read-Out (DRO) von UGS in Echtzeit angezeigt. Vor dem
+eigentlichen Schneidvorgang wird zusätzlich der Werkstück-Nullpunkt an
+der Maschine festgelegt und in UGS über die Funktion Zero All
+zurückgesetzt, sodass die Koordinaten des G-Codes exakt auf die Position
+des Schaumstoffblocks abgestimmt sind.
+
+\section{Der Schneidvorgang}
+
+Sobald die Maschine referenziert, der Werkstück-Nullpunkt gesetzt und
+der zugehörige G-Code in UGS geladen wurde, kann der eigentliche
+Schneidvorgang über die Send-File-Funktion gestartet werden. Die Achsen
+bewegen den Heizdraht entsprechend der programmierten Bahn durch den
+Schaumstoffblock. Damit der Draht das Material sauber durchtrennt, muss
+er auf eine geeignete Temperatur aufgeheizt sein, während die Achsen ihn
+mit einer gleichmäßigen, auf das Material abgestimmten Geschwindigkeit
+führen.
+
+Die Temperatur des Heizdrahtes wird über das MOSFET-PWM-Schaltmodul
+gesteuert. Über ein pulsweitenmoduliertes Signal wird die dem Draht
+zugeführte elektrische Leistung und damit seine Temperatur reguliert.
+Eine zu niedrige Temperatur führt zu einem unsauberen Schnitt oder zu
+erhöhtem Widerstand beim Vorschub, eine zu hohe Temperatur kann das
+Material unnötig stark schmelzen und die Schnittkante beschädigen. Die
+Abstimmung von Drahttemperatur und Vorschubgeschwindigkeit der Achsen
+ist daher entscheidend für die Qualität des Schnittergebnisses.
+
+Während des Schneidvorgangs kann der Fortschritt im Statusbalken sowie
+im Konsolenfenster von UGS verfolgt werden. Bei einer Fehlfunktion, etwa
+dem unbeabsichtigten Auslösen eines Endschalters, meldet GRBL einen
+entsprechenden Alarmzustand (z. B. ALARM:1 bei einem Hard-Limit), der
+den Vorgang automatisch anhält. Der Druckknopf dient als einfaches,
+lokales Bedienelement, über das ein laufender Vorgang bei Bedarf
+zusätzlich manuell unterbrochen werden kann.
+
+\section{Fertigstellung des Werkstücks}
+
+Nach Abschluss der programmierten Schnittbahn fahren die Achsen in der
+Regel in eine definierte Ruheposition zurück. Das fertig geschnittene
+Werkstück kann anschließend aus dem verbleibenden Schaumstoffblock
+entnommen werden. Je nach Anwendung kann eine Nachbearbeitung sinnvoll
+sein, etwa das Entfernen kleiner Schmelzgrate an der Schnittkante.
+
+Mit der Entnahme des Werkstücks schließt sich der Kreis vom anfänglichen
+Entwurf der Kontur bis zum fertigen, physischen Bauteil. Der
+beschriebene Ablauf verdeutlicht, wie die in den vorangegangenen
+Kapiteln einzeln vorgestellten Komponenten -- Arduino Uno mit GRBL, CNC
+Shield V3, Endschalter, Druckknopf, MOSFET-PWM-Schaltmodul und der
+Bediensoftware UGS -- im Zusammenspiel den vollständigen Funktionsumfang
+des CNC-Hot-Wire-Foam-Cutters ergeben.
+

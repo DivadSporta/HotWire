@@ -23,7 +23,7 @@ Dieser reduziert eine höhere Eingangsspannung auf eine stabile Ausgangsspannung
 Im Projekt wird hierfür ein Buck-Converter-Modul auf Basis des LM2596 beziehungsweise MP2307 verwendet.
 
 Der Arduino Uno kann laut Datenblatt über den VIN-Anschluss mit einer Eingangsspannung von 6\,V bis 20\,V betrieben werden. 
-Für den direkten Betrieb der Logikschaltungen wird jedoch eine stabile Versorgungsspannung von 5\,V benötigt \cite{Arduino:Uno}. 
+Für den direkten Betrieb der Logikschaltungen wird jedoch eine stabile Versorgungsspannung von 5\,V benötigt \cite{arduino:uno-datasheet-datasheet}. 
 Der eingesetzte DC-DC-Abwärtswandler übernimmt daher die Spannungsanpassung zwischen Netzteil und Mikrocontroller.
 
 Im Gegensatz zu linearen Spannungsreglern arbeitet ein Abwärtswandler im Schaltbetrieb. 
@@ -74,7 +74,7 @@ Das verwendete Modul besitzt folgende technische Eigenschaften \cite{MP2307:Data
 	\end{tabular}
 \end{table}
 
-Der Arduino Uno unterstützt laut Datenblatt Eingangsspannungen von 6\,V bis 20\,V am Anschluss \PYTHON{VIN} \cite{Arduino:Uno}. 
+Der Arduino Uno unterstützt laut Datenblatt Eingangsspannungen von 6\,V bis 20\,V am Anschluss \PYTHON{VIN} \cite{arduino:uno-datasheet}. 
 Die Versorgung über einen externen DC-DC-Wandler reduziert die Belastung des integrierten Spannungsreglers und verbessert die Energieeffizienz des Gesamtsystems.
 
 \section{Funktionsprinzip}
@@ -162,7 +162,7 @@ Dabei ist auf eine gemeinsame Masseverbindung der beteiligten Baugruppen zu acht
 \begin{itemize}
 	\item Schlienz, Ulrich: \textit{Schaltnetzteile und ihre Peripherie}. Springer Vieweg, 2020. \cite{Schlienz:2020}
 	\item Erickson, Robert W. und Maksimovic, Dragan: \textit{Fundamentals of Power Electronics}. Springer, 2020.
-	\item Arduino: \textit{Arduino Uno Rev3 Datasheet}. Technisches Datenblatt, 2025. \cite{Arduino:Uno}
+	\item Arduino: \textit{Arduino Uno Rev3 Datasheet}. Technisches Datenblatt, 2025. \cite{arduino:uno-datasheet}
 	\item MP2307 / LM2596: \textit{DC-DC Converter Buck Module}. Technisches Datenblatt. \cite{MP2307:Datasheet}
 \end{itemize}
 
