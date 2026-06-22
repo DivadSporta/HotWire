@@ -43,38 +43,38 @@ Die Installation "Für alle Benutzer dieses Computers" benötigt der Installer d
 
 Nach der Installation wird diese durch Fertigstellen beendet. Nun kann die Arduino IDE geöffnet werden.
 
-\section{Verknüpfen des Boards mit der IDE}
-
-Zur Verbindung des Arduino Boards mit der Arduino IDE muss in dieser zuerst das richtige Board ausgewählt werden Abbildung \ref{fig:Boardauswahl}. Dazu wird in der Menüleiste unter dem Punkt \menu{Tools} der Unterpunkt  \menu{Board} ausgewählt. Unter den  Boards \glqq Arduino AVR\grqq{} und hier der \glqq Arduino Nano\grqq{} ausgewählt.
-
-\begin{center}
-	\includegraphics[width=1\textwidth]{Arduino/ArdiunoIDE2/Win/BoardAuswahl.PNG}
-	\captionof{figure}{Boardauswahl}
-	\label{fig:Boardauswahl}
-\end{center}
-
-Nach der Bordauswahl wird nun wieder in der Menüleiste unter dem Punkt \menu{Tools} der Unterpunkt \menu{Ports} ausgewählt Abbildung \ref{fig:Portauswahl}. Hierunter befinden sich die Anschlüsse des PC. Hier kann es sein, dass hier bereits erkennbar ist, an welchem Port der Arduino angeschlossen ist. Ist dies nicht der Fall, trennt man den Arduino vom PC, der nun nicht mehr angezeigte Port ist der richte. Der Arduino kann nun wieder angeschlossen werden und der Port ausgewählt werden.
-
-\begin{center}
-	\includegraphics[width=1\textwidth]{Arduino/ArdiunoIDE2/Win/PortAuswahl.PNG}
-	\captionof{figure}{Portauswahl}
-	\label{fig:Portauswahl}
-\end{center}
-
-\subsection{Beispielcode \glqq  Blinkende LED\grqq}
-
-Der Aufbau und die Funktion der Programmierung in der Arduino IDE wird anhand des Beispiels Blinkenden LED gezeigt und erklärt Abbildung \ref{CodeIDE}. Die LED ist auf dem Arduino Board fest installiert, somit benötigt das Beispiel keine Externe Hardware.
-
-\captionof{code}{Blink Programm \label{CodeIDE}}
-\ArduinoExternal{}{../../Code/Blink/Blink.ino}
-
-In den Zeilen 32 bis 34 steht die \PYTHON{Setup Funktion}, diese setz in Zeile 33 über \PYTHON{pinMode} den Ausgang auf die integrierte LED über \PYTHON{LED BUILTIN} und setz diesen als Output.
-
-Das Blinken wird in Zeile 41 bis 46 über die \PYTHON{loop} Funktion realisiert.
-In Zeile 42 wird über \PYTHON{digitaWrite} wird die LED auf \PYTHON{HIGH} gesetzt und ist damit an.
-Zeile 43 sorgt mit der Funktion \PYTHON{delay(1000)} für eine Pause von einer Sekunde, in der der Zustand der LED gleich bleibt.
-In Zeile 44 wird nun wieder über \PYTHON{digitalwrite} der zustand der LED auf \PYTHON{LOW} gesetzt und die LED ist aus.
-Zeile 45 ist nun wieder eine Pause von einer Sekunde. Dannach wird die \PYTHON{loop} Funktion endlos wiederholt. 
+%\section{Verknüpfen des Boards mit der IDE}
+%
+%Zur Verbindung des Arduino Boards mit der Arduino IDE muss in dieser zuerst das richtige Board ausgewählt werden Abbildung \ref{fig:Boardauswahl}. Dazu wird in der Menüleiste unter dem Punkt \menu{Tools} der Unterpunkt  \menu{Board} ausgewählt. Unter den  Boards \glqq Arduino AVR\grqq{} und hier der \glqq Arduino Nano\grqq{} ausgewählt.
+%
+%\begin{center}
+%	\includegraphics[width=1\textwidth]{Arduino/ArdiunoIDE2/Win/BoardAuswahl.PNG}
+%	\captionof{figure}{Boardauswahl}
+%	\label{fig:Boardauswahl}
+%\end{center}
+%
+%Nach der Bordauswahl wird nun wieder in der Menüleiste unter dem Punkt \menu{Tools} der Unterpunkt \menu{Ports} ausgewählt Abbildung \ref{fig:Portauswahl}. Hierunter befinden sich die Anschlüsse des PC. Hier kann es sein, dass hier bereits erkennbar ist, an welchem Port der Arduino angeschlossen ist. Ist dies nicht der Fall, trennt man den Arduino vom PC, der nun nicht mehr angezeigte Port ist der richte. Der Arduino kann nun wieder angeschlossen werden und der Port ausgewählt werden.
+%
+%\begin{center}
+%	\includegraphics[width=1\textwidth]{Arduino/ArdiunoIDE2/Win/PortAuswahl.PNG}
+%	\captionof{figure}{Portauswahl}
+%	\label{fig:Portauswahl}
+%\end{center}
+%
+%\subsection{Beispielcode \glqq  Blinkende LED\grqq}
+%
+%Der Aufbau und die Funktion der Programmierung in der Arduino IDE wird anhand des Beispiels Blinkenden LED gezeigt und erklärt Abbildung \ref{CodeIDE}. Die LED ist auf dem Arduino Board fest installiert, somit benötigt das Beispiel keine Externe Hardware.
+%
+%\captionof{code}{Blink Programm \label{CodeIDE}}
+%\ArduinoExternal{}{../../Code/Blink/Blink.ino}
+%
+%In den Zeilen 32 bis 34 steht die \PYTHON{Setup Funktion}, diese setz in Zeile 33 über \PYTHON{pinMode} den Ausgang auf die integrierte LED über \PYTHON{LED BUILTIN} und setz diesen als Output.
+%
+%Das Blinken wird in Zeile 41 bis 46 über die \PYTHON{loop} Funktion realisiert.
+%In Zeile 42 wird über \PYTHON{digitaWrite} wird die LED auf \PYTHON{HIGH} gesetzt und ist damit an.
+%Zeile 43 sorgt mit der Funktion \PYTHON{delay(1000)} für eine Pause von einer Sekunde, in der der Zustand der LED gleich bleibt.
+%In Zeile 44 wird nun wieder über \PYTHON{digitalwrite} der zustand der LED auf \PYTHON{LOW} gesetzt und die LED ist aus.
+%Zeile 45 ist nun wieder eine Pause von einer Sekunde. Dannach wird die \PYTHON{loop} Funktion endlos wiederholt. 
 
 
 

@@ -14,11 +14,15 @@ Um den Arduino UNO zu programmieren, wird zunächst das passende
 Treiberpaket in der Arduino IDE installiert. Dazu wird in der Menüleiste
 der Punkt Tools ausgewählt und darunter der Eintrag Board Manager
 geöffnet. Im Suchfeld des Board Managers wird "Arduino UNO" eingegeben
-(vgl. Abbildung 1.24). Aus den Suchergebnissen wird das Paket "Arduino
+\ref{pic:ARV}. Aus den Suchergebnissen wird das Paket "Arduino
 AVR Boards" ausgewählt und über die Schaltfläche "Install"
 installiert.
 
-Abbildung 1.24: Installation der Arduino AVR Boards
+\includegraphics[width=1\textwidth,keepaspectratio]{Arduino/Setup/AVR}
+\captionof{figure}{Installation der Arduino AVR Boards}
+\label{pic:ARV}
+
+
 
 Das Paket Arduino AVR Boards enthält die Unterstützung für mehrere
 Boards der AVR-Familie, unter anderem für den Arduino UNO. Nach
@@ -80,16 +84,16 @@ Funktionalität des Arduino UNO.
 
 Dazu wird in der Arduino IDE über das Menü File der Punkt Examples
 ausgewählt. Unter den eingebauten Beispielen wird unter 01.Basics der
-Eintrag Blink ausgewählt (vgl. Abbildung 1.29). Das Beispiel-Sketch
-öffnet sich daraufhin in einem neuen Fenster innerhalb der IDE (vgl.
-Abbildung 1.30). Über die Schaltfläche Upload in der Werkzeugleiste wird
-das Beispiel kompiliert und auf den Arduino UNO übertragen. Nach
+Eintrag Blink ausgewählt \ref{pic:Blink}. Das Beispiel-Sketch
+öffnet sich daraufhin in einem neuen Fenster innerhalb der IDE. Über die Schaltfläche Upload in der Werkzeugleiste wird das Beispiel kompiliert und auf den Arduino UNO übertragen. Nach
 Abschluss des Uploads beginnt die integrierte LED zu blinken.
 
-Abbildung 1.29: Beispiel-Sketch Blink
+\includegraphics[width=1\textwidth,keepaspectratio]{Arduino/Setup/Blink}
+\captionof{figure}{Beispiel-Sketch Blink}
+\label{pic:Blink}
 
-
-Abbildung 1.30: Beispielcode Blink
+\captionof{code}{Blink Programm \label{CodeIDE}}
+\ArduinoExternal{}{../../Code/Blink/Blink.ino}
 
 Mit dem erfolgreichen Blinken der integrierten LED ist bestätigt, dass
 der Arduino UNO ordnungsgemäß mit der Arduino IDE verbunden ist und
