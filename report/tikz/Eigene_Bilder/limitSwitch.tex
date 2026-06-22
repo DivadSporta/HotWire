@@ -1,28 +1,6 @@
-\documentclass[tikz,border=5pt]{standalone}
-
-\usepackage{xcolor}
-\usepackage{tikz}
-\usepackage{circuitikz}
-\usepackage{graphicx}
-
-\begin{document}
-	
-	% WICHTIG:
-	% Hier nur den eigentlichen Grafikblock einfügen.
-	% Also NICHT:
-	% \begin{figure}
-		% \centering
-		% \resizebox{...}{...}{%
-			% \caption{...}
-			% \label{...}
-			%
-			% Sondern nur:
-			% \begin{circuitikz}
-				% ...
-				% \end{circuitikz}
-			
-			\begin{circuitikz}
+\begin{circuitikz}[scale=0.75, transform shape]
 			\tikzstyle{every node}=[font=\fontsize{18.2pt}{23.7pt}\selectfont]
+\begin{scope}[shift={(-4.45,-6.10)}]
 			\draw [ color={rgb,255:red,43; green,51; blue,53}, draw opacity=1 , fill={rgb,255:red,43; green,51; blue,53}, fill opacity=1, rounded corners = 31.2] (5.75,14.875) rectangle (14.25,6.25);
 			\draw [ color={rgb,255:red,25; green,33; blue,33}, draw opacity=1, line width=1pt, short] (9.5,9) -- (9.5,8);
 			\draw [ color={rgb,255:red,25; green,33; blue,33}, draw opacity=1, line width=1pt, short] (8.625,10.75) -- (8.625,12.625);
@@ -146,9 +124,9 @@
 			\node [font=\fontsize{18.2pt}{23.7pt}\selectfont, color={rgb,255:red,255; green,255; blue,255}, text opacity=1, , inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (8.75,11.75) {S};
 			\node [font=\fontsize{18.2pt}{23.7pt}\selectfont, color={rgb,255:red,255; green,255; blue,255}, text opacity=1, , inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (8.75,10.5) {G};
 			\node [font=\fontsize{18.2pt}{23.7pt}\selectfont, color={rgb,255:red,255; green,255; blue,255}, text opacity=1, , inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (8.75,9.375) {V};
-			\node [font=\fontsize{18.2pt}{23.7pt}\selectfont, color={rgb,255:red,255; green,255; blue,255}, text opacity=1, , rotate around={-90:(0,0)}, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (8,7.5) {LED};
-			\node [font=\fontsize{18.2pt}{23.7pt}\selectfont, color={rgb,255:red,255; green,255; blue,255}, text opacity=1, , rotate around={-90:(0,0)}, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (10.5,13.125) {10K};
-			\node [font=\fontsize{18.2pt}{23.7pt}\selectfont, color={rgb,255:red,255; green,255; blue,255}, text opacity=1, , rotate around={-90:(0,0)}, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (10.5,6.75) {1K};
+			\node [font=\fontsize{18.2pt}{23.7pt}\selectfont, color={rgb,255:red,255; green,255; blue,255}, text opacity=1, , rotate=-90, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (8,7.5) {LED};
+			\node [font=\fontsize{18.2pt}{23.7pt}\selectfont, color={rgb,255:red,255; green,255; blue,255}, text opacity=1, , rotate=-90, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (10.5,13.125) {10K};
+			\node [font=\fontsize{18.2pt}{23.7pt}\selectfont, color={rgb,255:red,255; green,255; blue,255}, text opacity=1, , rotate=-90, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (10.5,6.75) {1K};
 			\draw [ color={rgb,255:red,255; green,255; blue,255}, draw opacity=1, line width=2pt, short] (11.25,14) -- (11.5,14);
 			\draw [ color={rgb,255:red,255; green,255; blue,255}, draw opacity=1, line width=2pt, short] (11.25,13.5) -- (11.5,13.5);
 			\draw [ color={rgb,255:red,255; green,255; blue,255}, draw opacity=1, line width=2pt, short] (11.25,13) -- (11.5,13);
@@ -168,18 +146,14 @@
 			\draw [ color={rgb,255:red,255; green,255; blue,255}, draw opacity=1, line width=2pt, short] (13.375,13.875) -- (13.375,13.625);
 			\draw [ color={rgb,255:red,255; green,255; blue,255}, draw opacity=1, line width=2pt, short] (13.875,13.875) -- (13.875,13.625);
 			\draw [ color={rgb,255:red,255; green,255; blue,255}, draw opacity=1, line width=2pt, short] (13.875,13.375) -- (13.875,13.125);
-			\node [font=\fontsize{18.2pt}{23.7pt}\selectfont, color={rgb,255:red,255; green,255; blue,255}, text opacity=1, , rotate around={-90:(0,0)}, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (8,13.25) {C104};
+			\node [font=\fontsize{18.2pt}{23.7pt}\selectfont, color={rgb,255:red,255; green,255; blue,255}, text opacity=1, , rotate=-90, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (8,13.25) {C104};
 			\draw [ color={rgb,255:red,42; green,42; blue,42}, draw opacity=1, line width=1.2pt, short] (13.625,8) -- (14.25,8);
 			\draw [ color={rgb,255:red,42; green,42; blue,42}, draw opacity=1, line width=1.2pt, short] (13.625,8.375) -- (14.25,8.375);
 			\draw [ color={rgb,255:red,42; green,42; blue,42}, draw opacity=1, line width=1.2pt, short] (14.25,8.375) -- (13.625,8);
 			\draw [ color={rgb,255:red,255; green,255; blue,255}, draw opacity=1, line width=2pt, short] (9.125,12.25) -- (9.125,8.75);
 			\draw [ color={rgb,255:red,255; green,255; blue,255}, draw opacity=1, line width=2pt, short] (8.375,12.25) -- (8.375,8.75);
 			
-				% =====================================================
-				% HIER DEINEN KOMPLETTEN CODEBLOCK EINFÜGEN
-				% ALLES ZWISCHEN \begin{circuitikz} UND \end{circuitikz}
-				% =====================================================
-				
-			\end{circuitikz}
 			
-		\end{document}
+				
+			\end{scope}
+\end{circuitikz}
