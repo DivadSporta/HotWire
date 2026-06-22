@@ -1,0 +1,222 @@
+\begin{circuitikz}[x=1cm,y=1cm,>=stealth]
+	\tikzstyle{every node}=[font=\fontsize{18.2pt}{23.7pt}\selectfont]
+	
+	% Gesamtsystem
+	\draw [line width=2pt, dashed] (1.375,16.75) rectangle (16.5,-1.125);
+	
+	\node [
+	font=\fontsize{25.0pt}{32.5pt}\selectfont,
+	fill={rgb,255:red,255; green,255; blue,255},
+	fill opacity=1,
+	text opacity=1,
+	inner xsep=0.080cm,
+	inner ysep=0.085cm,
+	rounded corners=0.020cm
+	] at (9.125,16) {\textbf{Gesamtsystem}};
+	
+	% Maschine
+	\draw [
+	color={rgb,255:red,246; green,27; blue,27},
+	draw opacity=1,
+	line width=2pt,
+	dashed
+	] (4.375,6.625) rectangle (14.125,-0.125);
+	
+	\node [
+	font=\fontsize{18.2pt}{23.7pt}\selectfont,
+	color={rgb,255:red,253; green,17; blue,17},
+	text opacity=1,
+	inner xsep=0.080cm,
+	inner ysep=0.085cm,
+	rounded corners=0.020cm
+	] at (9.125,6.125) {\textbf{Maschine}};
+	
+	\draw [line width=1.2pt] (5,5.625) rectangle (8,3.5);
+	\draw [line width=1.2pt] (10.375,5.625) rectangle (13.25,3.5);
+	
+	\node [
+	font=\fontsize{13.1pt}{17.0pt}\selectfont,
+	inner xsep=0.080cm,
+	inner ysep=0.085cm,
+	rounded corners=0.020cm
+	] at (6.5,4.625) {\textbf{Heizdraht}};
+	
+	\node [
+	font=\fontsize{13.1pt}{17.0pt}\selectfont,
+	inner xsep=0.080cm,
+	inner ysep=0.085cm,
+	rounded corners=0.020cm
+	] at (11.75,4.5) {\textbf{Motoren}};
+	
+	% Steuerung
+	\draw [
+	color={rgb,255:red,14; green,170; blue,248},
+	draw opacity=1,
+	line width=2pt,
+	dashed
+	] (4.375,15.25) rectangle (13.875,7.5);
+	
+	\node [
+	font=\fontsize{18.2pt}{23.7pt}\selectfont,
+	color={rgb,255:red,95; green,170; blue,242},
+	text opacity=1,
+	inner xsep=0.080cm,
+	inner ysep=0.085cm,
+	rounded corners=0.020cm
+	] at (9.125,14.75) {\textbf{Steuerung}};
+	
+	\draw [line width=1.2pt] (6.75,14.125) rectangle (11.375,13);
+	
+	\node [
+	font=\fontsize{18.2pt}{23.7pt}\selectfont,
+	inner xsep=0.080cm,
+	inner ysep=0.085cm,
+	rounded corners=0.020cm
+	] at (9.125,13.5) {\textbf{Computer}};
+	
+	\draw [line width=1.2pt] (5.125,11.625) rectangle (8,10.25);
+	\draw [line width=1.2pt] (10.25,11.625) rectangle (13.125,10.25);
+	\draw [line width=1.2pt] (5.125,9.375) rectangle (8,8.125);
+	\draw [line width=1.2pt] (10.25,9.375) rectangle (13.125,8.125);
+	
+	\node [
+	font=\fontsize{10.8pt}{14.1pt}\selectfont,
+	inner xsep=0.080cm,
+	inner ysep=0.085cm,
+	rounded corners=0.020cm
+	] at (6.5,10.875) {\textbf{Mikrocontroller}};
+	
+	\node [
+	font=\fontsize{11.9pt}{15.5pt}\selectfont,
+	inner xsep=0.080cm,
+	inner ysep=0.085cm,
+	rounded corners=0.020cm
+	] at (11.625,10.75) {\textbf{CNC-Shield}};
+	
+	\node [
+	font=\fontsize{10.8pt}{14.1pt}\selectfont,
+	inner xsep=0.080cm,
+	inner ysep=0.085cm,
+	rounded corners=0.020cm
+	] at (6.5,8.75) {\textbf{MOSFET}};
+	
+	\node [
+	font=\fontsize{11.9pt}{15.5pt}\selectfont,
+	inner xsep=0.080cm,
+	inner ysep=0.085cm,
+	rounded corners=0.020cm
+	] at (11.625,8.625) {\textbf{Motor-Treiber}};
+	
+	% Sensoren und Bedienelemente
+	\draw [line width=1.2pt] (10.375,2.375) rectangle (13.375,0.5);
+	
+	\node [
+	font=\fontsize{13.1pt}{17.0pt}\selectfont,
+	inner xsep=0.080cm,
+	inner ysep=0.085cm,
+	rounded corners=0.020cm
+	] at (11.875,1.5) {\textbf{Endschalter}};
+	
+	\draw [line width=1.2pt] (5,2.375) rectangle (8,0.5);
+	
+	\node [
+	font=\fontsize{11.9pt}{15.5pt}\selectfont,
+	inner xsep=0.080cm,
+	inner ysep=0.085cm,
+	rounded corners=0.020cm
+	] at (6.5,1.5) {\textbf{Druckknöpfe}};
+	
+	% Serielle Kommunikation
+	\draw [line width=0.9pt, <->] (7.5,13) -- (7.5,11.625)
+	node[
+	pos=0.5,
+	fill={rgb,255:red,255; green,255; blue,255},
+	fill opacity=1,
+	text opacity=1,
+	inner xsep=0.080cm,
+	inner ysep=0.085cm,
+	rounded corners=0.020cm
+	]{\textbf{serielle Kommunikation}};
+	
+	% Shield Header
+	\draw [line width=0.9pt, ->] (8,11.125) -- (10.25,11.125)
+	node[
+	pos=0.43,
+	fill={rgb,255:red,255; green,255; blue,255},
+	fill opacity=1,
+	text opacity=1,
+	inner xsep=0.080cm,
+	inner ysep=0.085cm,
+	rounded corners=0.020cm
+	]{\textbf{Shield-Header}};
+	
+	% STEP DIR ENABLE
+	\draw [line width=0.9pt, ->] (11.625,10.25) -- (11.625,9.375)
+	node[
+	pos=0.38,
+	fill={rgb,255:red,255; green,255; blue,255},
+	fill opacity=1,
+	text opacity=1,
+	inner xsep=0.080cm,
+	inner ysep=0.085cm,
+	rounded corners=0.020cm
+	]{\textbf{STEP, DIR, ENABLE}};
+	
+	% Motorstrom
+	\draw [line width=0.9pt, ->] (11.75,8.125) -- (11.75,5.625)
+	node[
+	pos=0.42,
+	fill={rgb,255:red,255; green,255; blue,255},
+	fill opacity=1,
+	text opacity=1,
+	inner xsep=0.080cm,
+	inner ysep=0.085cm,
+	rounded corners=0.020cm
+	]{\textbf{Motorstrom}};
+	
+	% Laststrom
+	\draw [line width=0.9pt, ->] (6.375,8.125) -- (6.375,5.625)
+	node[
+	pos=0.43,
+	fill={rgb,255:red,255; green,255; blue,255},
+	fill opacity=1,
+	text opacity=1,
+	inner xsep=0.080cm,
+	inner ysep=0.085cm,
+	rounded corners=0.020cm
+	]{\textbf{Laststrom}};
+	
+	% PWM-Signal
+	\draw [line width=0.9pt] (3,10.5) -- (8,10.5);
+	
+	\draw [line width=0.9pt, ->] (9,10.5) |- (8,8.625)
+	node[
+	pos=0.28,
+	fill={rgb,255:red,255; green,255; blue,255},
+	fill opacity=1,
+	text opacity=1,
+	inner xsep=0.080cm,
+	inner ysep=0.085cm,
+	rounded corners=0.020cm
+	]{\textbf{PWM-Signal}};
+	
+	% Endschalter-Rückmeldung
+	\draw [line width=0.9pt, ->] (2.375,0.25) |- (5.125,10.875);
+	\draw [line width=0.9pt] (2.375,0.25) -| (11.875,0.5);
+	
+	% Druckknopf-Signal
+	\draw [line width=0.9pt] (3.125,1.5) -- (5,1.5);
+	
+	\draw [line width=0.9pt, ->] (3.125,1.5) |- (5.125,10.5)
+	node[
+	pos=0.5,
+	fill={rgb,255:red,255; green,255; blue,255},
+	fill opacity=1,
+	text opacity=1,
+	inner xsep=0.080cm,
+	inner ysep=0.085cm,
+	rounded corners=0.020cm
+	]{\textbf{digitales Eingangssignal}};
+	
+\end{circuitikz}
+

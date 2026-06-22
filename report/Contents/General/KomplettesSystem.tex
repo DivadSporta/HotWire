@@ -10,7 +10,7 @@
 %%%
 
 
-```latex
+
 \chapter{Komplettes System}
 \label{chap:komplettes_system}
 
@@ -22,6 +22,20 @@ Das Gesamtsystem besteht aus einer mechanischen Achskonstruktion, einer elektris
 Die zentrale Funktion des Systems besteht darin, einen elektrisch erwärmten Schneiddraht entlang einer definierten Bahn durch Schaumstoff zu führen. Die Bahnbewegung wird durch Schrittmotoren erzeugt. Die Ansteuerung der Schrittmotoren erfolgt über den Arduino Uno, das CNC Shield V3 und die eingesetzten A4988-Schrittmotortreiber. Der Heizdraht wird getrennt von der Motorsteuerung über ein MOSFET-PWM-Schaltmodul geschaltet.
 
 Die Maschine besitzt damit zwei wesentliche Wirkbereiche. Der erste Bereich ist die Bewegungssteuerung der Achsen. Der zweite Bereich ist die thermische Trennung des Werkstoffs durch den Heizdraht. Beide Bereiche müssen aufeinander abgestimmt werden, da die Schnittqualität sowohl von der Achsbewegung als auch von der Heizleistung abhängt.
+
+
+Abbildung~\ref{fig:automatisierungssystem_cnc} zeigt den CNC-Heißdrahtschneider als Automatisierungssystem. Die Darstellung trennt Steuerung, Maschine, Signalfluss und Leistungsfluss.
+
+\begin{figure}[H]
+	\centering
+	\resizebox{0.78\textwidth}{!}{%
+		\input{../../tikz/Eigene_Bilder/komplettSystemTikz}
+	}
+	\caption{Schematische Darstellung des CNC-Heißdrahtschneiders als Automatisierungssystem}
+	\label{fig:automatisierungssystem_cnc}
+\end{figure}
+
+
 
 \section{Design und Aufbau}
 \label{sec:komplettes_system_design_aufbau}
