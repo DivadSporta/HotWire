@@ -13,4 +13,68 @@
 
 \chapter{Software}
 \section {Bedienung}
-Platzhalter
+\section{Universal G-Code Sender}
+
+Der Universal G-Code Sender, kurz UGS, ist eine quelloffene Steuerungssoftware zur Übertragung von G-Code an GRBL-basierte CNC-Systeme. Die Software dient als Schnittstelle zwischen dem Computer und dem Mikrocontroller der Maschine. Dabei werden die Steuerbefehle über eine serielle USB-Verbindung an den Controller übertragen. UGS ist plattformübergreifend nutzbar und steht unter anderem für Windows, Linux und macOS zur Verfügung
+
+Für das Projekt ELMAR wird UGS verwendet, um G-Code-Dateien zu laden, einzelne Steuerbefehle manuell auszuführen und den aktuellen Maschinenstatus zu überwachen. Zusätzlich bietet UGS eine grafische Vorschau des Werkzeugpfades, wodurch Bewegungen vor dem eigentlichen Start kontrolliert werden können.
+
+\subsection{Installation}
+
+Die Installation von UGS erfolgt über die offizielle GitHub-Release-Seite des Projekts . Für Windows wird die passende ZIP-Datei der aktuellen Version heruntergeladen, beispielsweise die Variante für ein 64-Bit-System. Nach dem Download wird das ZIP-Archiv in ein beliebiges Verzeichnis entpackt.
+
+Anschließend kann die Anwendung direkt aus dem entpackten Ordner gestartet werden. Unter Windows erfolgt dies über die Datei ugsplatform64.exe. Eine separate Java-Installation ist nicht erforderlich, da UGS die benötigte Java-Laufzeitumgebung bereits im Programmpaket mitliefert .
+
+Beim ersten Start kann Windows eine Sicherheitsmeldung anzeigen. In diesem Fall muss die Ausführung über \textit{Weitere Informationen} und anschließend \textit{Trotzdem ausführen} bestätigt werden.
+
+\subsection{Verbindung mit der Steuerung}
+
+Vor der Verwendung muss der Arduino beziehungsweise der GRBL-Controller über USB mit dem Computer verbunden werden. Anschließend wird im Windows-Geräte-Manager der zugewiesene COM-Port ermittelt. Dieser befindet sich unter dem Eintrag \textit{Anschlüsse (COM \& LPT)} und wird beispielsweise als COM3 angezeigt.
+
+In UGS wird dieser COM-Port im Auswahlfeld \textit{Port} ausgewählt. Als Baudrate wird bei GRBL v1.1 standardmäßig 115200 eingestellt . Danach wird die Verbindung über die Schaltfläche \textit{Connect} hergestellt. Bei erfolgreicher Verbindung erscheint im Konsolenfenster eine GRBL-Meldung, zum Beispiel: Grbl 1.1h [\$\ for help].
+
+Zur Kontrolle der Verbindung kann der Befehl \$\$ in das Kommandozeilenfeld eingegeben werden. Daraufhin gibt GRBL die aktuell gespeicherten Konfigurationsparameter aus.
+
+\subsection{Grundlegende Bedienung}
+
+UGS kann auf zwei Arten verwendet werden. Zum einen können einzelne Befehle direkt über das Kommandozeilenfeld eingegeben werden. Diese Betriebsart eignet sich besonders für Tests, manuelle Bewegungen, Diagnosebefehle und die Referenzfahrt. Zum anderen können vollständige G-Code-Dateien geöffnet und automatisch an die Maschine übertragen werden.
+
+Einzelne Befehle werden in das Kommandozeilenfeld geschrieben und mit der Eingabetaste bestätigt. Häufig verwendete Befehle sind beispielsweise:
+
+\begin{itemize}
+	\item \$\$: Ausgabe aller GRBL-Konfigurationsparameter
+	\item ?: Abfrage des aktuellen Maschinenstatus
+	\item \$G: Anzeige der aktiven G-Code-Zustände
+	\item \$I: Ausgabe der GRBL-Version und Build-Informationen
+	\item \$X: Freigabe eines Alarmzustands
+	\item \$H: Start der Referenzfahrt beziehungsweise des Homing-Zyklus
+\end{itemize}
+
+Die Referenzfahrt wird über den Befehl \$H gestartet. Dabei fährt GRBL die Achsen kontrolliert zu den Endschaltern und setzt anschließend den Maschinennullpunkt. Damit die Referenzfahrt genutzt werden kann, muss der Homing-Zyklus in GRBL aktiviert sein. Dies erfolgt über den Parameter \$22=1.
+
+\subsection{G-Code-Dateien öffnen und starten}
+
+Für den automatischen Betrieb wird eine G-Code-Datei in UGS geladen. Dies erfolgt über den Menüpunkt \textit{File} und anschließend \textit{Open}. Alternativ kann die Tastenkombination Strg+O verwendet werden. UGS unterstützt typische Dateiformate wie .nc, .gcode, .txt und .tap.
+
+Nach dem Öffnen der Datei wird der Werkzeugpfad im Visualizer-Fenster dargestellt. Dadurch kann vor dem Start überprüft werden, ob die Bewegungen zur gewünschten Kontur passen. Vor dem Start der Datei muss der Werkstücknullpunkt festgelegt werden. Anschließend kann dieser über \textit{Zero All} in UGS übernommen werden.
+
+Vor dem Start sollte kontrolliert werden, ob sich die Maschine im Zustand Idle befindet. Danach wird die Datei über die Play-Schaltfläche beziehungsweise \textit{Send File} gestartet. UGS überträgt die Befehle anschließend nacheinander an den GRBL-Controller und wartet jeweils auf die Bestätigung durch GRBL, bevor der nächste Befehl gesendet wird.
+
+\subsection{Diagnose und Fehlerkontrolle}
+
+UGS besitzt ein Konsolenfenster, in dem gesendete und empfangene Befehle angezeigt werden. Dadurch können Fehler und Rückmeldungen der Steuerung nachvollzogen werden. Besonders hilfreich ist die Statusabfrage mit dem Befehl ?. GRBL antwortet darauf mit dem aktuellen Maschinenstatus und den Positionsdaten.
+
+Typische Maschinenzustände sind:
+
+\begin{itemize}
+	\item Idle: Maschine ist bereit
+	\item Run: Maschine führt aktuell Bewegungen aus
+	\item Hold: Bewegung wurde pausiert
+	\item Alarm: Es liegt ein Fehler- oder Sicherheitszustand vor
+\end{itemize}
+
+Tritt ein Alarm auf, wird dieser in der Konsole angezeigt. Beispiele sind ALARM:1 für einen ausgelösten Endschalter oder ALARM:9 für eine fehlgeschlagene Referenzfahrt. Ein Alarmzustand kann nach Prüfung der Ursache mit dem Befehl \$X freigegeben werden.
+
+\subsection{Bedeutung für ELMAR}
+
+UGS übernimmt bei ELMAR die Bedienoberfläche zur Steuerung der Maschine. Über die Software können Verbindungen zur GRBL-Steuerung hergestellt, Maschinenbefehle eingegeben, G-Code-Dateien geladen und die Bewegungen überwacht werden. Besonders wichtig sind dabei die Referenzfahrt über \$H, das Laden von G-Code-Dateien und die Kontrolle des Maschinenstatus vor dem Start eines Schneidvorgangs.

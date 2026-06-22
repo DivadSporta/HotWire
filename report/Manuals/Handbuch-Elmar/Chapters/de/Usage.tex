@@ -15,45 +15,57 @@
 
 Nach der Inbetriebnahme kann ELMAR für den Schneidvorgang verwendet werden.
 
+\section{Bedienung}
+
 \begin{enumerate}
+	\item ELMAR auf eine feste, ebene und nicht brennbare Fläche stellen.
 	
-	\item Befestigen Sie den Rohling auf der vorgesehenen Dornaufnahme im Arbeitsbereich von ELMAR. 
-	Achten Sie darauf, dass der Rohling fest sitzt und an den Markierungen ausgerichtet ist.
+	```
+	\item Den Fahrbereich der Achsen freiräumen und prüfen, ob sich nichts im Bewegungsbereich befindet.
 	
-	\item Wählen Sie eine geeignete Schneiddatei im G-Code-Format auf dem Computer aus. 
+	\item Den Styropor-Rohling in den Arbeitsbereich einsetzen und sicher befestigen.
 	
+	\item Laptop und ELMAR über das USB-Kabel verbinden.
 	
-	\item Laden Sie die Schneiddatei über die Steuerungssoftware auf ELMAR. 
-	Wählen Sie dazu die entsprechende Datei in der Software aus und starten Sie den Upload.
+	\item ELMAR einschalten.
 	
-	\input{../../tikz/Eigene_Bilder/Inbetriebnahme/Datei_hochladen}
+	\item UGS auf dem Laptop starten.
 	
-	\item Warten Sie, bis der erfolgreiche Upload auf der Anzeige bestätigt wird.
+	\item In UGS den passenden COM-Port auswählen.
 	
-	\input{../../tikz/Eigene_Bilder/Inbetriebnahme/Datei_erkannt}
+	\item Die Baudrate auf 115200 einstellen.
 	
-	\item Drücken Sie den Start-Knopf, um den Schneidvorgang zu beginnen.
+	\item Über \textit{Connect} die Verbindung zur Steuerung herstellen.
 	
-	\input{../../tikz/Eigene_Bilder/Inbetriebnahme/Draht_heizt_auf}\input{../../tikz/Eigene_Bilder/Inbetriebnahme/Prozess_gestartet}
+	\item Die Referenzfahrt in UGS starten und warten, bis alle Achsen ihre Referenzposition erreicht haben.
 	
-	\item Die Anzeige zeigt den Fortschritt des Schneidvorgangs an.
+	\item Die gewünschte G-Code-Datei in UGS öffnen.
 	
-	\input{../../tikz/Eigene_Bilder/Inbetriebnahme/Prozess_im_Gange}
+	\item Den angezeigten Werkzeugpfad kontrollieren.
 	
-	\item Mit dem Pause-Knopf kann der Schneidvorgang jederzeit pausiert werden.
+	\item Die Startposition passend zum Styropor-Rohling anfahren.
 	
-	\input{../../tikz/Eigene_Bilder/Inbetriebnahme/Prozess_pausiert}
+	\item Den Nullpunkt in UGS setzen, zum Beispiel über \textit{Zero All}.
 	
-	\item Mit dem Stopp-Knopf wird der Schneidvorgang beendet und ELMAR fährt in die Ausgangsposition (Siehe Homing).
+	\item Den Heizdraht einschalten und kurz aufheizen lassen.
 	
-	\input{../../tikz/Eigene_Bilder/Inbetriebnahme/Prozess_gestoppt}
+	\item Prüfen, ob sich niemand im Bewegungsbereich der Maschine befindet.
 	
-	\item Nach Abschluss zeigt die Anzeige das Ende des Prozesses an.
+	\item Den Schneidvorgang in UGS starten.
 	
-	\input{../../tikz/Eigene_Bilder/Inbetriebnahme/Prozess_abgeschlossen}
+	\item ELMAR während des Schneidvorgangs beobachten.
 	
-	\item Warten Sie mindestens 10 Sekunden, bis der Draht abgekühlt ist, bevor Sie das Werkstück entnehmen. Die Anzeige gibt an, wie viel Wartezeit noch erforderlich ist.
+	\item Nach dem Schneiden warten, bis keine Bewegung mehr stattfindet.
 	
-	\input{../../tikz/Eigene_Bilder/Inbetriebnahme/Draht}
+	\item Den Heizdraht abkühlen lassen.
+	
+	\item Das geschnittene Werkstück aus dem Arbeitsbereich entnehmen.
+	
+	\item ELMAR ausschalten.
+	
+	\item Die USB-Verbindung trennen.
+	
+	\item Materialreste entfernen und den Arbeitsplatz kontrollieren.
+	```
 	
 \end{enumerate}
