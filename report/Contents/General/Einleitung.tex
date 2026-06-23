@@ -12,7 +12,7 @@
 \section{Das Projekt}
 \label{sec:einleitung_thema}
 
-Im Rahmen des Projekts wird ein CNC-Heißdrahtschneider entwickelt. Dabei handelt es sich um eine automatisierte Schneidvorrichtung zur Bearbeitung von Schaumstoffplatten. Der Schnitt erfolgt durch einen elektrisch erwärmten Widerstandsdraht. Der Draht wird entlang einer vorgegebenen Bahn durch das Material geführt und trennt den Schaumstoff infolge der lokal eingebrachten Wärme.
+Im Rahmen des Projekts wird ein Heißdrahtschneider entwickelt. Dabei handelt es sich um eine automatisierte Schneidvorrichtung zur Bearbeitung von Schaumstoffplatten. Der Schnitt erfolgt durch einen elektrisch erwärmten Widerstandsdraht. Der Draht wird entlang einer vorgegebenen Bahn durch das Material geführt und trennt den Schaumstoff infolge der lokal eingebrachten Wärme.
 
 Der Aufbau verbindet mehrere technische Teilgebiete. Die Bewegungsführung gehört zur CNC-Technik, da die Achsen computergesteuert entlang definierter Koordinaten verfahren werden. Die Erwärmung des Schneiddrahts gehört zur Leistungselektronik, da eine elektrische Last geschaltet und in ihrer Leistung beeinflusst werden muss. Das Werkstoffverhalten des Schaumstoffs gehört zur Kunststofftechnik, da die Schnittqualität stark davon abhängt, wie das Material auf Wärme, Vorschubgeschwindigkeit und Schnittgeometrie reagiert \cite{Bonnet:2025}.
 
@@ -22,9 +22,9 @@ CNC-Systeme werden eingesetzt, um Bewegungen reproduzierbar und unabhängig von 
 \section{Problemstellung}
 \label{sec:problemstellung}
 
-Die zentrale Problemstellung besteht darin, eine digitale Schnittkontur mit einem thermischen Schneidverfahren in ein reales Werkstück zu übertragen. Dafür müssen mechanische Achsbewegung, elektrische Heizdrahtansteuerung und Softwaresteuerung aufeinander abgestimmt werden. Eine reine Bewegung der Achsen reicht nicht aus, da der Schnitt nur dann sauber entsteht, wenn Heizleistung, Drahtspannung und Vorschubgeschwindigkeit zum verwendeten Schaumstoff passen.
+Die zentrale Problemstellung besteht darin, eine digitale Schnittkontur mit einem thermischen Schneidverfahren in ein reales Werkstück zu übertragen. Dafür müssen mechanische Achsbewegung, elektrische Heißdrahtansteuerung und Softwaresteuerung aufeinander abgestimmt werden. Eine reine Bewegung der Achsen reicht nicht aus, da der Schnitt nur dann sauber entsteht, wenn Heizleistung, Drahtspannung und Vorschubgeschwindigkeit zum verwendeten Schaumstoff passen.
 
-Bei einem manuellen Heißdrahtschneider hängt die Schnittqualität wesentlich von der Handführung ab. Beim CNC-Heißdrahtschneider wird diese Aufgabe durch eine computergesteuerte Bewegung ersetzt. Dadurch können Konturen reproduzierbarer hergestellt werden. Gleichzeitig entstehen neue Anforderungen: Die Achsen müssen kalibriert sein, die Motoren dürfen keine Schritte verlieren, der Schneiddraht muss ausreichend gespannt sein und die Heizleistung muss so eingestellt werden, dass eine saubere Schnittfuge entsteht.
+Bei einem manuellen Heißdrahtschneider hängt die Schnittqualität wesentlich von der Handführung ab. Beim Heißdrahtschneider wird diese Aufgabe durch eine computergesteuerte Bewegung ersetzt. Dadurch können Konturen reproduzierbarer hergestellt werden. Gleichzeitig entstehen neue Anforderungen: Die Achsen müssen kalibriert sein, die Motoren dürfen keine Schritte verlieren, der Schneiddraht muss ausreichend gespannt sein und die Heizleistung muss so eingestellt werden, dass eine saubere Schnittfuge entsteht.
 
 Die Herausforderung liegt also im Zusammenspiel des Gesamtsystems. Zusätzlich muss der Prozess dokumentiert werden, damit Aufbau, Inbetriebnahme, Wartung und Fehlersuche nachvollziehbar bleiben.
 
@@ -35,7 +35,7 @@ In der computergesteuerten Produktion werden digitale Daten zur Planung, Simulat
 
 Für kleine CNC-Systeme eignen sich Schrittmotoren, da sie eine Bewegung in diskreten Winkelschritten ausführen. Schrittmotoren gehören zu den Sonderbauformen elektrischer Maschinen und bewegen sich nicht kontinuierlich wie klassische rotierende Maschinen, sondern schrittweise \cite{Schroeder:2017}. Dadurch eignen sie sich für einfache Positionierungen, solange die Last und die Dynamik so gewählt werden, dass keine Schritte verloren gehen.
 
-Die elektrische Ansteuerung des Heizdrahts ist dem Bereich der Leistungselektronik zuzuordnen. Leistungselektronik beschreibt das Schalten, Steuern und Umformen elektrischer Energie mit elektronischen Mitteln. Für das Projekt ist dies relevant, da der Heizdraht nicht direkt über einen Mikrocontroller-Pin betrieben werden darf, sondern über eine geeignete Leistungsstufe geschaltet werden muss \cite{Zach:2022}.
+Die elektrische Ansteuerung des Heißdrahts ist dem Bereich der Leistungselektronik zuzuordnen. Leistungselektronik beschreibt das Schalten, Steuern und Umformen elektrischer Energie mit elektronischen Mitteln. Für das Projekt ist dies relevant, da der Heißdraht nicht direkt über einen Mikrocontroller-Pin betrieben werden darf, sondern über eine geeignete Leistungsstufe geschaltet werden muss \cite{Zach:2022}.
 
 \section{Besondere Herausforderungen}
 \label{sec:besondere_herausforderungen}
@@ -44,7 +44,7 @@ Eine besondere Herausforderung besteht in der Abstimmung von Heizleistung und Vo
 
 Eine weitere Herausforderung ist die Positionsgenauigkeit der Achsen. Die Steuerung geht im offenen Betrieb davon aus, dass jeder ausgegebene Schritt auch mechanisch umgesetzt wird. Bei Überlastung, zu hoher Beschleunigung oder ungünstiger Geschwindigkeit können jedoch Schritte verloren gehen. Das führt unmittelbar zu Maßabweichungen am Werkstück. Deshalb müssen Motortreiberstrom, Mikroschrittbetrieb, Geschwindigkeit und mechanische Last zusammen betrachtet werden \cite{Schroeder:2017}.
 
-Zusätzlich ist die elektrische Heizdrahtansteuerung sicherheitsrelevant. Der Schneiddraht ist eine Last mit erhöhter Stromaufnahme und hoher Temperatur. Die Ansteuerung muss daher von der Logik des Mikrocontrollers getrennt betrachtet werden. Der Mikrocontroller liefert nur das Steuersignal, während die eigentliche Leistung über ein MOSFET-Schaltmodul geschaltet wird. \cite{Zach:2022}.
+Zusätzlich ist die elektrische Heißdrahtansteuerung sicherheitsrelevant. Der Schneiddraht ist eine Last mit erhöhter Stromaufnahme und hoher Temperatur. Die Ansteuerung muss daher von der Logik des Mikrocontrollers getrennt betrachtet werden. Der Mikrocontroller liefert nur das Steuersignal, während die eigentliche Leistung über ein MOSFET-Schaltmodul geschaltet wird. \cite{Zach:2022}.
 
 \section{Lösungsansatz}
 \label{sec:loesungsansatz}
@@ -53,5 +53,5 @@ Das Projekt wird modular aufgebaut. Die mechanische Baugruppe führt den Schneid
 
 Die Achsbewegung wird mit Schrittmotoren realisiert. Die Schrittmotortreiber erhalten STEP- und DIR-Signale. Jeder STEP-Impuls erzeugt eine Bewegung um einen Schritt oder Mikroschritt. Das DIR-Signal legt die Bewegungsrichtung fest. Die Anzahl der Impulse bestimmt den Verfahrweg, der zeitliche Abstand der Impulse beeinflusst die Geschwindigkeit. Die Kalibrierung erfolgt über die Zuordnung von Schritten zu Millimetern.
 
-Die Heizdrahtansteuerung wird über ein MOSFET-PWM-Schaltmodul umgesetzt. Dadurch wird der Schneiddraht nicht direkt vom Mikrocontroller versorgt. Die PWM-Ansteuerung ermöglicht eine Veränderung der mittleren elektrischen Leistung. Die passende Einstellung wird nicht rein theoretisch festgelegt, sondern durch Probeschnitte überprüft. Dabei werden Schnittkante, Schnittfugenbreite, Drahtverhalten und Maßhaltigkeit bewertet.
+Die Heißdrahtansteuerung wird über ein MOSFET-PWM-Schaltmodul umgesetzt. Dadurch wird der Schneiddraht nicht direkt vom Mikrocontroller versorgt. Die PWM-Ansteuerung ermöglicht eine Veränderung der mittleren elektrischen Leistung. Die passende Einstellung wird nicht rein theoretisch festgelegt, sondern durch Probeschnitte überprüft. Dabei werden Schnittkante, Schnittfugenbreite, Drahtverhalten und Maßhaltigkeit bewertet.
 

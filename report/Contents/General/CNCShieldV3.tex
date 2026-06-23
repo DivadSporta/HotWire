@@ -26,7 +26,7 @@ CNC-Systeme werden allgemein eingesetzt, um Bewegungen von Werkzeugen oder Werks
 
 Das CNC Shield V3 dient zur einfachen Ansteuerung mehrerer Schrittmotoren über einen Arduino Uno. Es wird direkt auf den Arduino aufgesteckt und stellt Steckplätze für Schrittmotortreiber sowie Anschlüsse für Motoren, Endschalter und weitere CNC-Funktionen bereit.
 
-Im Projekt wird das CNC Shield V3 zur Ansteuerung der Achsmotoren des CNC-Hot-Wire-Foam-Cutters verwendet. Die Schrittmotoren bewegen den Heizdraht entlang der gewünschten Kontur. Dadurch ist das Shield eine zentrale Schnittstelle zwischen dem Arduino Uno, den Motortreibern und den mechanischen Achsen.
+Im Projekt wird das CNC Shield V3 zur Ansteuerung der Achsmotoren des Heißdraht Schneiders verwendet. Die Schrittmotoren bewegen den Heißdraht entlang der gewünschten Kontur. Dadurch ist das Shield eine zentrale Schnittstelle zwischen dem Arduino Uno, den Motortreibern und den mechanischen Achsen.
 
 Das verwendete CNC Shield V3 ist ein Controllerboard für CNC-Anwendungen mit vier A4988-Motortreibern. Es ist für den Einsatz mit dem Arduino Uno oder kompatiblen Boards vorgesehen. Das Shield unterstützt bis zu vier Achsen und ist GRBL-kompatibel, wodurch es sich in standardisierte CNC-Steuerungen integrieren lässt \cite{JoyIT:CNCShield:Datenblatt}\cite{JoyIT:CNCShield:Anleitung}.
 
@@ -42,7 +42,7 @@ Das CNC Shield V3 ist für den Einsatz mit steckbaren Motortreibermodulen wie de
 
 Im Projekt wird ein CNC Shield V3 für Arduino verwendet. Das Shield wird auf einen Arduino Uno gesteckt und dient als Verbindungsebene zwischen Mikrocontroller, Schrittmotortreibern und Schrittmotoren. Es besitzt Steckplätze für bis zu vier Motortreiber und kann dadurch mehrere Achsen eines kleinen CNC-Systems ansteuern \cite{JoyIT:CNCShield:Datenblatt}.
 
-Für das Projekt werden insbesondere die Achsausgänge des Shields genutzt. Die Achsen bewegen den Heizdraht beziehungsweise den Schneidrahmen entlang der programmierten Bahn. Die Bewegung muss gleichmäßig erfolgen, damit der Draht das Material sauber schneiden kann.
+Für das Projekt werden insbesondere die Achsausgänge des Shields genutzt. Die Achsen bewegen den Heißdraht beziehungsweise den Schneidrahmen entlang der programmierten Bahn. Die Bewegung muss gleichmäßig erfolgen, damit der Draht das Material sauber schneiden kann.
 
 Das Shield stellt außerdem Anschlüsse für Endschalter bereit. Diese können für Referenzfahrten oder zur Begrenzung der Achsbewegungen verwendet werden. Dadurch kann das System sicherer betrieben und eine definierte Ausgangsposition angefahren werden.
 

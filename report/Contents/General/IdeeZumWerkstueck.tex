@@ -1,13 +1,13 @@
 \chapter{Von der Idee zum Werkstück}
 
-In diesem Kapitel wird der gesamte Ablauf des CNC-Hot-Wire-Foam-Cutters
+In diesem Kapitel wird der gesamte Ablauf des Heißdraht Schneiders
 "ELMAR" beschrieben -- vom ersten Entwurf einer Kontur bis zum fertig
 geschnittenen Werkstück aus Schaumstoff. Die vorangegangenen Kapitel
 haben die einzelnen Komponenten des Systems im Detail behandelt: den
 Arduino Uno als Steuerzentrale mit der GRBL-Firmware, das CNC Shield V3
 mit den Schrittmotortreibern, die Endschalter zur Positionsbestimmung,
 den Druckknopf zur Bedienung, das MOSFET-PWM-Schaltmodul zur Ansteuerung
-des Heizdrahtes sowie den Universal G-Code Sender (UGS) als
+des Heißdrahtes sowie den Universal G-Code Sender (UGS) als
 Bediensoftware auf dem angeschlossenen Computer. Dieses Kapitel führt
 diese Bausteine zu einem durchgängigen Arbeitsablauf zusammen.
 
@@ -16,7 +16,7 @@ diese Bausteine zu einem durchgängigen Arbeitsablauf zusammen.
 Am Anfang jedes Werkstücks steht die Idee, welche Form aus dem
 Schaumstoffblock herausgeschnitten werden soll. Diese Form wird zunächst
 als zweidimensionale Kontur entworfen, beispielsweise als Skizze oder
-als digitale Zeichnung. Da der Heizdraht beim Schneiden entlang einer
+als digitale Zeichnung. Da der Heißdraht beim Schneiden entlang einer
 durchgehenden Bahn geführt wird, muss die Kontur als geschlossener oder
 durchgehend befahrbarer Linienzug vorliegen, ohne Sprungstellen, die der
 Draht nicht abfahren kann.
@@ -34,7 +34,7 @@ Aus der entworfenen Kontur werden anschließend die Steuerbefehle für die
 Maschine abgeleitet. Diese liegen im G-Code-Format vor, einer
 standardisierten Befehlssprache für die Steuerung von CNC-Maschinen. Der
 G-Code beschreibt die einzelnen Bewegungen der Achsen in Form von
-Koordinaten und Verfahrgeschwindigkeiten, die der Heizdraht beim
+Koordinaten und Verfahrgeschwindigkeiten, die der Heißdraht beim
 Schneidvorgang nacheinander abfährt. Der G-Code kann dabei entweder
 manuell geschrieben oder mithilfe einer CAM-Software aus einem
 CAD-Modell erzeugt und als Datei (z. B. .nc oder .gcode) exportiert
@@ -79,13 +79,13 @@ des Schaumstoffblocks abgestimmt sind.
 Sobald die Maschine referenziert, der Werkstück-Nullpunkt gesetzt und
 der zugehörige G-Code in UGS geladen wurde, kann der eigentliche
 Schneidvorgang über die Send-File-Funktion gestartet werden. Die Achsen
-bewegen den Heizdraht entsprechend der programmierten Bahn durch den
+bewegen den Heißdraht entsprechend der programmierten Bahn durch den
 Schaumstoffblock. Damit der Draht das Material sauber durchtrennt, muss
 er auf eine geeignete Temperatur aufgeheizt sein, während die Achsen ihn
 mit einer gleichmäßigen, auf das Material abgestimmten Geschwindigkeit
 führen.
 
-Die Temperatur des Heizdrahtes wird über das MOSFET-PWM-Schaltmodul
+Die Temperatur des Heißdrahtes wird über das MOSFET-PWM-Schaltmodul
 gesteuert. Über ein pulsweitenmoduliertes Signal wird die dem Draht
 zugeführte elektrische Leistung und damit seine Temperatur reguliert.
 Eine zu niedrige Temperatur führt zu einem unsauberen Schnitt oder zu
@@ -116,5 +116,5 @@ beschriebene Ablauf verdeutlicht, wie die in den vorangegangenen
 Kapiteln einzeln vorgestellten Komponenten -- Arduino Uno mit GRBL, CNC
 Shield V3, Endschalter, Druckknopf, MOSFET-PWM-Schaltmodul und der
 Bediensoftware UGS -- im Zusammenspiel den vollständigen Funktionsumfang
-des CNC-Hot-Wire-Foam-Cutters ergeben.
+des Heißdraht Schneiders ergeben.
 

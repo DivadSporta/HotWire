@@ -53,18 +53,18 @@ P = I^2 \cdot R
 \)
 beschrieben werden. Dabei ist \(P\) die Leistung, \(U\) die Spannung, \(I\) der Strom und \(R\) der elektrische Widerstand.
 
-Im Projekt darf der Heizdraht nicht direkt über einen Mikrocontroller-Pin betrieben werden. Der Mikrocontroller ist nur für Logiksignale ausgelegt. Der Laststrom des Heizdrahts muss über eine geeignete Leistungsstufe geschaltet werden. Die fachliche Grundlage dafür liegt in der Leistungselektronik, die sich mit dem Schalten, Steuern und Umformen elektrischer Energie beschäftigt \cite{Zach:2022}.
+Im Projekt darf der Heißdraht nicht direkt über einen Mikrocontroller-Pin betrieben werden. Der Mikrocontroller ist nur für Logiksignale ausgelegt. Der Laststrom des Heißdrahts muss über eine geeignete Leistungsstufe geschaltet werden. Die fachliche Grundlage dafür liegt in der Leistungselektronik, die sich mit dem Schalten, Steuern und Umformen elektrischer Energie beschäftigt \cite{Zach:2022}.
 
 Die Heizleistung muss so gewählt werden, dass der Draht den Schaumstoff sauber trennt. Zu geringe Leistung führt zu einem unvollständigen Schnitt oder zu mechanischer Belastung des Drahts. Zu hohe Leistung kann zu einer breiten Schnittfuge, starker Materialverformung oder Beschädigung des Drahts führen.
 
-\section{PWM-Ansteuerung des Heizdrahts}
-\label{sec:pwm_ansteuerung_heizdraht}
+\section{PWM-Ansteuerung des Heißdrahts}
+\label{sec:pwm_ansteuerung_Heißdraht}
 
 Die Heizleistung kann über eine PWM-Ansteuerung beeinflusst werden. PWM steht für Pulsweitenmodulation. Dabei wird eine Last schnell ein- und ausgeschaltet. Durch das Verhältnis zwischen Einschaltzeit und Ausschaltzeit innerhalb einer Schaltperiode verändert sich die mittlere zugeführte Leistung \cite{DeDoncker:2024}.
 
 Die mittlere Leistung kann über das Tastverhältnis beeinflusst werden. Die eigentliche Last wird dabei durch das MOSFET-Schaltmodul geschaltet. Der Arduino liefert nur das Steuersignal.
 
-Die PWM-Einstellung muss praktisch geprüft werden. Ein bestimmter PWM-Wert ist nicht automatisch für jedes Material geeignet, weil Drahtlänge, Drahtwiderstand, Versorgungsspannung, Materialdicke und Vorschubgeschwindigkeit zusammenwirken. Deshalb gehören Probeschnitte zur Inbetriebnahme des Heizdrahts.
+Die PWM-Einstellung muss praktisch geprüft werden. Ein bestimmter PWM-Wert ist nicht automatisch für jedes Material geeignet, weil Drahtlänge, Drahtwiderstand, Versorgungsspannung, Materialdicke und Vorschubgeschwindigkeit zusammenwirken. Deshalb gehören Probeschnitte zur Inbetriebnahme des Heißdrahts.
 
 \section{Drahtspannung und mechanische Führung}
 \label{sec:drahtspannung_mechanische_fuehrung}
@@ -78,7 +78,7 @@ Die Führung des Drahts muss außerdem so ausgelegt sein, dass keine ungewollten
 \section{Achsen, Schrittmotoren und mechanische Belastung}
 \label{sec:hardware_achsen_schrittmotoren}
 
-Die Achsen bewegen den Heizdraht entlang der vorgesehenen Kontur. Dabei sollen sie gleichmäßig und wiederholbar verfahren. Die mechanische Belastung ist beim Heißdrahtschneiden geringer als bei spanenden Verfahren, weil der Draht das Material thermisch trennt. Trotzdem müssen Reibung, Massenträgheit und Drahtspannung von den Motoren überwunden werden.
+Die Achsen bewegen den Heißdraht entlang der vorgesehenen Kontur. Dabei sollen sie gleichmäßig und wiederholbar verfahren. Die mechanische Belastung ist beim Heißdrahtschneiden geringer als bei spanenden Verfahren, weil der Draht das Material thermisch trennt. Trotzdem müssen Reibung, Massenträgheit und Drahtspannung von den Motoren überwunden werden.
 
 Schrittmotoren bewegen sich in diskreten Winkelschritten und werden deshalb häufig für Positionieraufgaben eingesetzt \cite{Schroeder:2017}. Im Projekt ist dies vorteilhaft, weil der Verfahrweg über Schrittimpulse bestimmt werden kann. Gleichzeitig besteht das Risiko von Schrittverlusten, wenn die Last zu hoch oder die Bewegung zu schnell ist.
 
@@ -100,7 +100,7 @@ Typische hardwareseitige Fehlerbilder lassen sich an der Schnittkante, an der Sc
 
 Eine schräge oder gekrümmte Schnittlinie kann durch einen durchhängenden Draht, eine unzureichende Drahtspannung oder eine fehlerhafte mechanische Führung entstehen. Ruckartige Bewegungen oder Schrittverluste können auf mechanische Schwergängigkeit, zu hohe Geschwindigkeit oder eine ungünstige Treibereinstellung hinweisen.
 
-Auch elektrische Fehler sind möglich. Dazu gehören lose Verbindungen, ungeeignete Leitungsquerschnitte, unzureichende Masseverbindungen oder eine Überlastung des MOSFET-Moduls. Da der Heizdraht eine stromführende und heiße Last ist, müssen diese Fehler besonders sorgfältig vermieden werden.
+Auch elektrische Fehler sind möglich. Dazu gehören lose Verbindungen, ungeeignete Leitungsquerschnitte, unzureichende Masseverbindungen oder eine Überlastung des MOSFET-Moduls. Da der Heißdraht eine stromführende und heiße Last ist, müssen diese Fehler besonders sorgfältig vermieden werden.
 
 \section{Bewertung der Schnittqualität}
 \label{sec:bewertung_schnittqualitaet}

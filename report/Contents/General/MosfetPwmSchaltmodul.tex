@@ -171,7 +171,7 @@ Die externe Versorgung wird über \PYTHON{VIN} eingespeist und die Last über \P
 
 \section{Kalibrierung}
 
-Für die Ansteuerung eines Heizdrahts muss ein geeigneter PWM-Wert experimentell bestimmt werden.
+Für die Ansteuerung eines Heißdrahts muss ein geeigneter PWM-Wert experimentell bestimmt werden.
 
 Dazu wird die PWM-Stufe schrittweise erhöht, bis die gewünschte Temperatur erreicht wird. 
 Dabei dürfen die zulässige Stromaufnahme des Moduls und die Belastbarkeit der Spannungsversorgung nicht überschritten werden.
@@ -179,7 +179,7 @@ Dabei dürfen die zulässige Stromaufnahme des Moduls und die Belastbarkeit der 
 \section{Einfache Anwendung}
 
 Das MOSFET PWM-Schaltmodul kann im Projekt zur Regelung eines Gleichstromverbrauchers eingesetzt werden. 
-Eine mögliche Anwendung ist die Leistungsregelung eines Heizdrahts über PWM. 
+Eine mögliche Anwendung ist die Leistungsregelung eines Heißdrahts über PWM. 
 Dadurch wird die Drahttemperatur an den verwendeten Werkstoff und die gewünschte Schnittgeschwindigkeit angepasst.
 
 Der folgende Code gibt ein PWM-Signal an das MOSFET-Modul aus. 
@@ -213,15 +213,15 @@ Zusätzlich wird kontrolliert, ob das Modul bei einem digitalen Schaltsignal zuv
 Dazu wird die Last zunächst vollständig ausgeschaltet und anschließend für eine definierte Zeit eingeschaltet. 
 Während des Tests werden die Erwärmung des MOSFET-Moduls, die Erwärmung der Anschlussleitungen und die Stromaufnahme der Last beobachtet. 
 
-Der folgende Code testet die Heizdrahtansteuerung mit dem MOSFET PWM-Schaltmodul. 
+Der folgende Code testet die Heißdrahtansteuerung mit dem MOSFET PWM-Schaltmodul. 
 Dabei werden ein PWM-fähiger Ausgang des Mikrocontrollers, der Steuereingang \PYTHON{SIG}, die gemeinsame Masseverbindung und die Lastseite des Moduls geprüft.
 
-Der Heizdraht wird über die Lastseite des Moduls geschaltet. 
+Der Heißdraht wird über die Lastseite des Moduls geschaltet. 
 \PYTHON{SIG} wird mit dem verwendeten PWM-Ausgang des Mikrocontrollers verbunden. 
 Zusätzlich wird \PYTHON{GND} des Moduls mit \PYTHON{GND} des Mikrocontrollers verbunden.
 
 \begin{code}[H]
-	\captionof{code}{Testprogramm für die Heizdrahtansteuerung}
+	\captionof{code}{Testprogramm für die Heißdrahtansteuerung}
 	\label{Code:MosfetHotwireTest}
 	\ArduinoExternal{}{../../Code/MosfetHotwireTest/MosfetHotwireTest.ino}
 \end{code}
