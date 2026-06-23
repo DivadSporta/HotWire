@@ -1,0 +1,98 @@
+\resizebox{0.95\textwidth}{!}{%
+	\begin{tikzpicture}[
+		node distance=0.75cm,
+		font=\sffamily,
+		process/.style={
+			rectangle,
+			draw,
+			rounded corners=2pt,
+			minimum width=6.5cm,
+			minimum height=0.9cm,
+			align=center,
+			fill=blue!10
+		},
+		decision/.style={
+			diamond,
+			draw,
+			aspect=2.2,
+			minimum width=4.3cm,
+			minimum height=1.35cm,
+			align=center,
+			fill=yellow!25
+		},
+		startend/.style={
+			rectangle,
+			draw,
+			rounded corners=14pt,
+			minimum width=4.0cm,
+			minimum height=0.9cm,
+			align=center,
+			fill=green!20,
+			font=\sffamily\bfseries
+		},
+		arrow/.style={
+			-{Latex[length=3mm]},
+			thick
+		}
+		]
+		
+		% Hauptablauf
+		\node[startend] (start) {START};
+		
+		\node[process, below=of start] (p1) {1. Maschine einschalten\\(24 V + PC + UGS)};
+		\node[process, below=of p1] (p2) {2. Verbindung zu GRBL\\herstellen};
+		\node[process, below=of p2] (p3) {3. Referenzfahrt ausführen\\(\$H)};
+		\node[process, below=of p3] (p4) {4. Schneidprogramm laden\\(G-Code)};
+		
+		\node[decision, below=1.0cm of p4] (d1) {Trockentest\\erforderlich?};
+		
+		\node[process, below=1.05cm of d1] (belade) {Maschine fährt zur\\Beladeposition};
+		
+		\node[process, below=of belade] (p5) {5. Styroporblock einlegen\\und fixieren};
+		\node[process, below=of p5] (p6) {6. Werkstücknullpunkt setzen};
+		\node[process, below=of p6] (p7) {7. Heizdraht aktivieren};
+		\node[process, below=of p7] (p8) {8. Schneidprogramm starten};
+		\node[process, below=of p8] (p9) {9. Schneidvorgang überwachen};
+		\node[process, below=of p9] (p10) {10. Heizdraht deaktivieren};
+		\node[process, below=of p10] (p11) {11. Werkstück entnehmen};
+		\node[process, below=of p11] (p12) {12. Maschine in Home-Position\\fahren};
+		
+		\node[startend, below=of p12] (ende) {ENDE};
+		
+		% Trockentest-Zweig rechts
+		\node[process, right=2.8cm of d1] (dry) {Programm ohne Heizung\\ausführen};
+		\node[decision, below=1.0cm of dry] (d2) {Bewegung\\korrekt?};
+		
+		% Pfeile Hauptablauf
+		\draw[arrow] (start) -- (p1);
+		\draw[arrow] (p1) -- (p2);
+		\draw[arrow] (p2) -- (p3);
+		\draw[arrow] (p3) -- (p4);
+		\draw[arrow] (p4) -- (d1);
+		
+		\draw[arrow] (d1) -- node[left] {Nein} (belade);
+		
+		\draw[arrow] (belade) -- (p5);
+		\draw[arrow] (p5) -- (p6);
+		\draw[arrow] (p6) -- (p7);
+		\draw[arrow] (p7) -- (p8);
+		\draw[arrow] (p8) -- (p9);
+		\draw[arrow] (p9) -- (p10);
+		\draw[arrow] (p10) -- (p11);
+		\draw[arrow] (p11) -- (p12);
+		\draw[arrow] (p12) -- (ende);
+		
+		% Trockentest-Zweig
+		\draw[arrow] (d1) -- node[above] {Ja} (dry);
+		\draw[arrow] (dry) -- (d2);
+		
+		% Ja-Pfeil von "Bewegung korrekt?" zur Beladeposition
+		\draw[arrow] (d2.west) -- node[below] {Ja} (belade.east);
+		
+		% Nein-Schleife zurück zum Trockentest
+		\draw[arrow] (d2.east) -- ++(1.3,0)
+		node[midway, above] {Nein}
+		|- (dry.east);
+		
+	\end{tikzpicture}%
+}
