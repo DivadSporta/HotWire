@@ -18,7 +18,6 @@ Der Aufbau verbindet mehrere technische Teilgebiete. Die Bewegungsführung gehö
 
 CNC-Systeme werden eingesetzt, um Bewegungen reproduzierbar und unabhängig von der manuellen Führung einer Bedienperson auszführen. Für die Herstellung eines Werkstücks werden digitale Geometriedaten in Bewegungsdaten überführt. In der computergesteuerten Produktion bilden CAD/CAM-Prozessketten, CNC-Technik und Softwarewerkzeuge eine zusammenhängende Prozesskette von der Konstruktion bis zur Fertigung \cite{Hehenberger:2020}. 
 
-Das Heißdrahtschneiden von Polystyrol- beziehungsweise EPS-Schaum ist ein etabliertes thermisches Bearbeitungsverfahren für leichte Schaumwerkstoffe. In der Literatur werden robotische und CNC-nahe Systeme beschrieben, bei denen ein heißer Draht oder ein heißes Werkzeug zur Bearbeitung von Polystyrolschaum eingesetzt wird \cite{Gallina:2005,Petkov:2017}. 
 
 \section{Problemstellung}
 \label{sec:problemstellung}
@@ -36,16 +35,16 @@ In der computergesteuerten Produktion werden digitale Daten zur Planung, Simulat
 
 Für kleine CNC-Systeme eignen sich Schrittmotoren, da sie eine Bewegung in diskreten Winkelschritten ausführen. Schrittmotoren gehören zu den Sonderbauformen elektrischer Maschinen und bewegen sich nicht kontinuierlich wie klassische rotierende Maschinen, sondern schrittweise \cite{Schroeder:2017}. Dadurch eignen sie sich für einfache Positionierungen, solange die Last und die Dynamik so gewählt werden, dass keine Schritte verloren gehen.
 
-Die elektrische Ansteuerung des Heizdrahts ist dem Bereich der Leistungselektronik zuzuordnen. Leistungselektronik beschreibt das Schalten, Steuern und Umformen elektrischer Energie mit elektronischen Mitteln. Für das Projekt ist dies relevant, da der Heizdraht nicht direkt über einen Mikrocontroller-Pin betrieben werden darf, sondern über eine geeignete Leistungsstufe geschaltet werden muss \cite{Zach:2015}.
+Die elektrische Ansteuerung des Heizdrahts ist dem Bereich der Leistungselektronik zuzuordnen. Leistungselektronik beschreibt das Schalten, Steuern und Umformen elektrischer Energie mit elektronischen Mitteln. Für das Projekt ist dies relevant, da der Heizdraht nicht direkt über einen Mikrocontroller-Pin betrieben werden darf, sondern über eine geeignete Leistungsstufe geschaltet werden muss \cite{Zach:2022}.
 
 \section{Besondere Herausforderungen}
 \label{sec:besondere_herausforderungen}
 
-Eine besondere Herausforderung besteht in der Abstimmung von Heizleistung und Vorschubgeschwindigkeit. Beim Heißdrahtschneiden entsteht die Schnittfuge durch Wärmeeintrag in den Schaumstoff. Wird der Draht zu kalt betrieben oder zu schnell bewegt, wird das Material nicht vollständig getrennt. Wird der Draht zu heiß betrieben oder zu langsam bewegt, kann die Schnittfuge zu breit werden. Untersuchungen zur thermischen Bearbeitung von EPS zeigen, dass die Schnittfuge und die Temperaturverteilung wesentliche Größen des Prozesses sind \cite{Petkov:2017}.
+Eine besondere Herausforderung besteht in der Abstimmung von Heizleistung und Vorschubgeschwindigkeit. Beim Heißdrahtschneiden entsteht die Schnittfuge durch Wärmeeintrag in den Schaumstoff. Wird der Draht zu kalt betrieben oder zu schnell bewegt, wird das Material nicht vollständig getrennt. Wird der Draht zu heiß betrieben oder zu langsam bewegt, kann die Schnittfuge zu breit werden. Untersuchungen zur thermischen Bearbeitung von EPS zeigen, dass die Schnittfuge und die Temperaturverteilung wesentliche Größen des Prozesses sind.
 
 Eine weitere Herausforderung ist die Positionsgenauigkeit der Achsen. Die Steuerung geht im offenen Betrieb davon aus, dass jeder ausgegebene Schritt auch mechanisch umgesetzt wird. Bei Überlastung, zu hoher Beschleunigung oder ungünstiger Geschwindigkeit können jedoch Schritte verloren gehen. Das führt unmittelbar zu Maßabweichungen am Werkstück. Deshalb müssen Motortreiberstrom, Mikroschrittbetrieb, Geschwindigkeit und mechanische Last zusammen betrachtet werden \cite{Schroeder:2017}.
 
-Zusätzlich ist die elektrische Heizdrahtansteuerung sicherheitsrelevant. Der Schneiddraht ist eine Last mit erhöhter Stromaufnahme und hoher Temperatur. Die Ansteuerung muss daher von der Logik des Mikrocontrollers getrennt betrachtet werden. Der Mikrocontroller liefert nur das Steuersignal, während die eigentliche Leistung über ein MOSFET-Schaltmodul geschaltet wird. \cite{Zach:2015}.
+Zusätzlich ist die elektrische Heizdrahtansteuerung sicherheitsrelevant. Der Schneiddraht ist eine Last mit erhöhter Stromaufnahme und hoher Temperatur. Die Ansteuerung muss daher von der Logik des Mikrocontrollers getrennt betrachtet werden. Der Mikrocontroller liefert nur das Steuersignal, während die eigentliche Leistung über ein MOSFET-Schaltmodul geschaltet wird. \cite{Zach:2022}.
 
 \section{Lösungsansatz}
 \label{sec:loesungsansatz}
