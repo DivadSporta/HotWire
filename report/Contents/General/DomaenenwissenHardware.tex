@@ -1,3 +1,4 @@
+
 %%%
 %
 % $Autor: Wings $
@@ -19,15 +20,14 @@ Das Heißdrahtschneiden wird in diesem Kapitel als technischer Prozess betrachte
 
 Beim Schneiden wirkt der erhitzte Widerstandsdraht als thermisches Werkzeug. Die Qualität des Schnitts hängt davon ab, ob die eingebrachte Wärme, die Bewegung des Drahts und das Verhalten des Schaumstoffs zueinander passen. Eine gleichmäßige Bahnbewegung allein reicht deshalb nicht aus. Erst durch passende Prozessparameter entsteht eine maßhaltige und reproduzierbare Schnittkante.
 
-
+Für das Projekt wird der Schneidvorgang deshalb als Fertigungsprozess betrachtet, bei dem Werkzeugbewegung, Prozessparameter und Werkstoffverhalten zusammenwirken. In der Fertigungstechnik werden Maßhaltigkeit, Prozessgrößen und Bearbeitungsqualität als zentrale Bewertungsgrößen technischer Fertigungsprozesse beschrieben \cite{Fritz:2022}. Da Schaumstoff ein Kunststoffwerkstoff ist, muss zusätzlich das thermische Verhalten des Materials berücksichtigt werden \cite{Bonnet:2025}.
 
 \section{Werkstoff Schaumstoff}
 \label{sec:hardware_werkstoff_schaumstoff}
 
 Der bearbeitete Werkstoff ist ein Kunststoffschaum. Solche Werkstoffe besitzen eine geringe Dichte und werden häufig für Modelle, Verpackungen, Dämmungen oder leichte Formteile verwendet. Für das Heißdrahtschneiden ist entscheidend, dass der Werkstoff auf Wärme reagiert und dadurch mit einem erhitzten Draht getrennt werden kann.
 
-
-Kunststoffe unterscheiden sich in Aufbau, thermischem Verhalten und Verarbeitung deutlich von metallischen Werkstoffen. Werkstoffauswahl und Verarbeitungseigenschaften sind daher wichtige Grundlagen der Kunststofftechnik \cite{Bonnet:2025}. 
+Kunststoffe unterscheiden sich in Aufbau, thermischem Verhalten und Verarbeitung deutlich von metallischen Werkstoffen. Werkstoffauswahl und Verarbeitungseigenschaften sind daher wichtige Grundlagen der Kunststofftechnik \cite{Bonnet:2025}. Bei Schaumstoffen kommt zusätzlich die Zellstruktur hinzu. Sie beeinflusst, wie gleichmäßig das Material beim Schneiden reagiert und wie sauber die Schnittkante wird.
 
 Die optimalen Prozessparameter sind deshalb materialabhängig. Unterschiedliche Plattendicken, Dichten oder Oberflächen können ein unterschiedliches Schneidverhalten verursachen. Aus diesem Grund müssen Probeschnitte durchgeführt werden, bevor endgültige Werkstücke geschnitten werden.
 
@@ -38,6 +38,7 @@ Beim thermischen Schneidprozess wird elektrische Energie im Widerstandsdraht in 
 
 Die Schnittfuge ist ein wichtiger Qualitätsparameter. Sie beschreibt den Materialbereich, der durch den thermischen Prozess entfernt oder verformt wird. Eine zu breite Schnittfuge führt zu Maßabweichungen. Eine ungleichmäßige Schnittfuge deutet auf unpassende Prozessparameter oder eine unruhige Drahtbewegung hin.
 
+Der thermische Schneidprozess ist daher nicht nur von der elektrischen Heizleistung abhängig, sondern auch vom Verhalten des Kunststoffs bei Wärmeeinwirkung. Die Kunststofftechnik beschreibt, dass Kunststoffe je nach Aufbau und Verarbeitungseigenschaften unterschiedlich auf Temperatur reagieren \cite{Bonnet:2025}. Für die Bewertung des Schnitts sind dadurch Prozessparameter und Maßhaltigkeit gemeinsam zu betrachten \cite{Fritz:2022}.
 
 \section{Widerstandsdraht und Heizleistung}
 \label{sec:widerstandsdraht_heizleistung}
@@ -56,17 +57,14 @@ Im Projekt darf der Heizdraht nicht direkt über einen Mikrocontroller-Pin betri
 
 Die Heizleistung muss so gewählt werden, dass der Draht den Schaumstoff sauber trennt. Zu geringe Leistung führt zu einem unvollständigen Schnitt oder zu mechanischer Belastung des Drahts. Zu hohe Leistung kann zu einer breiten Schnittfuge, starker Materialverformung oder Beschädigung des Drahts führen.
 
- 
 \section{PWM-Ansteuerung des Heizdrahts}
 \label{sec:pwm_ansteuerung_heizdraht}
 
 Die Heizleistung kann über eine PWM-Ansteuerung beeinflusst werden. PWM steht für Pulsweitenmodulation. Dabei wird eine Last schnell ein- und ausgeschaltet. Durch das Verhältnis zwischen Einschaltzeit und Ausschaltzeit innerhalb einer Schaltperiode verändert sich die mittlere zugeführte Leistung \cite{DeDoncker:2024}.
 
- Die mittlere Leistung kann über das Tastverhältnis beeinflusst werden. Die eigentliche Last wird dabei durch das MOSFET-Schaltmodul geschaltet. Der Arduino liefert nur das Steuersignal.
+Die mittlere Leistung kann über das Tastverhältnis beeinflusst werden. Die eigentliche Last wird dabei durch das MOSFET-Schaltmodul geschaltet. Der Arduino liefert nur das Steuersignal.
 
 Die PWM-Einstellung muss praktisch geprüft werden. Ein bestimmter PWM-Wert ist nicht automatisch für jedes Material geeignet, weil Drahtlänge, Drahtwiderstand, Versorgungsspannung, Materialdicke und Vorschubgeschwindigkeit zusammenwirken. Deshalb gehören Probeschnitte zur Inbetriebnahme des Heizdrahts.
-
-
 
 \section{Drahtspannung und mechanische Führung}
 \label{sec:drahtspannung_mechanische_fuehrung}
@@ -91,6 +89,8 @@ Mechanische Schwergängigkeit, zu hohe Beschleunigung oder falsch eingestellte M
 
 Die wichtigsten hardwareseitigen Prozessparameter sind Heizleistung, Drahttemperatur, Drahtspannung, Drahtdurchmesser, Materialdicke und mechanische Achsbewegung. Diese Parameter beeinflussen sich gegenseitig. Wird die Vorschubgeschwindigkeit erhöht, bleibt dem Draht weniger Zeit, Wärme in das Material einzubringen. Wird die Heizleistung erhöht, kann die Schnittfuge breiter werden.
 
+Besonders kritisch ist die Abstimmung zwischen Heizleistung und Vorschub. Ein zu kalter Draht oder ein zu schneller Vorschub führt zu unvollständigem Schneiden. Ein zu heißer Draht oder ein zu langsamer Vorschub kann Material übermäßig schmelzen. Damit stehen Prozessparameter, Werkzeugbewegung und Bearbeitungsqualität in einem direkten Zusammenhang \cite{Fritz:2022}.
+
 Auch die Materialdicke wirkt auf den Prozess. Dickere Schaumstoffplatten benötigen eine längere thermische Einwirkung als dünnere Platten. Deshalb können für unterschiedliche Werkstückdicken unterschiedliche Einstellungen notwendig sein.
 
 \section{Fehlerbilder und Ursachen}
@@ -107,9 +107,9 @@ Auch elektrische Fehler sind möglich. Dazu gehören lose Verbindungen, ungeeign
 
 Die Schnittqualität wird anhand mehrerer Merkmale bewertet. Dazu gehören Maßhaltigkeit, Gleichmäßigkeit der Schnittkante, Breite der Schnittfuge und Wiederholbarkeit. Ein guter Schnitt liegt vor, wenn die Kontur vollständig getrennt wird, die Kante gleichmäßig bleibt und die Abmessungen zur Sollgeometrie passen.
 
- Außerdem wird beim Heißdraht-Schneiden die Qualität des Schneidprozesses durch die Wechselwirkung zwischen heißem Draht und Werkstück beeinflusst \cite{Gallina:2005}.
-
 Zur Bewertung eignen sich einfache Testgeometrien. Gerade Linien zeigen, ob Draht und Achsen gleichmäßig arbeiten. Rechtecke prüfen Maßhaltigkeit und Rechtwinkligkeit. Radien zeigen, ob die Maschine auch bei Richtungsänderungen gleichmäßig schneidet.
+
+Die Bewertung der Schnittqualität orientiert sich damit an typischen Kriterien der Fertigungstechnik. Maßhaltigkeit, Wiederholbarkeit und die Wirkung der Prozessparameter auf das Bearbeitungsergebnis sind zentrale Merkmale zur Beurteilung eines Fertigungsprozesses \cite{Fritz:2022}.
 
 Zusätzlich zur Schnittkante müssen die Baugruppen beobachtet werden. Motoren, Motortreiber, MOSFET-Modul, Leitungen und Spannungsversorgung dürfen sich im Betrieb nicht unzulässig erwärmen. Die Ergebnisse der Probeschnitte werden dokumentiert und dienen zur Festlegung geeigneter Betriebsparameter.
 
